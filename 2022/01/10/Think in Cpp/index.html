@@ -160,11 +160,31 @@
 
         <div id="main" >
             <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >cpp多态性概念</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Think in Cpp</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h1 id="cpp多态性概念"><a href="#cpp多态性概念" class="headerlink" title="cpp多态性概念"></a>cpp多态性概念</h1><h2 id="虚函数机制的要点"><a href="#虚函数机制的要点" class="headerlink" title="虚函数机制的要点"></a>虚函数机制的要点</h2><h4 id="虚函数底层实现原理"><a href="#虚函数底层实现原理" class="headerlink" title="虚函数底层实现原理"></a>虚函数底层实现原理</h4><p>C++中虚函数使用虚函数表和 虚函数表指针实现  </p>
+                <h2 id="三大访问控制区域"><a href="#三大访问控制区域" class="headerlink" title="三大访问控制区域"></a>三大访问控制区域</h2><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="具体定义"><a href="#具体定义" class="headerlink" title="具体定义"></a>具体定义</h3><p><strong>private</strong>: 只能由该类中的函数、其友元函数访问,不能被任何其他访问，该类的对象也不能访问  </p>
+<p><strong>protected</strong>: 可以被该类中的函数、子类的函数、以及其友元函数访问,但不能被该类的对象访问  </p>
+<p><strong>public</strong>: 可以被该类中的函数、子类的函数、其友元函数访问,也可以由该类的对象访问<br>注：友元函数包括两种：设为友元的全局函数，设为友元类中的成员函数</p>
+<p><strong>protected 和 private 的区别主要在与能否被公有派生类调用</strong></p>
+<h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><p>在 C++ 中，每一个对象都能通过 this 指针来访问<strong>自己的地址</strong>。this 指针是<strong>所有成员函数</strong>的隐含参数。因此，在成员函数内部，它可以用来指向调用对象。<br><strong>友元函数没有 this 指针，因为友元不是类的成员</strong>。<strong>只有成员函数才有 this 指针</strong>。</p>
+<h2 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h2><h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">base</span>()&#123;&#125; <span class="comment">//无参数的构造函数</span></span><br><span class="line">  <span class="built_in">base</span>(<span class="keyword">int</span> i , <span class="keyword">double</span> j)&#123; <span class="comment">//有参数的构造函数</span></span><br><span class="line">    i = i;</span><br><span class="line">    j = j;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">double</span> j;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p><strong>构造函数可以写在非公有区域</strong>，构造函数可以是公有的，私有的，保护的，可以重载</p>
+<h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><p><strong>析构函数必须的公有的</strong>，因为在对象生命周期后会调用析构函数<br><strong>析构函数只能有一个，且不能重载</strong><br>析构函数不需任何参数，不需要传入任何参数，如果非要写一个带参数的析构函数，则会造成编译器的抱怨，造成二义性</p>
+<h2 id="静态成员和常成员"><a href="#静态成员和常成员" class="headerlink" title="静态成员和常成员"></a>静态成员和常成员</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="title">sfunc</span><span class="params">()</span></span>&#123;&#125;; <span class="comment">//静态成员函数</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">cfunc</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;&#125;; <span class="comment">//常成员函数</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">int</span> s; <span class="comment">//静态成员</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">int</span> c; <span class="comment">//常成员</span></span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h3><p>静态成员函数在编译时生成，故<strong>静态成员函数不能访问非静态成员</strong>,静态成员函数只能使用静态成员变量<br>不能通过对象调用静态成员函数，静态成员函数不能使用this指针  </p>
+<p>如果静态成员函数在公有部分声明，则可以通过类名和作用域解析操作符来调用它</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Classname :: <span class="built_in">static_func</span>()</span><br></pre></td></tr></table></figure>
+
+<h3 id="常成员"><a href="#常成员" class="headerlink" title="常成员"></a>常成员</h3><p><strong>非常对象可以访问常成员，常对象只能访问常成员</strong>  </p>
+<h2 id="非分类知识点"><a href="#非分类知识点" class="headerlink" title="非分类知识点"></a>非分类知识点</h2><p>类内部实现的函数都是内联函数，可以不用inline定义<br>声明对象指针不调用构造函数</p>
+<hr>
+<h1 id="cpp多态性概念"><a href="#cpp多态性概念" class="headerlink" title="cpp多态性概念"></a>cpp多态性概念</h1><h2 id="虚函数机制的要点"><a href="#虚函数机制的要点" class="headerlink" title="虚函数机制的要点"></a>虚函数机制的要点</h2><h4 id="虚函数底层实现原理"><a href="#虚函数底层实现原理" class="headerlink" title="虚函数底层实现原理"></a>虚函数底层实现原理</h4><p>C++中虚函数使用虚函数表和 虚函数表指针实现  </p>
 <blockquote>
 <p>虚函数表是一个类的虚函数的地址表，用于索引类本身以及父类的虚函数的地址<br>假如子类的虚函数重写了父类的虚函数，则对应在虚函数表中会把对应的虚函数替换为子类的虚函数的地址</p>
 </blockquote>
@@ -174,7 +194,9 @@
 <h4 id="虚函数作用"><a href="#虚函数作用" class="headerlink" title="虚函数作用"></a>虚函数作用</h4><blockquote>
 <p>C++中的虚函数的作用主要是实现了多态的机制。基类定义虚函数，子类可以重写该函数。</p>
 </blockquote>
+<hr>
 <h2 id="纯虚函数，抽象基类，虚函数"><a href="#纯虚函数，抽象基类，虚函数" class="headerlink" title="纯虚函数，抽象基类，虚函数"></a>纯虚函数，抽象基类，虚函数</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">func</span><span class="params">()</span></span>;&#123;<span class="keyword">return</span> <span class="number">0</span>;&#125; <span class="comment">//虚函数</span></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">purefunc</span><span class="params">()</span> </span>= <span class="number">0</span> <span class="comment">//纯虚函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <h4 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a>纯虚函数</h4><blockquote>
 <p><strong>纯虚函数就是没有函数体，同时在定义时，其后面要加上“=0”</strong><br>纯虚函数一定是某个类的成员函数，包含纯虚函数的类称为抽象类<br>对于抽象类来说，C++是不允许它去实例化对象的。也就是说，<strong>抽象类无法实例化对象</strong></p>
 </blockquote>
@@ -184,6 +206,7 @@
 <p><strong>抽象类的子类也可以是抽象类</strong></p>
 </blockquote>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">Person</span>(string name);</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">printInfo</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//无法实例化</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Worker</span> :</span> <span class="keyword">public</span> Person&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">Worker</span>(string name);</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">printInfo</span><span class="params">()</span> </span>&#123;cout &lt;&lt; m_strName;&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  string m_strName;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//无法实例化</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dustman</span> :</span> <span class="keyword">public</span> Worker&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">Worker</span>(string name);</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;cout &lt;&lt; <span class="string">&quot;扫地&quot;</span>;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">printInfo</span><span class="params">()</span> </span>&#123;cout &lt;&lt; m_strName;&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  string m_strName;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//纯虚函数全部实现可以实例化</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>对于抽象类来说，它无法实例化对象，而对于抽象类的子类来说，只有把抽象类中的纯虚函数全部实现之后，那么这个子类才可以实例化对象。</strong></p>
 <h2 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h2><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><blockquote>
 <p>让自定义的数据类型使用C++预定义的操作符</p>
@@ -192,7 +215,9 @@
 <p>函数重载或函数多态，是一种形式的C++多态</p>
 </blockquote>
 <h4 id="代码模板"><a href="#代码模板" class="headerlink" title="代码模板"></a>代码模板</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;返回类型说明符&gt; <span class="keyword">operator</span> &lt;运算符符号&gt;(&lt;参数表&gt;)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">     &lt;函数体&gt;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T</span>;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">  T t1,t2,t3;</span><br><span class="line">  t1 = t2+t3;</span><br><span class="line">  <span class="comment">//等价于</span></span><br><span class="line">  t1 = t2.<span class="keyword">operator</span>+(t3);</span><br><span class="line">  <span class="comment">//等价于</span></span><br><span class="line">  t1 = <span class="keyword">operator</span>+(t2,t3);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <h4 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h4><blockquote>
 <p>为了防止用户对标准类型进行运算符重载，C++规定重载后的运算符的操作对象必须至少有一个是用户定义的类型  </p>
 </blockquote>
@@ -232,6 +257,15 @@
 <blockquote>
 <p>当最左边的要求为类对象，而右边的是一个内置类型，则要为友元函数</p>
 </blockquote>
+<hr>
+<h1 id="类的继承与派生"><a href="#类的继承与派生" class="headerlink" title="类的继承与派生"></a>类的继承与派生</h1><h2 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span> :</span> <span class="keyword">public</span> father&#123;</span><br><span class="line"> <span class="comment">//公有继承</span></span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="非分类知识点-1"><a href="#非分类知识点-1" class="headerlink" title="非分类知识点"></a>非分类知识点</h2><p>派生类继承了基类的一些特征，包括方法，即继承了基类的实现与接口</p>
+<p>可以通过继承完成的操作：给已有的类添加功能、添加数据、修改类方法的行为</p>
+<p>使用公有派生，基类的公有成员将会成为派生类的公有成员，基类的私有部分将会成为派生类的一部分，但只能通过基类的公有和保护方法访问</p>
+<p>派生类需要自己的构造函数，可以根据需要添加额外的数据成员和成员函数</p>
+<p>当基类定义了<strong>缺省构造函数</strong>和没有定义构造函数时，派生类的构造函数可以忽略对基类构造函数的调用<br>缺省构造函数：对象不需要参数即可调用的构造函数  </p>
+<p>在定义一个派生类对象时，先调用基类的构造函数，然后再执行派生类的构造函数，释放时，先释放派生类，再释放基类（类的调用栈）</p>
 
             </div>
 
@@ -294,8 +328,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://example.com/2022/01/10/cpp%E5%A4%9A%E6%80%81%E6%80%A7%E6%A6%82%E5%BF%B5/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://example.com/2022/01/10/cpp%E5%A4%9A%E6%80%81%E6%80%A7%E6%A6%82%E5%BF%B5/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://example.com/2022/01/10/Think%20in%20Cpp/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2022/01/10/Think%20in%20Cpp/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
