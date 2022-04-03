@@ -106,7 +106,7 @@
 	            <a href="#s1">归档</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="archive-link" href="/archives/2022/03/">March 2022</a></li><li><a class="archive-link" href="/archives/2022/01/">January 2022</a>
+	                        <a class="archive-link" href="/archives/2022/04/">April 2022</a></li><li><a class="archive-link" href="/archives/2022/03/">March 2022</a></li><li><a class="archive-link" href="/archives/2022/01/">January 2022</a>
 	                    </ul>
 	        </li>
 	        
@@ -257,6 +257,9 @@
 <blockquote>
 <p>当最左边的要求为类对象，而右边的是一个内置类型，则要为友元函数</p>
 </blockquote>
+<blockquote>
+<p>不能重载的运算符只有五个  :  .*  ::  sizeof  ?:</p>
+</blockquote>
 <hr>
 <h1 id="类的继承与派生"><a href="#类的继承与派生" class="headerlink" title="类的继承与派生"></a>类的继承与派生</h1><h2 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span> :</span> <span class="keyword">public</span> father&#123;</span><br><span class="line"> <span class="comment">//公有继承</span></span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
 
@@ -266,7 +269,14 @@
 <p>派生类需要自己的构造函数，可以根据需要添加额外的数据成员和成员函数</p>
 <p>当基类定义了<strong>缺省构造函数</strong>和没有定义构造函数时，派生类的构造函数可以忽略对基类构造函数的调用<br>缺省构造函数：对象不需要参数即可调用的构造函数  </p>
 <p>在定义一个派生类对象时，先调用基类的构造函数，然后再执行派生类的构造函数，释放时，先释放派生类，再释放基类（类的调用栈）</p>
+<p>类型转换函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">TypeName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  actieve tranlation code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>不能将整形变量赋值给常指针</p>
+<p>重载函数的形式参数（个数、类型或者顺序）必须不同</p>
+<p>赋值运算符只能作为类的成员函数重载</p>
+<p>定义类中不能定义相同的类型的对象</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Te</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Te te;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这是错误的</span></span><br></pre></td></tr></table></figure>
             </div>
 
             <!-- Post Comments -->
