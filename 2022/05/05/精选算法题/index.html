@@ -9,6 +9,8 @@
     
     <title>
         
+            精选算法题 |
+        
         QuanYuQi&#39;s CyberSpace
     </title>
     
@@ -142,7 +144,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation"></span>
+            <span class="title-hover-animation">精选算法题</span>
         </div>
 
         
@@ -165,6 +167,32 @@
         <span class="mobile">2022-05-05 13:43</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">力扣刷题笔记</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A3/">力扣题解</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -190,10 +218,24 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dx[] = &#123;<span class="number">-1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, dy[] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countUnguarded</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n, vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; guards, vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; walls)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">g</span>(m, vector&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v : guards) g[v[<span class="number">0</span>]][v[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v : walls) g[v[<span class="number">0</span>]][v[<span class="number">1</span>]] = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v : guards) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = v[<span class="number">0</span>], y = v[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i) &#123;</span><br><span class="line">                <span class="keyword">int</span> nx = x+dx[i], ny = y+dy[i];</span><br><span class="line">                <span class="keyword">while</span>(nx&lt;m &amp;&amp; nx&gt;=<span class="number">0</span> &amp;&amp; ny&lt;n &amp;&amp; ny&gt;=<span class="number">0</span> &amp;&amp; g[nx][ny]!=<span class="number">1</span> &amp;&amp; g[nx][ny]!=<span class="number">-1</span>) &#123;</span><br><span class="line">                    g[nx][ny] = <span class="number">2</span>;</span><br><span class="line">                    nx += dx[i], ny += dy[i];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) <span class="keyword">if</span>(!g[i][j]) &#123;</span><br><span class="line">                ++ans;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
+
+<h1 id="leetcode433"><a href="#leetcode433" class="headerlink" title="leetcode433"></a>leetcode433</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><h4 id="433-最小基因变化"><a href="#433-最小基因变化" class="headerlink" title="433. 最小基因变化"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-genetic-mutation/" >433. 最小基因变化<i class="fas fa-external-link-alt"></i></a></h4><h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>广度优先搜索</p>
+<p>bank中的单词可以看成图上的节点；start和end则是图上的起点和终点；而任意两个节点之间如果只有一个字母不同，我们认为这两个节点是有边相连的。<br>题目要求最小基因变化。一种很直观的思路就是从起点出发，BFS逐层遍历图上的每个节点，第一次遍历到终点的时候，所花费的变化数一定是最小的</p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minMutation</span><span class="params">(string start, string end, vector&lt;string&gt;&amp; bank)</span> </span>&#123;</span><br><span class="line">        <span class="function">unordered_set&lt;string&gt; <span class="title">hashset</span><span class="params">(bank.begin(),bank.end())</span></span>;</span><br><span class="line">        queue&lt;string&gt; qu;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">        qu.<span class="built_in">push</span>(start);</span><br><span class="line">        vector&lt;<span class="keyword">char</span>&gt; vch = &#123;<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;T&#x27;</span>,<span class="string">&#x27;C&#x27;</span>,<span class="string">&#x27;G&#x27;</span>&#125;;</span><br><span class="line">        <span class="keyword">while</span> (!qu.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">int</span> n = qu.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (n--)&#123;</span><br><span class="line">                string str = qu.<span class="built_in">front</span>();</span><br><span class="line">                qu.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">char</span> ch : vch)&#123;</span><br><span class="line">                        string t = str;</span><br><span class="line">                        t[i] = ch;</span><br><span class="line">                        <span class="keyword">if</span> (hashset.<span class="built_in">count</span>(t))&#123;</span><br><span class="line">                            <span class="keyword">if</span> (t == end) <span class="keyword">return</span> ans;</span><br><span class="line">                            hashset.<span class="built_in">erase</span>(t);</span><br><span class="line">                            qu.<span class="built_in">push</span>(t);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ans++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
         </div>
 
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A3/">#力扣题解</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -318,7 +360,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#leetcode2257"><span class="nav-number">1.</span> <span class="nav-text">leetcode2257</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2257-%E7%BB%9F%E8%AE%A1%E7%BD%91%E6%A0%BC%E5%9B%BE%E4%B8%AD%E6%B2%A1%E6%9C%89%E8%A2%AB%E4%BF%9D%E5%8D%AB%E7%9A%84%E6%A0%BC%E5%AD%90%E6%95%B0"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">2257. 统计网格图中没有被保卫的格子数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#leetcode2257"><span class="nav-number">1.</span> <span class="nav-text">leetcode2257</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2257-%E7%BB%9F%E8%AE%A1%E7%BD%91%E6%A0%BC%E5%9B%BE%E4%B8%AD%E6%B2%A1%E6%9C%89%E8%A2%AB%E4%BF%9D%E5%8D%AB%E7%9A%84%E6%A0%BC%E5%AD%90%E6%95%B0"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">2257. 统计网格图中没有被保卫的格子数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#leetcode433"><span class="nav-number">2.</span> <span class="nav-text">leetcode433</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#433-%E6%9C%80%E5%B0%8F%E5%9F%BA%E5%9B%A0%E5%8F%98%E5%8C%96"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">433. 最小基因变化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-number">2.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-number">2.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
