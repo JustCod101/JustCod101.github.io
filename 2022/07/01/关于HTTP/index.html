@@ -9,7 +9,7 @@
     
     <title>
         
-            关于滑动窗口 |
+            About HTTP |
         
         QuanYuQi&#39;s CyberSpace
     </title>
@@ -144,7 +144,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">关于滑动窗口</span>
+            <span class="title-hover-animation">About HTTP</span>
         </div>
 
         
@@ -163,8 +163,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-05 11:20:17</span>
-        <span class="mobile">2022-05-05 11:20</span>
+        <span class="pc">2022-07-01 23:11:14</span>
+        <span class="mobile">2022-07-01 23:11</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -172,11 +172,11 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>&nbsp;
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">力扣刷题笔记</a>&nbsp;
+                        &gt; <a href="/categories/%E6%95%99%E7%A8%8B/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>&nbsp;
                     </li>
                 
             </ul>
@@ -188,11 +188,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A3/">力扣题解</a>&nbsp;
+                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>&nbsp;
+                        | <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
                     </li>
                 
             </ul>
@@ -211,21 +211,55 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="滑动窗口力扣做题笔记"><a href="#滑动窗口力扣做题笔记" class="headerlink" title="滑动窗口力扣做题笔记"></a>滑动窗口力扣做题笔记</h1><h3 id="713-乘积小于-K-的子数组"><a href="#713-乘积小于-K-的子数组" class="headerlink" title="713. 乘积小于 K 的子数组"></a><a class="link"   target="_blank" rel="noopener" href="https://leetcode.cn/problems/subarray-product-less-than-k/" >713. 乘积小于 K 的子数组<i class="fas fa-external-link-alt"></i></a></h3><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>最大问题，为什么每个窗口只要记录窗口元素的数量</p>
-<p>关键是知道这个等式怎么来的</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ans += r - l + <span class="number">1</span></span><br><span class="line">对于一个长度为<span class="built_in">len</span>的连续的满足条件的子数组, 我们可以把它进行细分</span><br><span class="line">第一次,细分为<span class="number">1</span>个单位长度, 可以得到<span class="built_in">len</span>个</span><br><span class="line">第二次,细分为<span class="number">2</span>个单位长度, 可以得到<span class="built_in">len</span><span class="number">-1</span>个</span><br><span class="line">......</span><br><span class="line">第<span class="built_in">len</span>次,细分为<span class="built_in">len</span>个单位长度, 可以得到<span class="number">1</span>个</span><br><span class="line">总共有<span class="number">1</span>+<span class="number">2</span>+...+<span class="built_in">len</span><span class="number">-1</span>+<span class="built_in">len</span>个</span><br></pre></td></tr></table></figure>
-
-<p>当r右移时,若乘积超出范围了, 我们需要从左边摘除一部分数值使得乘积重新满足条件, 需要摘多少? 由于nums中元素均为正整数, 所以乘积必定大于等于1, 而题目要求不能取等号, 所以最坏的情况是l&#x3D;r+1, 即左指针移到了右指针右边, 此时ans+&#x3D;0</p>
-<p>如果经过摘除左边元素后l依然小于r,怎么推出ans+&#x3D;r-l+1</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">r左边的元素均已经考虑了所有的组合, 所以我们只要考虑含r的组合, 显然含r的组合数刚好是子数组的长度</span><br><span class="line">举个例子 <span class="selector-attr">[...5,6,3,4,8,...]</span> 假设r遍历到了数值<span class="number">8</span>的位置, l经过摘除后移到了数值<span class="number">5</span>处, </span><br><span class="line">此时所有的组合情况是:</span><br><span class="line">[<span class="number">56348</span>]</span><br><span class="line">[<span class="number">6348</span>]</span><br><span class="line">[<span class="number">348</span>]</span><br><span class="line">[<span class="number">48</span>]</span><br><span class="line">[<span class="number">8</span>]</span><br><span class="line">即<span class="number">5</span>种</span><br></pre></td></tr></table></figure>
-
-<p>具体实现时,需要注意俩个细节</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> k&lt;=<span class="number">1</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> l&lt;=r <span class="keyword">and</span> product &gt;= k:</span><br></pre></td></tr></table></figure>
-
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numSubarrayProductLessThanK</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> prof = <span class="number">1</span> ,i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            prof *= nums[j];</span><br><span class="line">            <span class="keyword">while</span> (prof &gt;= k &amp;&amp; i &lt;= j) prof /= nums[i++];</span><br><span class="line">            ret += j-i+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
+            <h1 id="关于HTTP"><a href="#关于HTTP" class="headerlink" title="关于HTTP"></a>关于HTTP</h1><h2 id="HTTP-status-code"><a href="#HTTP-status-code" class="headerlink" title="HTTP status code"></a>HTTP status code</h2><p>200 : 客户端请求成功</p>
+<p>302：重定向</p>
+<p>404：请求资源不存在</p>
+<p>400：客户端请求有语法错误，不能被服务器所理解</p>
+<p>401：请求未经授权</p>
+<p>403：服务器收到请求，但是拒绝提供服务</p>
+<p>500：服务器内部错误</p>
+<p>503：服务器当前不能处理客户端的请求，一段时间后恢复正常</p>
+<h2 id="HTTP-Header"><a href="#HTTP-Header" class="headerlink" title="HTTP Header"></a>HTTP Header</h2><h3 id="Request-Header"><a href="#Request-Header" class="headerlink" title="Request Header"></a>Request Header</h3><p>Host </p>
+<p>被请求的主机和端口号</p>
+<p>User-Agent</p>
+<p>客户端的操作系统、浏览器和其他属性</p>
+<p>Referer</p>
+<p>当前访问URL的上一个URL</p>
+<p>Cookie</p>
+<p>一段用来表示请求者身份的文本</p>
+<p>Range</p>
+<p>可以请求实体的部分内容，多线程下载一定会用到此请求头</p>
+<p>x-forward-for</p>
+<p>代表请求端的IP，可以有多个，中间用逗号隔开</p>
+<p>Accept</p>
+<p>用于指定客户端接收哪些MIME(<strong>M</strong>ultipurpose <strong>I</strong>nternet <strong>M</strong>ail <strong>E</strong>xtensions)类型的信息。如Accept : text&#x2F;html，表示客户端希望接受到HTML文本</p>
+<p>Accept-Charset</p>
+<p>指定客户端接收的字符集</p>
+<h3 id="Response-Header"><a href="#Response-Header" class="headerlink" title="Response Header"></a>Response Header</h3><p>Server</p>
+<p>服务器所使用的Web服务器名称，如Server:Apache&#x2F;1.3.6(Unix)</p>
+<p>Set-Cookie</p>
+<p>向客户端设置Cookie，通过查看此头，可以看到服务器向客户端发送的Cookie信息</p>
+<p>Last-Modified</p>
+<p>服务器通过这个头告诉游览器，资源的最后修改时间</p>
+<p>Location</p>
+<p>服务器通过这个头告诉游览器访问哪个页面</p>
+<p>Refresh</p>
+<p>服务器通过Refresh头告诉游览器定时刷新游览器</p>
+<h3 id="Normal-Header"><a href="#Normal-Header" class="headerlink" title="Normal Header"></a>Normal Header</h3><p>Date</p>
+<p>消息产生的日期和时间</p>
+<p>Connection</p>
+<p>允许发送指定连接的选项</p>
+<p>Cache-Control</p>
+<p>用于指定缓存指令，缓存指令是单向的，且是独立的</p>
+<h3 id="Entity-Header"><a href="#Entity-Header" class="headerlink" title="Entity Header"></a>Entity Header</h3><p>定义了关于实体正文和请求所标识的资源的元信息。</p>
+<p>Content-Type</p>
+<p>用于向接收方指示实体的介质类型</p>
+<p>Content-Encoding</p>
+<p>用作媒体的修饰符，其值指示了已经被应用到实体正文的附加内容的编码，因而获得Content-Type报头域中所引用的媒体类型，必须采用相应的编码机制</p>
+<p>Content-Length</p>
+<p>实体报头用于指明实体正文的长度，以字节方式存储的十进制数字来表示</p>
+<p>Last-Modified</p>
+<p>最后修改时间</p>
 
         </div>
 
@@ -235,11 +269,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A3/">#力扣题解</a>&nbsp;
+                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">#滑动窗口</a>&nbsp;
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>&nbsp;
                     </li>
                 
             </ul>
@@ -248,29 +282,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/05/05/%E7%B2%BE%E9%80%89%E7%AE%97%E6%B3%95%E9%A2%98/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">Algorithm Problem Solution</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/04/25/%E5%85%A8%E5%9B%BD%E5%9C%B0%E7%BA%A7%E5%B8%82%E6%97%85%E6%B8%B8%E8%B7%AF%E7%BA%BF%E8%A7%84%E5%88%92/"
+                           href="/2022/07/01/%E5%85%B3%E4%BA%8E%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">全国地级市旅游路线规划</span>
+                                <span class="post-nav-title-item">How to Search Hacking Information</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -382,7 +401,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E5%8A%9B%E6%89%A3%E5%81%9A%E9%A2%98%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">滑动窗口力扣做题笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#713-%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-K-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84"><span class="nav-number">1.0.1.</span> <span class="nav-text">713. 乘积小于 K 的子数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EHTTP"><span class="nav-number">1.</span> <span class="nav-text">关于HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-status-code"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP status code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-Header"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP Header</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Request-Header"><span class="nav-number">1.2.1.</span> <span class="nav-text">Request Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response-Header"><span class="nav-number">1.2.2.</span> <span class="nav-text">Response Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Header"><span class="nav-number">1.2.3.</span> <span class="nav-text">Normal Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Entity-Header"><span class="nav-number">1.2.4.</span> <span class="nav-text">Entity Header</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
