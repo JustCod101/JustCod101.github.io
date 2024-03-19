@@ -207,10 +207,7 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="GFW技术鉴赏"><a href="#GFW技术鉴赏" class="headerlink" title="GFW技术鉴赏"></a>GFW技术鉴赏</h1><blockquote>
-<p>过滤掉沙子，剩下是黄金。沙子喂饱了里面的资本家，黄金是送给洋人的礼物。伟大的政治手段，只是为了伟大的政治实现。</p>
-</blockquote>
-<hr>
+            <h1 id="GFW技术鉴赏"><a href="#GFW技术鉴赏" class="headerlink" title="GFW技术鉴赏"></a>GFW技术鉴赏</h1><hr>
 <h2 id="防火长城的拓扑结构"><a href="#防火长城的拓扑结构" class="headerlink" title="防火长城的拓扑结构"></a>防火长城的拓扑结构</h2><p><img src="/../images/gfw.png"></p>
 <h2 id="DNS污染"><a href="#DNS污染" class="headerlink" title="DNS污染"></a>DNS污染</h2><p>防火长城对所有经过骨干网国际出口路由的位于TCP与UDP的53端口上的域名查询请求进行IDS检测，一经发现处于黑名单关键词中相匹配的域名查询请求，防火长城作为中间设备会向查询者返回虚假结果，比真的回复更早到达</p>
 <h2 id="IP地址和传输层端口封锁"><a href="#IP地址和传输层端口封锁" class="headerlink" title="IP地址和传输层端口封锁"></a>IP地址和传输层端口封锁</h2><p>对拦截行为观察发现，在早期技术实现中，会使用访问控制列表（ACL）技术来封锁特定的IP地址，由此延伸可以封锁传输层协议（TCP或UDP）的特定目的端口的网络流量。不过由于大量的ACL匹配会导致网络性能不佳。现在主要是采用了效率更高的路由扩散技术封锁特定IP地址，也就是通过将需要拦截的IP地址配置为空路由、黑洞设备或特别配置的自治域网络上，然后通过动态路由协议将相应配置路由扩散到公众互联网网络中，从将条件匹配拦截行为转为路由器的常规转发行为，从而提高拦截效率。</p>
@@ -299,10 +296,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/09/tcpip%E8%AF%A6%E8%A7%A3/"
+                           href="/2022/01/10/Think%20in%20Cpp/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">TCP/IP协议详解</span>
+                                <span class="post-nav-title-item">Think in Cpp</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -333,7 +330,7 @@
               <span>2020</span>
               -
             
-            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
         </div>
         
         <div class="theme-info info-item">
