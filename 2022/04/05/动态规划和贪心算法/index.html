@@ -1,353 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
     <meta name="author" content="QuanYuQi">
-
-
-
-
-
-<title>动态规划和贪心算法 | QuanYuQi&#39;s CyberSpace</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
+    <title>
         
+            算法进阶：动态规划与贪心算法的深度博弈 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
     
+<link rel="stylesheet" href="/css/style.css">
 
-
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
 <meta name="generator" content="Hexo 5.4.1"></head>
 
+
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const pagebody = document.getElementsByTagName('body')[0]
-
-            function setTheme(status) {
-
-                if (status === 'dark') {
-                    window.sessionStorage.theme = 'dark'
-                    pagebody.classList.add('dark-theme');
-
-                } else if (status === 'light') {
-                    window.sessionStorage.theme = 'light'
-                    pagebody.classList.remove('dark-theme');
-                }
-            };
-
-            setTheme(window.sessionStorage.theme)
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Ethan&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                <a class="menu-item" href="/archives">Posts</a>
-                
-                <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
-                
-                <a class="menu-item" href="/about">About</a>
-                
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
 
     
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Ethan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">
-                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
-                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
-                </div>
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
             </div>
-            <div class="menu" id="mobile-menu">
+            <div class="mobile">
                 
-                <a class="menu-item" href="/archives">Posts</a>
-                
-                <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
-                
-                <a class="menu-item" href="/about">About</a>
-                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
 
 </header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if (toggleMenu.classList.contains("active")) {
-            toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        } else {
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">动态规划和贪心算法</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">QuanYuQi</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">April 5, 2022&nbsp;&nbsp;23:08:12</a>
-                        </span>
-                    
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-                            
-                                <a href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">力扣刷题笔记</a>
-                            
-                        </span>
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <blockquote>
-<p>不同的选择产生不同的状态，不同的状态又派生不同的选择集。过去的选择序列导致了当前的状态和选择集合。选择产生了状态与状态之间的转移，在算法中这是规律的</p>
-</blockquote>
-<h1 id="动态规划和贪心算法的关系"><a href="#动态规划和贪心算法的关系" class="headerlink" title="动态规划和贪心算法的关系"></a>动态规划和贪心算法的关系</h1><h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><p>参考01背包问题和分数背包问题。  </p>
-<h3 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h3><p>01背包问题有拿与不拿两种选择，此时父问题的最优解依赖于子问题的最优解，根据最优子结构建立动态规划转移方程。</p>
-<blockquote>
-<p>F(i,C)&#x3D;max(F(i−1,C),v(i)+F(i−1,C−w(i)))</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//w是物品的重量，v是物品的价值，c是能携带的最大容量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Solution</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt; &amp;w,vector&lt;<span class="keyword">int</span>&gt; &amp;v,<span class="keyword">int</span> C)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = w.<span class="built_in">size</span>();</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(C+<span class="number">1</span>,vector&lt;<span class="keyword">int</span>&gt;(n,<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化第一行</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i &lt;= C;i++)&#123;</span><br><span class="line">        dp[<span class="number">0</span>][i] = w[<span class="number">0</span>] &lt;= i ? v[<span class="number">0</span>] : <span class="number">0</span>; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//计算整个矩阵</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=C;j++)&#123;</span><br><span class="line">            dp[i][j] = dp[i<span class="number">-1</span>][j];</span><br><span class="line">            <span class="keyword">if</span> (w[i] &lt;= j)&#123;</span><br><span class="line">                dp[i][j] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][j] , dp[i<span class="number">-1</span>][j-w[i]] + v[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp[n<span class="number">-1</span>][C];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="分数背包问题"><a href="#分数背包问题" class="headerlink" title="分数背包问题"></a>分数背包问题</h3><p>分数背包问题属于贪心类，因为可以部分拿，所以按照每一类物体的单位价值排降序，每次都拿单位价值最高的就能解决问题，当然也能使用动态规划解题</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Solution</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt; &amp;w,vector&lt;<span class="keyword">int</span>&gt; &amp;v,<span class="keyword">int</span> C)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; greedy;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;w.<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">        greedy.<span class="built_in">push_back</span>(<span class="built_in">make_pair</span>(w[i],v[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    std::<span class="built_in">sort</span>(greedy.<span class="built_in">begin</span>(), greedy.<span class="built_in">end</span>(),[](pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;a,pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;b)&#123;</span><br><span class="line">        <span class="keyword">return</span> a.second/a.first - b.second/b.first;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; i : greedy)&#123;</span><br><span class="line">        <span class="keyword">if</span> (i.second &lt; C)&#123;</span><br><span class="line">            C -= i.first;</span><br><span class="line">            ans+=i.second;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (C &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            ans += C / i.first * i.second;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>动态规划、选择结构是树型的，父选择依赖于子选择<br>贪心算法、选择结构是线型的，每一次选择都是局部最优，而不必考虑子问题的解。<br>动态规划是自底向上计算的，贪心算法通常是自顶向下的，进行一次又一次选择，将给定问题实例变得更小<br>能用贪心解决的问题往往可以使用动态规划，反之不一定</p>
-<hr>
-<h1 id="动态规划实例"><a href="#动态规划实例" class="headerlink" title="动态规划实例"></a>动态规划实例</h1><blockquote>
-<p>找出每一选择时刻的几种状态，研究不同时刻几种状态的关系，设计出动态规划转移方程</p>
-</blockquote>
-<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>找出两个字串的最长公共子序列，基因工程研究基因遗传关系的重要算法</p>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">match</span><span class="params">(string A , string B)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = A.<span class="built_in">length</span>();</span><br><span class="line">    <span class="keyword">int</span> m = B.<span class="built_in">length</span>();</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(n+<span class="number">1</span>,vector&lt;<span class="keyword">int</span>&gt;(m+<span class="number">1</span>,<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (A[i] == B[j])&#123;</span><br><span class="line">                dp[i+<span class="number">1</span>][j+<span class="number">1</span>] = dp[i][j] +<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i+<span class="number">1</span>][j+<span class="number">1</span>] = <span class="built_in">max</span>(dp[i][j+<span class="number">1</span>],dp[i+<span class="number">1</span>][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n][m];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="买卖股票的最佳时间"><a href="#买卖股票的最佳时间" class="headerlink" title="买卖股票的最佳时间"></a>买卖股票的最佳时间</h2><h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">leecode121</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/">leecode122</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/">leecode123</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/">leecode188</a></p>
-<p><strong>从易到难</strong></p>
-<h3 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h3><p>研究状态，发掘关系</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//T1</span></span><br><span class="line"><span class="comment">/*给定一个数组 prices ，它的第i 个元素prices[i] 表示一支给定股票第 i 天的价格。</span></span><br><span class="line"><span class="comment">你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。</span></span><br><span class="line"><span class="comment">返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T1_Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        dp[n<span class="number">-1</span>] = prices[n<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n<span class="number">-2</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">            dp[i] = <span class="built_in">max</span>(dp[i+<span class="number">1</span>] , prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = INT32_MIN;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">            ans = <span class="built_in">max</span>(ans , dp[i] - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//T2</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 给定一个数组 prices ，其中prices[i] 表示股票第 i 天的价格。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">在每一天，你可能会决定购买和/或出售股票。你在任何时候最多只能持有 一股 股票。你也可以购买它，然后在 同一天 出售。</span></span><br><span class="line"><span class="comment">返回 你能获得的 最大 利润。*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T2_Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit1</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span> (n , vector&lt;<span class="keyword">int</span>&gt;(<span class="number">2</span> , <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">0</span>],dp[i<span class="number">-1</span>][<span class="number">1</span>]+prices[i]);</span><br><span class="line">            dp[i][<span class="number">1</span>] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">1</span>],dp[i<span class="number">-1</span>][<span class="number">0</span>]-prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[n<span class="number">-1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//迭代改进</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit2</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> dp0 = <span class="number">0</span>, dp1 = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> newDp0 = <span class="built_in">max</span>(dp0, dp1 + prices[i]);</span><br><span class="line">            <span class="keyword">int</span> newDp1 = <span class="built_in">max</span>(dp1, dp0 - prices[i]);</span><br><span class="line">            dp0 = newDp0;</span><br><span class="line">            dp1 = newDp1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp0;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//贪心算法</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit3</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            ans += <span class="built_in">max</span>(<span class="number">0</span>,prices[i]-prices[i<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。</span></span><br><span class="line"><span class="comment">//设计一个算法来计算你所能获取的最大利润。你最多可以完成两笔交易。</span></span><br><span class="line"><span class="comment">//注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T3_Solution</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//数组dp</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit1</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = p.<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(n,vector&lt;<span class="keyword">int</span>&gt;(<span class="number">5</span>,<span class="number">0</span>));</span><br><span class="line">        <span class="comment">//五种状态，0:not buy anyone 1:buy once 2:sell once 3:buy twice 4:sell twice</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始状态</span></span><br><span class="line"></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">1</span>] = -p[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">3</span>] = -p[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//动态规划转移方程</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            dp[i][<span class="number">1</span>] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">1</span>],-p[i]);</span><br><span class="line">            dp[i][<span class="number">2</span>] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">2</span>],dp[i<span class="number">-1</span>][<span class="number">1</span>] + p[i]);</span><br><span class="line">            dp[i][<span class="number">3</span>] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">3</span>],dp[i<span class="number">-1</span>][<span class="number">2</span>] - p[i]);</span><br><span class="line">            dp[i][<span class="number">4</span>] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][<span class="number">4</span>],dp[i<span class="number">-1</span>][<span class="number">3</span>] + p[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[n<span class="number">-1</span>][<span class="number">4</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//迭代策略</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit2</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = p.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> buy1 = -p[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> sell1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> buy2 = -p[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> sell2 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++) &#123;</span><br><span class="line">            buy1 = <span class="built_in">max</span>(buy1,-p[i]);</span><br><span class="line">            sell1 = <span class="built_in">max</span>(sell1 , buy1 + p[i]);</span><br><span class="line">            buy2 = <span class="built_in">max</span>(buy2 , sell1 - p[i]);</span><br><span class="line">            sell2 = <span class="built_in">max</span>(sell2 , buy2 + p[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sell2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="最小路径和"><a href="#最小路径和" class="headerlink" title="最小路径和"></a>最小路径和</h2><h3 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-path-sum/">最小路径和</a></p>
-<h3 id="算法-2"><a href="#算法-2" class="headerlink" title="算法"></a>算法</h3><p>思路：很经典的动规，确定依赖关系，初始化初始项，开始状态转移</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minPathSum</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> m = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(n,vector&lt;<span class="keyword">int</span>&gt;(m,<span class="number">0</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = grid[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;m;i++) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][i] = dp[<span class="number">0</span>][i<span class="number">-1</span>] + grid[<span class="number">0</span>][i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = dp[i<span class="number">-1</span>][<span class="number">0</span>] + grid[i][<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;m;j++)&#123;</span><br><span class="line">                dp[i][j] = <span class="built_in">min</span>(dp[i][j<span class="number">-1</span>],dp[i<span class="number">-1</span>][j]) + grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n<span class="number">-1</span>][m<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="统计打字方案数"><a href="#统计打字方案数" class="headerlink" title="统计打字方案数"></a>统计打字方案数</h2><h3 id="问题描述-3"><a href="#问题描述-3" class="headerlink" title="问题描述"></a>问题描述</h3><h4 id="6058-统计打字方案数"><a href="#6058-统计打字方案数" class="headerlink" title="6058. 统计打字方案数"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-number-of-texts/">6058. 统计打字方案数</a></h4><h3 id="算法-3"><a href="#算法-3" class="headerlink" title="算法"></a>算法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MOD = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countTexts</span><span class="params">(string pressedKeys)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//声明区</span></span><br><span class="line">        <span class="keyword">int</span> n = pressedKeys.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">dp0</span><span class="params">(n+<span class="number">1</span>)</span>,<span class="title">dp1</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">        dp0[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        dp1[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//动态规划</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">3</span> &amp;&amp; i &gt;= j;j++) dp0[i] = (dp0[i] + dp0[i-j]) % MOD;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">4</span> &amp;&amp; i &gt;= j;j++) dp1[i] = (dp1[i] + dp1[i-j]) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//算ans</span></span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">char</span> last = pressedKeys[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans=<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> ch : pressedKeys)&#123;</span><br><span class="line">            <span class="keyword">if</span> (ch != last)&#123;</span><br><span class="line">                <span class="keyword">if</span> (last == <span class="string">&#x27;7&#x27;</span> || last == <span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">                    ans = ans*dp1[cnt] % MOD;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    ans = ans*dp0[cnt] % MOD;</span><br><span class="line">                last = ch;</span><br><span class="line">                cnt = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (last == <span class="string">&#x27;7&#x27;</span> || last == <span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            ans = ans*dp1[cnt] % MOD;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ans = ans*dp0[cnt] % MOD;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="检查是否有合法括号字符串路径"><a href="#检查是否有合法括号字符串路径" class="headerlink" title="检查是否有合法括号字符串路径"></a>检查是否有合法括号字符串路径</h2><h3 id="问题描述-4"><a href="#问题描述-4" class="headerlink" title="问题描述"></a>问题描述</h3><h4 id="6059-检查是否有合法括号字符串路径"><a href="#6059-检查是否有合法括号字符串路径" class="headerlink" title="6059. 检查是否有合法括号字符串路径"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/check-if-there-is-a-valid-parentheses-string-path/">6059. 检查是否有合法括号字符串路径</a></h4><h3 id="算法-4"><a href="#算法-4" class="headerlink" title="算法"></a>算法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasValidPath</span><span class="params">(vector&lt;vector&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (grid[<span class="number">0</span>][<span class="number">0</span>] == <span class="string">&#x27;)&#x27;</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> n = grid.<span class="built_in">size</span>(), m = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;vector&lt;<span class="keyword">bool</span>&gt;&gt;&gt; f;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            f.<span class="built_in">push_back</span>(vector&lt;vector&lt;<span class="keyword">bool</span>&gt;&gt;());</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++) </span><br><span class="line">              f.<span class="built_in">back</span>().<span class="built_in">push_back</span>(vector&lt;<span class="keyword">bool</span>&gt;(n + m));</span><br><span class="line">        &#125;</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>][<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) </span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++) </span><br><span class="line">            <span class="keyword">if</span> (i || j) &#123;</span><br><span class="line">            <span class="keyword">int</span> t = (grid[i][j] == <span class="string">&#x27;(&#x27;</span> ? <span class="number">1</span> : <span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n + m; k++) &#123;</span><br><span class="line">                <span class="keyword">int</span> kk = k - t;</span><br><span class="line">                <span class="keyword">if</span> (kk &lt; <span class="number">0</span> || kk &gt;= n + m) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (i) f[i][j][k] = f[i][j][k] || f[i - <span class="number">1</span>][j][kk];</span><br><span class="line">                <span class="keyword">if</span> (j) f[i][j][k] = f[i][j][k] || f[i][j - <span class="number">1</span>][kk];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n - <span class="number">1</span>][m - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
+        </div>
 
-<h1 id="贪心算法实例"><a href="#贪心算法实例" class="headerlink" title="贪心算法实例"></a>贪心算法实例</h1><h2 id="分发糖果"><a href="#分发糖果" class="headerlink" title="分发糖果"></a>分发糖果</h2><h3 id="问题描述-5"><a href="#问题描述-5" class="headerlink" title="问题描述"></a>问题描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/">分发糖果</a></p>
-<h3 id="算法-5"><a href="#算法-5" class="headerlink" title="算法"></a>算法</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">candy</span><span class="params">(<span class="keyword">int</span>* ratings, <span class="keyword">int</span> ratingsSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> * candys = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(ratingsSize*<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;ratingsSize;i++)&#123;</span><br><span class="line">        candys[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;ratingsSize;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(ratings[i]&gt;ratings[i<span class="number">-1</span>])&#123;</span><br><span class="line">            candys[i] = candys[i<span class="number">-1</span>]+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    i--;</span><br><span class="line">    <span class="keyword">while</span>(i&gt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(ratings[i<span class="number">-1</span>]&gt;ratings[i] &amp;&amp; candys[i<span class="number">-1</span>]&lt;=candys[i])&#123;</span><br><span class="line">            candys[i<span class="number">-1</span>] = candys[i] +<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;ratingsSize;j++)&#123;</span><br><span class="line">        sum += candys[j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(candys);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <div class="page-main-content-middle">
 
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">candy</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; ratings)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = ratings.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">candy</span><span class="params">(n,<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (ratings[i] &gt; ratings[i<span class="number">-1</span>]) &#123;</span><br><span class="line">                candy[i] = candy[i<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=n<span class="number">-2</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span> (ratings[i] &gt; ratings[i+<span class="number">1</span>] &amp;&amp; candy[i] &lt;= candy[i+<span class="number">1</span>])&#123;</span><br><span class="line">                candy[i] = candy[i+<span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans = <span class="built_in">accumulate</span>(candy.<span class="built_in">begin</span>(),candy.<span class="built_in">end</span>(),<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+            <div class="main-content">
 
-<hr>
-<h2 id="二叉树的最大路径和"><a href="#二叉树的最大路径和" class="headerlink" title="二叉树的最大路径和"></a>二叉树的最大路径和</h2><h3 id="问题描述-6"><a href="#问题描述-6" class="headerlink" title="问题描述"></a>问题描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">二叉树的最大路径和</a></p>
-<h3 id="算法-6"><a href="#算法-6" class="headerlink" title="算法"></a>算法</h3>
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">算法进阶：动态规划与贪心算法的深度博弈</span>
         </div>
 
         
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>QuanYuQi</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://example.com/2022/04/05/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%92%8C%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">http://example.com/2022/04/05/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%92%8C%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"># 贪心算法</a>
-                    
-                        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"># 动态规划</a>
-                    
-                        <a href="/tags/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A3/"># 力扣题解</a>
-                    
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
                         
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/04/05/%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">Leetcode设计数据结构刷题笔记</a>
-            
-            
-            <a class="next" rel="next" href="/2022/03/10/%E5%85%B3%E4%BA%8EGFW/">关于GFW</a>
-            
-        </section>
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-04-05 23:08:12</span>
+        <span class="mobile">2022-04-05 23:08</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%AE%97%E6%B3%95/LeetCode/">LeetCode</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">贪心算法</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB/">状态转移</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95/">算法面试</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
-
-    </article>
+    
+    
+    
+    
 </div>
 
+                    </div>
+                </div>
             </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© QuanYuQi | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="动态规划与贪心算法：从底层逻辑到实战应用"><a href="#动态规划与贪心算法：从底层逻辑到实战应用" class="headerlink" title="动态规划与贪心算法：从底层逻辑到实战应用"></a>动态规划与贪心算法：从底层逻辑到实战应用</h1><p>在算法世界中，<strong>动态规划（Dynamic Programming, DP）</strong> 和 <strong>贪心算法（Greedy Algorithm）</strong> 是解决最优化问题的两大利器。它们虽然都依赖于“最优子结构”，但在处理子问题重叠和全局最优选择上有着本质的区别。</p>
+<hr>
+<h2 id="1-核心概念对比"><a href="#1-核心概念对比" class="headerlink" title="1. 核心概念对比"></a>1. 核心概念对比</h2><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">动态规划 (DP)</th>
+<th align="left">贪心算法 (Greedy)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>基本思想</strong></td>
+<td align="left">穷举所有可能，通过经验（子问题结果）推导未来</td>
+<td align="left">每一步都采取当前状态下的局部最优选择</td>
+</tr>
+<tr>
+<td align="left"><strong>子问题关系</strong></td>
+<td align="left">子问题重叠，通过状态转移方程联系</td>
+<td align="left">子问题独立，当前选择不影响后续最优性</td>
+</tr>
+<tr>
+<td align="left"><strong>最优性保证</strong></td>
+<td align="left">全局最优（通过回溯或存储确保）</td>
+<td align="left">不一定全局最优，需数学证明贪心选择性质</td>
+</tr>
+<tr>
+<td align="left"><strong>计算方向</strong></td>
+<td align="left">通常自底向上（迭代）或自顶向下（记忆化）</td>
+<td align="left">通常自顶向下，逐步缩小问题规模</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-背包问题：理解差异的最佳入口"><a href="#2-背包问题：理解差异的最佳入口" class="headerlink" title="2. 背包问题：理解差异的最佳入口"></a>2. 背包问题：理解差异的最佳入口</h2><h3 id="2-1-0-1-背包问题（动态规划）"><a href="#2-1-0-1-背包问题（动态规划）" class="headerlink" title="2.1 0-1 背包问题（动态规划）"></a>2.1 0-1 背包问题（动态规划）</h3><p>由于物品不可分割，当前的决策（拿或不拿）会影响后续所有可能的组合，必须穷举状态。</p>
+<p><strong>状态转移方程</strong>：<br><code>dp[i][j] = max(dp[i-1][j], v[i] + dp[i-1][j - w[i]])</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 优化后的空间压缩版（滚动数组）</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">knapsack01</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; weights, vector&lt;<span class="keyword">int</span>&gt;&amp; values, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = weights.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(W + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= weights[i]; j--) &#123; <span class="comment">// 逆序确保每个物品只用一次</span></span><br><span class="line">            dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weights[i]] + values[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-分数背包问题（贪心）"><a href="#2-2-分数背包问题（贪心）" class="headerlink" title="2.2 分数背包问题（贪心）"></a>2.2 分数背包问题（贪心）</h3><p>物品可以切割。我们只需按 <strong>单位价值（Value&#x2F;Weight）</strong> 降序排列，依次装入即可确保全局最优。</p>
+<hr>
+<h2 id="3-动态规划经典实例"><a href="#3-动态规划经典实例" class="headerlink" title="3. 动态规划经典实例"></a>3. 动态规划经典实例</h2><h3 id="3-1-最长公共子序列-LCS"><a href="#3-1-最长公共子序列-LCS" class="headerlink" title="3.1 最长公共子序列 (LCS)"></a>3.1 最长公共子序列 (LCS)</h3><p>用于衡量两个序列的相似度，是基因测序等领域的基础。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(string text1, string text2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = text1.<span class="built_in">length</span>(), m = text2.<span class="built_in">length</span>();</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(n + <span class="number">1</span>, vector&lt;<span class="keyword">int</span>&gt;(m + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (text1[i<span class="number">-1</span>] == text2[j<span class="number">-1</span>]) </span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>; <span class="comment">// 字符相同，长度加一</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dp[i][j] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][j], dp[i][j<span class="number">-1</span>]); <span class="comment">// 舍弃其一，取最大值</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n][m];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-买卖股票的最佳时机-状态机视角"><a href="#3-2-买卖股票的最佳时机-状态机视角" class="headerlink" title="3.2 买卖股票的最佳时机 (状态机视角)"></a>3.2 买卖股票的最佳时机 (状态机视角)</h3><p>通过定义 <code>hold</code>（持有）和 <code>sold</code>（未持有）两种状态，可以优雅地解决所有变体。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LeetCode 122. 买卖股票的最佳时机 II (不限交易次数)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> cash = <span class="number">0</span>, hold = -prices[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cash = <span class="built_in">max</span>(cash, hold + prices[i]);  <span class="comment">// 卖出，取最大利润</span></span><br><span class="line">        hold = <span class="built_in">max</span>(hold, cash - prices[i]);  <span class="comment">// 买入，更新持有成本</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-贪心算法经典实例"><a href="#4-贪心算法经典实例" class="headerlink" title="4. 贪心算法经典实例"></a>4. 贪心算法经典实例</h2><h3 id="4-1-分发糖果-Candy"><a href="#4-1-分发糖果-Candy" class="headerlink" title="4.1 分发糖果 (Candy)"></a>4.1 分发糖果 (Candy)</h3><p><strong>策略</strong>：两次遍历。第一次从左往右，确保右边比左边评分高的人糖果多；第二次从右往左，确保左边比右边评分高的人糖果多。</p>
+<h3 id="4-2-二叉树的最大路径和-Hard"><a href="#4-2-二叉树的最大路径和-Hard" class="headerlink" title="4.2 二叉树的最大路径和 (Hard)"></a>4.2 二叉树的最大路径和 (Hard)</h3><p>虽然这是一个递归问题，但它体现了“局部贡献值”的贪心思想。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> maxSum = INT_MIN;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">maxGain</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxSum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxGain</span><span class="params">(TreeNode* node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 递归计算左右子节点的最大贡献值</span></span><br><span class="line">        <span class="comment">// 如果贡献为负，则舍弃（贪心思想：取 0）</span></span><br><span class="line">        <span class="keyword">int</span> leftGain = <span class="built_in">max</span>(<span class="built_in">maxGain</span>(node-&gt;left), <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> rightGain = <span class="built_in">max</span>(<span class="built_in">maxGain</span>(node-&gt;right), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当前节点作为“最高转折点”时的路径和</span></span><br><span class="line">        <span class="keyword">int</span> currentPathSum = node-&gt;val + leftGain + rightGain;</span><br><span class="line">        maxSum = <span class="built_in">max</span>(maxSum, currentPathSum);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 返回该节点能提供给父节点的最大单侧贡献</span></span><br><span class="line">        <span class="keyword">return</span> node-&gt;val + <span class="built_in">max</span>(leftGain, rightGain);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-总结：如何选择？"><a href="#5-总结：如何选择？" class="headerlink" title="5. 总结：如何选择？"></a>5. 总结：如何选择？</h2><ol>
+<li><strong>尝试贪心</strong>：如果问题可以通过局部最优选择且不回溯来解决（如区间调度、哈夫曼编码），优先使用贪心，时间复杂度通常更低。</li>
+<li><strong>建模 DP</strong>：如果发现局部最优无法推导出全局最优，或者子问题之间存在复杂的依赖和重叠，则需要建立 DP 状态机或转移矩阵。</li>
+<li><strong>数学直觉</strong>：贪心通常需要严格的数学证明。在面试中，如果无法快速证明，观察是否满足“无后效性”是判断能否使用 DP 的关键。</li>
+</ol>
+<hr>
+<blockquote>
+<p><strong>结语</strong>：算法的魅力在于将复杂的问题抽象为简洁的逻辑。DP 像是一步一个脚印的积累，而贪心则是果断出击的智慧。掌握两者，方能在算法面试中游刃有余。</p>
+</blockquote>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">#贪心算法</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB/">#状态转移</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95/">#算法面试</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/06/30/Tor%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Tor 匿名服务搭建指南：从零开始构建你的 .onion 站点</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/03/10/%E5%85%B3%E4%BA%8EGFW/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">深度解析：防火长城（GFW）的技术架构与演进</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
     </div>
 </footer>
 
+        </div>
     </div>
-</body>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%B8%8E%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%EF%BC%9A%E4%BB%8E%E5%BA%95%E5%B1%82%E9%80%BB%E8%BE%91%E5%88%B0%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">动态规划与贪心算法：从底层逻辑到实战应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E5%AF%B9%E6%AF%94"><span class="nav-number">1.1.</span> <span class="nav-text">1. 核心概念对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%EF%BC%9A%E7%90%86%E8%A7%A3%E5%B7%AE%E5%BC%82%E7%9A%84%E6%9C%80%E4%BD%B3%E5%85%A5%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">2. 背包问题：理解差异的最佳入口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-0-1-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%EF%BC%88%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 0-1 背包问题（动态规划）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%88%86%E6%95%B0%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%EF%BC%88%E8%B4%AA%E5%BF%83%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 分数背包问题（贪心）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%BB%8F%E5%85%B8%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">3. 动态规划经典实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97-LCS"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 最长公共子序列 (LCS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-%E7%8A%B6%E6%80%81%E6%9C%BA%E8%A7%86%E8%A7%92"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 买卖股票的最佳时机 (状态机视角)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%BB%8F%E5%85%B8%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">4. 贪心算法经典实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C-Candy"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 分发糖果 (Candy)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C-Hard"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 二叉树的最大路径和 (Hard)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%80%BB%E7%BB%93%EF%BC%9A%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">5. 总结：如何选择？</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
 </html>

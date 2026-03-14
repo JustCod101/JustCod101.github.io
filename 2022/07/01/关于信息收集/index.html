@@ -1,339 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
     <meta name="author" content="QuanYuQi">
-
-
-
-
-
-<title>How to Search Hacking Information | QuanYuQi&#39;s CyberSpace</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
+    <title>
         
+            黑客攻防实战：信息收集与资产发现全流程 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
     
+<link rel="stylesheet" href="/css/style.css">
 
-
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
 <meta name="generator" content="Hexo 5.4.1"></head>
 
+
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const pagebody = document.getElementsByTagName('body')[0]
-
-            function setTheme(status) {
-
-                if (status === 'dark') {
-                    window.sessionStorage.theme = 'dark'
-                    pagebody.classList.add('dark-theme');
-
-                } else if (status === 'light') {
-                    window.sessionStorage.theme = 'light'
-                    pagebody.classList.remove('dark-theme');
-                }
-            };
-
-            setTheme(window.sessionStorage.theme)
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Ethan&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                <a class="menu-item" href="/archives">Posts</a>
-                
-                <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
-                
-                <a class="menu-item" href="/about">About</a>
-                
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
 
     
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Ethan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">
-                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
-                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
-                </div>
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
             </div>
-            <div class="menu" id="mobile-menu">
+            <div class="mobile">
                 
-                <a class="menu-item" href="/archives">Posts</a>
-                
-                <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
-                
-                <a class="menu-item" href="/about">About</a>
-                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
 
 </header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if (toggleMenu.classList.contains("active")) {
-            toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        } else {
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">黑客攻防实战：信息收集与资产发现全流程</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-07-01 23:11:10</span>
+        <span class="mobile">2022-07-01 23:11</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E6%95%99%E7%A8%8B/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">信息收集</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Nmap/">Nmap</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Google-Hacking/">Google Hacking</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">资产管理</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
 </div>
 
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">How to Search Hacking Information</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">QuanYuQi</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">July 1, 2022&nbsp;&nbsp;23:11:10</a>
-                        </span>
-                    
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
-                            
-                                <a href="/categories/%E6%95%99%E7%A8%8B/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
-                            
-                        </span>
-                    
+                    </div>
                 </div>
-            
-        </header>
+            </div>
+        
 
-        <div class="post-content">
-            <h1 id="关于信息收集"><a href="#关于信息收集" class="headerlink" title="关于信息收集"></a>关于信息收集</h1><h2 id="Google-Hacking"><a href="#Google-Hacking" class="headerlink" title="Google Hacking"></a>Google Hacking</h2><h3 id="Google-syntax"><a href="#Google-syntax" class="headerlink" title="Google syntax"></a>Google syntax</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">site : *.usc.edu.cn //指定域名</span><br><span class="line">intext : username password //正文中存在关键字的网页</span><br><span class="line">intitle : backend managemant system login //标题中存在关键字的网页</span><br><span class="line">info :  //一些基本信息</span><br><span class="line">inurl : login.php //URL存在关键字的网页</span><br><span class="line">filetype : php //指定文件类型</span><br></pre></td></tr></table></figure>
+        <div class="article-content markdown-body">
+            <h1 id="信息收集：渗透测试的第一步"><a href="#信息收集：渗透测试的第一步" class="headerlink" title="信息收集：渗透测试的第一步"></a>信息收集：渗透测试的第一步</h1><p>在网络安全领域，<strong>“信息收集（Reconnaissance）”</strong> 是渗透测试中耗时最长、也是最关键的阶段。它决定了攻击面的广度以及后续漏洞挖掘的成功率。</p>
+<p>本文将介绍从被动侦察到主动扫描的核心技术与工具。</p>
+<hr>
+<h2 id="1-Google-Hacking-Dorks"><a href="#1-Google-Hacking-Dorks" class="headerlink" title="1. Google Hacking (Dorks)"></a>1. Google Hacking (Dorks)</h2><p>Google 搜索引擎是世界上最大的信息数据库之一。通过特定的 <strong>Google Dorks</strong> 语法，我们可以发现泄露的敏感信息、后台登录口及过时的服务。</p>
+<h3 id="核心语法"><a href="#核心语法" class="headerlink" title="核心语法"></a>核心语法</h3><ul>
+<li><code>site:target.com</code>：限制搜索特定的域名。</li>
+<li><code>filetype:pdf/xls/docx</code>：查找特定的文档（常用于寻找公司敏感报表）。</li>
+<li><code>intitle:&quot;Index of&quot;</code>：寻找开启了目录遍历的服务器。</li>
+<li><code>inurl:admin/login</code>：寻找后台管理系统的入口。</li>
+<li><code>intext:&quot;password&quot;</code>：在网页正文中搜索关键字。</li>
+</ul>
+<h3 id="实战示例"><a href="#实战示例" class="headerlink" title="实战示例"></a>实战示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 寻找特定域名的敏感文件</span><br><span class="line">site:test.com filetype:php inurl:id=</span><br><span class="line"></span><br><span class="line"># 寻找暴露在公网的 Cisco 管理界面</span><br><span class="line">inurl:&quot;/level/15/exec/-/show&quot;</span><br><span class="line"></span><br><span class="line"># 查找 PHP 探针及敏感服务器信息</span><br><span class="line">intitle:&quot;phpinfo()&quot; &quot;PHP Version&quot;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">inurl:&#x27;/level/15/exec/~show&#x27; //cisco交换机用户管理界面</span><br><span class="line">北京 intitle:电子商务 intext:法人 intext:电话 //搜索在北京做电子商务的法人的电话信息</span><br><span class="line">site:alibaba.com inurl:contact //搜索阿里巴巴的联系方式</span><br><span class="line">intitle:&quot;netbotz appliance&quot; &quot;ok&quot; //施耐德NetBotz机房用监视器</span><br><span class="line">inurl:/admin/login.php //寻找后台登陆网站</span><br><span class="line">inurl:qq.txt //搞黑产遗留的账号密码的信息</span><br><span class="line">inurl:ftp &quot;password&quot; site:xxxx //搜索一些如ftp之类的登陆页面</span><br><span class="line">inurl:Service.pwd //frontpage漏洞 　　这里会暴露这个网站的后台登录密码</span><br><span class="line">intext:Powered by Discuz //收集Discuz论坛主机</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="2-空间搜索引擎：Shodan-与-Censys"><a href="#2-空间搜索引擎：Shodan-与-Censys" class="headerlink" title="2. 空间搜索引擎：Shodan 与 Censys"></a>2. 空间搜索引擎：Shodan 与 Censys</h2><p>Shodan 被称为“黑客界的 Google”，它不爬取网页，而是通过扫描全球的 IP 和端口，识别设备的服务指纹。</p>
+<h3 id="Shodan-常用语法"><a href="#Shodan-常用语法" class="headerlink" title="Shodan 常用语法"></a>Shodan 常用语法</h3><ul>
+<li><code>net:1.2.3.4/24</code>：搜索特定子网内的设备。</li>
+<li><code>port:3389</code>：查找开启了 RDP（远程桌面）的设备。</li>
+<li><code>os:&quot;Linux&quot;</code>：指定操作系统。</li>
+<li><code>product:&quot;Apache httpd&quot;</code>：指定服务名称。</li>
+<li><code>country:CN</code>：指定国家代码（中国）。</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查找日本境内运行的 Cisco 设备</span><br><span class="line">cisco country:JP</span><br><span class="line"></span><br><span class="line"># 查找暴露在公网的摄像头（常见标题）</span><br><span class="line">&quot;webcamXP&quot; port:8080</span><br></pre></td></tr></table></figure>
 
-<h2 id="Shodan"><a href="#Shodan" class="headerlink" title="Shodan"></a>Shodan</h2><h3 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">基础：</span><br><span class="line">true·net (如192.168.0.100)</span><br><span class="line">true·city</span><br><span class="line">true·country(CN、US)</span><br><span class="line">true·port(80、21、22、23)</span><br><span class="line">true·os</span><br><span class="line">true·Hostname(主机或域名)</span><br><span class="line">true·server</span><br><span class="line">true</span><br><span class="line">实用：</span><br><span class="line">    ·200 OK cisco country:JP    //搜索日本的思科设备</span><br><span class="line">    ·user:admin pass:password   //搜索登录页面</span><br><span class="line">    ·linux upnp avtech        //搜索后台登录网页</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3-Nmap：网络映射器的艺术"><a href="#3-Nmap：网络映射器的艺术" class="headerlink" title="3. Nmap：网络映射器的艺术"></a>3. Nmap：网络映射器的艺术</h2><p>Nmap 是内网横向渗透和外网资产扫描的必备神器。</p>
+<h3 id="扫描策略"><a href="#扫描策略" class="headerlink" title="扫描策略"></a>扫描策略</h3><ul>
+<li>**隐蔽扫描 (Stealth Scan)**：<code>-sS</code> 使用 SYN 扫描，不建立完整 TCP 连接，避免被简单防火墙记录。</li>
+<li><strong>服务版本探测</strong>：<code>-sV</code> 能够识别端口后面运行的具体版本（如 Apache 2.4.41）。</li>
+<li><strong>操作系统指纹</strong>：<code>-O</code> 通过 TCP&#x2F;IP 协议栈的行为推测 OS 类型。</li>
+<li><strong>全能模式</strong>：<code>-A</code> 包含 OS 检测、版本检测、脚本扫描和路由追踪。</li>
+</ul>
+<h3 id="Nmap-脚本引擎-NSE"><a href="#Nmap-脚本引擎-NSE" class="headerlink" title="Nmap 脚本引擎 (NSE)"></a>Nmap 脚本引擎 (NSE)</h3><p>NSE 允许用户编写脚本来自动化漏洞检测。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 扫描敏感目录</span></span><br><span class="line">nmap -p 80 --script=http-enum.nse &lt;target&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 扫描常见的 SMB 漏洞 (MS17-010)</span></span><br><span class="line">nmap -p 445 --script=smb-vuln-ms17-010 &lt;target IP&gt;</span><br></pre></td></tr></table></figure>
 
+<hr>
+<h2 id="4-目录指纹与敏感路径探测"><a href="#4-目录指纹与敏感路径探测" class="headerlink" title="4. 目录指纹与敏感路径探测"></a>4. 目录指纹与敏感路径探测</h2><p>Web 容器的默认路径或遗留的 <code>.git</code>、<code>.env</code> 文件往往是突破口。</p>
+<ul>
+<li><strong>Dirsearch &#x2F; ffuf</strong>：高效的路径爆破工具。</li>
+<li><strong>Wappalyzer &#x2F; WhatWeb</strong>：识别网站的技术栈（前端框架、数据库、Web 容器）。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 ffuf 进行目录扫描</span></span><br><span class="line">ffuf -u http://target.com/FUZZ -w /path/to/wordlist.txt -mc 200</span><br></pre></td></tr></table></figure>
 
-
-<h2 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h2><h3 id="Sniffing-Host-information"><a href="#Sniffing-Host-information" class="headerlink" title="Sniffing Host information"></a>Sniffing Host information</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-sT  <span class="comment">#TCP connect()扫描，这种方式会在目标主机的日志中留下大批连接请求和错误信息</span></span><br><span class="line">-sS  <span class="comment">#半开扫描，很少有系统能够把它记入系统日志</span></span><br><span class="line">-sF  -sN  <span class="comment">#秘密FIN数据包扫描、Xmas Tree、Null扫描模式</span></span><br><span class="line">-sP <span class="comment">#ping scan</span></span><br><span class="line">-sU <span class="comment">#UDP scan</span></span><br><span class="line">-sA <span class="comment">#这种扫描可以用来穿过防火墙的规则集</span></span><br><span class="line">-sV <span class="comment">#探测端口服务版本</span></span><br><span class="line">-P0 <span class="comment">#指定nmap不用ping</span></span><br><span class="line">-v  <span class="comment">#显示扫描过程</span></span><br><span class="line">-p  <span class="comment">#port</span></span><br><span class="line">-O  <span class="comment">#检测目标主机操作系统</span></span><br><span class="line">-A  <span class="comment">#全面系统检测、启动脚本检测等</span></span><br><span class="line">-oN -oX -oG  <span class="comment">#将报告写入文件，分别是正常、XML、grepable三种格式</span></span><br><span class="line">-T4 <span class="comment">#针对TCP端口禁止动态扫描延迟超过10ms</span></span><br><span class="line">-iL <span class="comment">#读取主机列表  例如 &quot;-iL /home/ip.txt&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -p 1-65535 -v 192.168.1.106</span><br><span class="line"><span class="comment"># 表示使用半开扫描，指定端口1~65535，并且显示扫描过程</span></span><br><span class="line">nmap -p 80,1433,22,1521 192.168.0.1 <span class="comment">#指定端口扫描</span></span><br><span class="line">nmap -sP 192.168.0.1/24 扫描网络段存活主机</span><br><span class="line">nmap -Pn -A www.google.com <span class="comment">#穿过防火墙进行扫描</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Nmap-Script-Engine"><a href="#Nmap-Script-Engine" class="headerlink" title="Nmap Script Engine"></a>Nmap Script Engine</h3><p>Nmap安装目录下的Script目录中.nse格式的文本文件就是nmap脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syntax : <span class="string">&quot;--script=脚本名称&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nmap -p 80 --script=http-enum.nse www.google.com <span class="comment">#扫描敏感目录</span></span><br><span class="line">nmap -p 80 --script=sql-injection.nse www.google.com <span class="comment">#扫描SQL注入漏洞</span></span><br><span class="line">nmap -p 80 --script all www.google.com <span class="comment">#使用所有脚本进行扫描</span></span><br><span class="line">nmap -p 80 --script= <span class="string">&quot;http-*&quot;</span> www.google.com <span class="comment">#使用通配符</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Software"><a href="#Software" class="headerlink" title="Software"></a>Software</h3><p>DisBuster暴力猜url目录</p>
-<p>wp-admin&#x2F;login.php -&gt;WordPress process</p>
-<p>AppPrint 指纹识别、进行Tomcat WebLogic WebSphere IIS等Web容器进行识别</p>
-<p>可以通过HTTP请求中的Server头来获取Web容器的信息</p>
-<h2 id="信息收集三板斧"><a href="#信息收集三板斧" class="headerlink" title="信息收集三板斧"></a>信息收集三板斧</h2><p>msfconsole-&gt;whois + nslookup + dig</p>
+<hr>
+<h2 id="5-子域名收集：扩展攻击面"><a href="#5-子域名收集：扩展攻击面" class="headerlink" title="5. 子域名收集：扩展攻击面"></a>5. 子域名收集：扩展攻击面</h2><p>对于大型企业，子域名往往包含未被修补的测试系统或备份服务器。</p>
+<ul>
+<li><strong>Subfinder</strong>：利用 API 进行多源子域名收集。</li>
+<li><strong>Amass</strong>：目前最强大的开源域名资产发现工具。</li>
+</ul>
+<hr>
+<h2 id="6-总结：信息收集“三板斧”策略"><a href="#6-总结：信息收集“三板斧”策略" class="headerlink" title="6. 总结：信息收集“三板斧”策略"></a>6. 总结：信息收集“三板斧”策略</h2><p>在面对一个目标时，通常遵循以下流程：</p>
+<ol>
+<li>**Passive Recon (被动)**：通过 Google Dorks, Shodan, WHOIS, DNS 记录（<code>dig</code>, <code>nslookup</code>）获取外围信息，不与目标服务器直接接触。</li>
+<li>**Asset Discovery (资产发现)**：通过 <code>Subfinder</code> 或 <code>Amass</code> 获取所有子域名，确定 IP 范围。</li>
+<li>**Active Scanning (主动扫描)**：针对发现的资产，使用 <code>Nmap</code> 确认存活端口及服务版本，并利用 <code>ffuf</code> 探测敏感目录。</li>
+</ol>
+<hr>
+<blockquote>
+<p><strong>⚠ 法律免责声明</strong><br>本文介绍的技术仅用于网络安全教育、授权渗透测试及学术研究。未经授权对他人网络资产进行扫描或攻击属于违法行为。请在法律允许的范围内行事。</p>
+</blockquote>
 
         </div>
 
         
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>QuanYuQi</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://example.com/2022/07/01/%E5%85%B3%E4%BA%8E%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">http://example.com/2022/07/01/%E5%85%B3%E4%BA%8E%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
 
-            </section>
         
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"># 网络安全</a>
-                    
-                        <a href="/tags/%E5%8C%BF%E5%90%8D%E6%8A%80%E6%9C%AF/"># 匿名技术</a>
-                    
-                        <a href="/tags/Tor/"># Tor</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/07/01/%E5%85%B3%E4%BA%8EHTTP/">About HTTP</a>
-            
-            
-            <a class="next" rel="next" href="/2022/06/30/Tor%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">How to build a Tor</a>
-            
-        </section>
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">#信息收集</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">#渗透测试</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Nmap/">#Nmap</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Google-Hacking/">#Google Hacking</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86/">#资产管理</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2024/03/19/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">实战：高性能 C 语言多线程端口扫描器</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/06/30/Tor%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Tor 匿名服务搭建指南：从零开始构建你的 .onion 站点</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
 
-    </article>
+        
+    </div>
 </div>
 
+
+                
             </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© QuanYuQi | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
     </div>
 </footer>
 
+        </div>
     </div>
-</body>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%EF%BC%9A%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="nav-number">1.</span> <span class="nav-text">信息收集：渗透测试的第一步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Google-Hacking-Dorks"><span class="nav-number">1.1.</span> <span class="nav-text">1. Google Hacking (Dorks)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">核心语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">实战示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%A9%BA%E9%97%B4%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%EF%BC%9AShodan-%E4%B8%8E-Censys"><span class="nav-number">1.2.</span> <span class="nav-text">2. 空间搜索引擎：Shodan 与 Censys</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shodan-%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">Shodan 常用语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Nmap%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%98%A0%E5%B0%84%E5%99%A8%E7%9A%84%E8%89%BA%E6%9C%AF"><span class="nav-number">1.3.</span> <span class="nav-text">3. Nmap：网络映射器的艺术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%AB%E6%8F%8F%E7%AD%96%E7%95%A5"><span class="nav-number">1.3.1.</span> <span class="nav-text">扫描策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nmap-%E8%84%9A%E6%9C%AC%E5%BC%95%E6%93%8E-NSE"><span class="nav-number">1.3.2.</span> <span class="nav-text">Nmap 脚本引擎 (NSE)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%9B%AE%E5%BD%95%E6%8C%87%E7%BA%B9%E4%B8%8E%E6%95%8F%E6%84%9F%E8%B7%AF%E5%BE%84%E6%8E%A2%E6%B5%8B"><span class="nav-number">1.4.</span> <span class="nav-text">4. 目录指纹与敏感路径探测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%AD%90%E5%9F%9F%E5%90%8D%E6%94%B6%E9%9B%86%EF%BC%9A%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2"><span class="nav-number">1.5.</span> <span class="nav-text">5. 子域名收集：扩展攻击面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%80%BB%E7%BB%93%EF%BC%9A%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E2%80%9C%E4%B8%89%E6%9D%BF%E6%96%A7%E2%80%9D%E7%AD%96%E7%95%A5"><span class="nav-number">1.6.</span> <span class="nav-text">6. 总结：信息收集“三板斧”策略</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
 </html>

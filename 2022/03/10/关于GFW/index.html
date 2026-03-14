@@ -1,353 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
     <meta name="author" content="QuanYuQi">
-
-
-
-
-
-<title>关于GFW | QuanYuQi&#39;s CyberSpace</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
+    <title>
         
+            深度解析：防火长城（GFW）的技术架构与演进 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
     
+<link rel="stylesheet" href="/css/style.css">
 
-
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
 <meta name="generator" content="Hexo 5.4.1"></head>
 
+
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const pagebody = document.getElementsByTagName('body')[0]
-
-            function setTheme(status) {
-
-                if (status === 'dark') {
-                    window.sessionStorage.theme = 'dark'
-                    pagebody.classList.add('dark-theme');
-
-                } else if (status === 'light') {
-                    window.sessionStorage.theme = 'light'
-                    pagebody.classList.remove('dark-theme');
-                }
-            };
-
-            setTheme(window.sessionStorage.theme)
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Ethan&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                <a class="menu-item" href="/archives">Posts</a>
-                
-                <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
-                
-                <a class="menu-item" href="/about">About</a>
-                
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
 
     
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Ethan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">
-                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
-                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
-                </div>
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
             </div>
-            <div class="menu" id="mobile-menu">
+            <div class="mobile">
                 
-                <a class="menu-item" href="/archives">Posts</a>
-                
-                <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
-                
-                <a class="menu-item" href="/about">About</a>
-                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
 
 </header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if (toggleMenu.classList.contains("active")) {
-            toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        } else {
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">深度解析：防火长城（GFW）的技术架构与演进</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-03-10 11:54:47</span>
+        <span class="mobile">2022-03-10 11:54</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/">网络技术</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/GFW/">GFW</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%8C%85%E6%A3%80%E6%B5%8B/">深度包检测</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%BF%BB%E5%A2%99%E6%8A%80%E6%9C%AF/">翻墙技术</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">网络工程</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
 </div>
 
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">关于GFW</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">QuanYuQi</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">March 10, 2022&nbsp;&nbsp;11:54:47</a>
-                        </span>
-                    
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/%E7%BD%91%E7%BB%9C%E8%AE%BE%E8%AE%A1/">网络设计</a>
-                            
-                        </span>
-                    
+                    </div>
                 </div>
-            
-        </header>
+            </div>
+        
 
-        <div class="post-content">
-            <h1 id="GFW技术鉴赏"><a href="#GFW技术鉴赏" class="headerlink" title="GFW技术鉴赏"></a>GFW技术鉴赏</h1><hr>
-<h2 id="防火长城的拓扑结构"><a href="#防火长城的拓扑结构" class="headerlink" title="防火长城的拓扑结构"></a>防火长城的拓扑结构</h2><p><img src="/../images/gfw.png"></p>
-<h2 id="DNS污染"><a href="#DNS污染" class="headerlink" title="DNS污染"></a>DNS污染</h2><p>防火长城对所有经过骨干网国际出口路由的位于TCP与UDP的53端口上的域名查询请求进行IDS检测，一经发现处于黑名单关键词中相匹配的域名查询请求，防火长城作为中间设备会向查询者返回虚假结果，比真的回复更早到达</p>
-<h2 id="IP地址和传输层端口封锁"><a href="#IP地址和传输层端口封锁" class="headerlink" title="IP地址和传输层端口封锁"></a>IP地址和传输层端口封锁</h2><p>对拦截行为观察发现，在早期技术实现中，会使用访问控制列表（ACL）技术来封锁特定的IP地址，由此延伸可以封锁传输层协议（TCP或UDP）的特定目的端口的网络流量。不过由于大量的ACL匹配会导致网络性能不佳。现在主要是采用了效率更高的路由扩散技术封锁特定IP地址，也就是通过将需要拦截的IP地址配置为空路由、黑洞设备或特别配置的自治域网络上，然后通过动态路由协议将相应配置路由扩散到公众互联网网络中，从将条件匹配拦截行为转为路由器的常规转发行为，从而提高拦截效率。</p>
+        <div class="article-content markdown-body">
+            <h1 id="防火长城（GFW）技术鉴赏与深度剖析"><a href="#防火长城（GFW）技术鉴赏与深度剖析" class="headerlink" title="防火长城（GFW）技术鉴赏与深度剖析"></a>防火长城（GFW）技术鉴赏与深度剖析</h1><p>防火长城（Great Firewall, 简称 GFW）是中国国家防火墙的非正式名称，它是一套复杂、多维度的互联网审查和分析系统。其核心目的不仅是物理拦截，更是对跨境流量的深度感知与控制。</p>
+<hr>
+<h2 id="1-防火长城的拓扑结构：旁路部署"><a href="#1-防火长城的拓扑结构：旁路部署" class="headerlink" title="1. 防火长城的拓扑结构：旁路部署"></a>1. 防火长城的拓扑结构：旁路部署</h2><p>GFW 并非传统意义上的“串行防火墙”。为了不影响庞大的跨境流量带宽性能，GFW 主要采用 <strong>旁路（Out-of-band）</strong> 部署。</p>
+<p>通过分光器或镜像端口，GFW 能够实时获取骨干网（AS4134, AS4837 等）出口路由的流量副本。当它识别出违规流量时，会异步地向连接双方发送干扰信号（如 TCP RST），从而达到阻断连接的目的。</p>
+<hr>
+<h2 id="2-核心审查机制"><a href="#2-核心审查机制" class="headerlink" title="2. 核心审查机制"></a>2. 核心审查机制</h2><h3 id="2-1-DNS-污染与劫持-DNS-Poisoning"><a href="#2-1-DNS-污染与劫持-DNS-Poisoning" class="headerlink" title="2.1 DNS 污染与劫持 (DNS Poisoning)"></a>2.1 DNS 污染与劫持 (DNS Poisoning)</h3><p>这是 GFW 最古老且最常用的手段。</p>
+<ul>
+<li><strong>原理</strong>：由于 DNS 查询通常通过 UDP 53 端口以明文形式进行，GFW 的 IDS（入侵检测系统）会嗅探包含黑名单域名的查询请求。</li>
+<li><strong>干扰</strong>：GFW 会抢在真实的 DNS 服务器之前，返回一个虚假的 IP 地址（通常是无效的或被封锁的 IP）。由于 UDP 是无连接的，查询者会优先接受第一个到达的（虚假的）回复。</li>
+</ul>
+<h3 id="2-2-IP-地址与传输层端口封锁"><a href="#2-2-IP-地址与传输层端口封锁" class="headerlink" title="2.2 IP 地址与传输层端口封锁"></a>2.2 IP 地址与传输层端口封锁</h3><ul>
+<li><strong>早期</strong>：使用访问控制列表（ACL）静态封锁目标 IP。</li>
+<li><strong>现代</strong>：采用 <strong>BGP 路由黑洞（Blackholing）</strong> 技术。通过向出口路由器注入错误的 BGP 路由信息，使发往受控 IP 的流量被引导至黑洞设备或被丢弃。这种方式效率极高，且难以通过简单的手段绕过。</li>
+</ul>
+<h3 id="2-3-TCP-连接重置-TCP-Reset-Attack"><a href="#2-3-TCP-连接重置-TCP-Reset-Attack" class="headerlink" title="2.3 TCP 连接重置 (TCP Reset Attack)"></a>2.3 TCP 连接重置 (TCP Reset Attack)</h3><ul>
+<li><strong>原理</strong>：GFW 监测到 HTTP GET 请求或其他明文协议中包含关键词（Keyword Filtering）时，会伪造带有 <code>RST</code> 标志位的 TCP 报文发送给通信双方。</li>
+<li><strong>后果</strong>：通信双方的操作系统会误以为对方主动关闭了连接，从而立即中断当前的会话。</li>
+</ul>
+<h3 id="2-4-深度包检测技术-DPI"><a href="#2-4-深度包检测技术-DPI" class="headerlink" title="2.4 深度包检测技术 (DPI)"></a>2.4 深度包检测技术 (DPI)</h3><p><strong>DPI (Deep Packet Inspection)</strong> 是 GFW 的“大脑”。它不仅检查报文头，更会解析应用层负载。</p>
+<ul>
+<li><strong>关键词过滤</strong>：基于特定敏感词的正则匹配。</li>
+<li><strong>协议识别</strong>：GFW 能够识别出未经过伪装的 VPN 协议（如 PPTP, OpenVPN）或加密代理流量（如早期的 Shadowsocks）。</li>
+<li><strong>证书分析</strong>：在 TLS 1.2 握手过程中，由于 <code>ServerHello</code> 阶段的站点证书是明文传输的，GFW 可以通过读取证书中的 SNI（Server Name Indication）或通用名称（CN）来判定访问的域名。</li>
+</ul>
+<hr>
+<h2 id="3-科学上网协议的博弈"><a href="#3-科学上网协议的博弈" class="headerlink" title="3. 科学上网协议的博弈"></a>3. 科学上网协议的博弈</h2><p>针对 GFW 的封锁，技术社区不断开发出新的协议进行对抗。</p>
+<h3 id="3-1-VPN-Virtual-Private-Network"><a href="#3-1-VPN-Virtual-Private-Network" class="headerlink" title="3.1 VPN (Virtual Private Network)"></a>3.1 VPN (Virtual Private Network)</h3><p>VPN 最初设计用于远程接入企业私有网络。</p>
+<ul>
+<li><strong>优点</strong>：强加密，隧道化所有流量。</li>
+<li><strong>局限性</strong>：特征明显。传统的 PPTP&#x2F;L2TP 协议极易被 DPI 识别。在 GFW 环境下，由于 VPN 协议缺乏“流量混淆”，往往会导致服务器 IP 迅速被封锁。</li>
+</ul>
+<h3 id="3-2-代理协议（Shadowsocks-V2Ray-Trojan）"><a href="#3-2-代理协议（Shadowsocks-V2Ray-Trojan）" class="headerlink" title="3.2 代理协议（Shadowsocks, V2Ray, Trojan）"></a>3.2 代理协议（Shadowsocks, V2Ray, Trojan）</h3><p>这些协议的核心思想是 <strong>“混淆”与“轻量”</strong>。</p>
+<ul>
+<li>**Shadowsocks (SS)**：由 clowwindy 开发，采用 Socks5 代理与自定义加密，旨在模拟普通的 TCP 流量。</li>
+<li>**VMess &#x2F; VLESS (V2Ray)**：更强大的协议族，支持多种传输方式（WebSocket, gRPC, HTTP&#x2F;2），并引入了 <strong>Mux（多路复用）</strong> 提高性能。</li>
+<li><strong>Trojan</strong>：放弃了自定义加密特征，转而直接模仿最普遍的 HTTPS 流量。它将数据封装在标准的 TLS 隧道中，使得流量在外部看来与正常的网页访问无异。</li>
+</ul>
+<h3 id="3-3-后-TLS-时代：ECH-与加密-SNI"><a href="#3-3-后-TLS-时代：ECH-与加密-SNI" class="headerlink" title="3.3 后 TLS 时代：ECH 与加密 SNI"></a>3.3 后 TLS 时代：ECH 与加密 SNI</h3><p>随着 TLS 1.3 的普及，越来越多的握手信息被加密。</p>
+<ul>
+<li>**ECH (Encrypted Client Hello)**：作为 TLS 的扩展，它加密了整个 Client Hello 报文，包括 SNI。这将使得 GFW 无法再通过被动侦听获取用户访问的目标主机名。</li>
+</ul>
+<hr>
+<h2 id="4-结论与反思"><a href="#4-结论与反思" class="headerlink" title="4. 结论与反思"></a>4. 结论与反思</h2><p>GFW 与反审查技术之间的较量是一场长期的“猫鼠游戏”。从最初的简单拦截到现在的机器学习识别和主动探测，GFW 的技术边界在不断扩展。理解其原理，不仅是为了“科学上网”，更是为了深刻认识当代互联网的基础设施与信息流动的主权博弈。</p>
+<hr>
 <blockquote>
-<p>在大规模自治域的出入口路由器上新接入一个起控管作用的子网或者AS域，将要受控的网络地址配置在这个子网或者AS域内的路由器中，这样利用动态路由协议的网络拓扑自动识别特性，在出入口路由器上将生成受控网络地址的路由信息，将自治域内部网络对这些受控网络地址的访问转入到这个控管子网或者AS域的网络中，从而实现对受控网络地址的流量控制 </p>
+<p><strong>参考资料</strong></p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://gfw.report/" >GFW Report<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Great_Firewall" >Wikipedia - Great Firewall<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.v2fly.org/" >V2Fly 社区文档<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
 </blockquote>
-<h2 id="GFW路由扩散技术"><a href="#GFW路由扩散技术" class="headerlink" title="GFW路由扩散技术"></a>GFW路由扩散技术</h2><p>正常的情况下静态路由是由管理员根据网络拓扑或是基于其他目的而给出的一条路由，这条路由最起码要是正确的，可以引导路由器把报文转发到正确的目的地。而GFW的路由扩散技术中使用的静态路由其实是一条错误的路由，而且是有意配置错误的。其目的就是为了把本来是发往某个IP地址的报文统统引导到一个“黑洞服务器”上，而不是把它们转发到正确目的地。这个黑洞服务器上可以什么也不做，这样报文就被无声无息地丢掉了。更多地，可以在服务器上对这些报文进行分析和统计，获取更多的信息，甚至可以做一个虚假的回应。</p>
-<h2 id="TCP连接重置"><a href="#TCP连接重置" class="headerlink" title="TCP连接重置"></a>TCP连接重置</h2><p>TCP重置是传输控制协议（TCP）的一种消息，用于重置连接。一般来说，例如服务器端在没有客户端请求的端口或者其它连接信息不符时，系统的TCP协议栈就会给客户端回复一个RESET通知消息，可见RESET功能本来用于应对例如服务器意外重启等情况。防火长城切断TCP连接的技术实际上就是比连接双方更快地发送连接重置消息，使连接双方认为对方终止了连接而自行关闭连接。<br><strong>一般这次攻击方法都要结合深度包检测技术</strong></p>
-<h2 id="深度包检查技术"><a href="#深度包检查技术" class="headerlink" title="深度包检查技术"></a>深度包检查技术</h2><p><strong>深度报文检测（Deep packet inspection, DPI）</strong> 是一种于应用层对网络上传递的资料进行侦测与处理的技术，被广泛用于入侵检测、流量分析及数据挖掘。就字面意思考虑，所谓“深度”是相对于普通的报文检测而言的——相较普通的报文检测，DPI可对报文内容和协议特征进行检测。</p>
-<p>在中国大陆，DPI一度被ISP用于追踪用户行为以改善其广告推送业务的精准性，而最近则被开放网络促进会视为防火长城城赖以检测关键词及嗅探加密流量的重要技术之一。基于必要的硬件设施、适宜的检测模型（关键字过滤）及相应的模式匹配算法，防火长城能够精确且快速地从实时网络环境中判别出有悖于预期标准的可疑流量，并对此及时作出审查者所期望的应对措施。</p>
-<p>被认为在防火长城部署了的深度包检测包括：</p>
-<p>HTTP协议的传输内容是未经过加密的，中间设备可以窃听。防火长城对 HTTP回复的检测在2008年末终止，对HTTP请求的Host字段的检测仍然存在。<br>早期TLS版本中，服务器握手响应，包括站点证书，是未被加密的，所以可以用于识别出访问站点。自TLS 1.3开始，ServerHello之后的握手信息，包括站点证书，也会被加密后传输，一般可以认为能防止对证书信息的检测。<br>服务器名称指示（SNI）是TLS的一个扩展协议，该协议下，在握手过程开始时客户端告诉它正在连接的服务器要连接的主机名称。由于SNI信息并未加密，审查者可以识别出用户访问的网站域名。这种检测是在2018年8月部署的，在关于加密服务器名称指示的IETF草案发布刚刚1个月后。</p>
-<hr>
-<h1 id="关于使用VPN的科学上网"><a href="#关于使用VPN的科学上网" class="headerlink" title="关于使用VPN的科学上网"></a>关于使用VPN的科学上网</h1><p>正常网络通信时，所有网络请求都是通过我们的物理网卡直接发送出去。而VPN是客户端使用相应的VPN协议先与VPN服务器进行通信，成功连接后就在操作系统内建立一个虚拟网卡，一般来说默认PC上所有网络通信都从这虚拟网卡上进出，经过VPN服务器中转之后再到达目的地。</p>
-<p>通常VPN协议都会对数据流进行强加密处理，从而使得第三方无法知道数据内容，这样就实现了翻墙。翻墙时VPN服务器知道你干的所有事情（HTTP，对于HTTPS，它知道你去了哪）。</p>
-<p>VPN有多种协议：OPENVPN、PPTP、L2TP&#x2F;IPSec、SSLVPN、IKEv2 VPN，Cisco VPN等。其中的PPTP和L2TP是明文传输协议。只负责传输，不负责加密。分别利用了MPPE和IPSec进行加密。</p>
-<p><img src="/../images/vpn1.jpeg"></p>
-<hr>
-<h1 id="代理服务原理"><a href="#代理服务原理" class="headerlink" title="代理服务原理"></a>代理服务原理</h1><blockquote>
-<p>中转、中转、不断的中转</p>
-</blockquote>
-<p>客户端首先根据代理服务器所使用的代理协议，与代理服务器创建连接，接着按照协议请求对目标服务器创建连接、或者获得目标服务器的指定资源（如：文件）。在后一种情况中，代理服务器可能对目标服务器的资源下载至本地缓存，如果客户端所要获取的资源在代理服务器的缓存之中，则代理服务器并不会向目标服务器发送请求，而是直接传回已缓存的资源。</p>
-<hr>
-<h1 id="代理服务网络协议分析"><a href="#代理服务网络协议分析" class="headerlink" title="代理服务网络协议分析"></a>代理服务网络协议分析</h1><blockquote>
-<p>一个用 Python 写的 socks 加密代理。加密方法很简单，不过欺骗 GFW 足够了。    ——clowwindy</p>
-</blockquote>
-<h2 id="shadowsocks"><a href="#shadowsocks" class="headerlink" title="shadowsocks"></a>shadowsocks</h2><p>Shadowsocks的运行原理与其他代理工具基本相同，使用特定的中转服务器完成数据传输。例如，用户无法直接访问Google，但代理服务器可以访问，且用户可以直接连接代理服务器，那么用户就可以通过特定软件连接代理服务器，然后由代理服务器获取网站内容并回传给用户，从而实现代理上网的效果。服务器和客户端软件会要求提供密码和加密方式，双方一致后才能成功连接。连接到服务器后，客户端会在本机构建一个本地Socks5代理（或VPN、透明代理等）。浏览网络时，客户端通过这个Socks5（或其他形式）代理收集网络流量，然后再经混淆加密发送到服务器端，以防网络流量被识别和拦截，反之亦然。</p>
-<p>Shadowsocks 协议，包含入站和出站两部分，兼容大部分其它版本的实现。</p>
-<p>与官方版本的兼容性：</p>
-<blockquote>
-<p>支持 TCP 和 UDP 数据包转发，其中 UDP 可选择性关闭；<br>    支持 OTA；<br>    客户端可选开启或关闭；<br>    服务器端可强制开启、关闭或自适应；<br>    加密方式（其中 AEAD 加密方式在 V2Ray 3.0 中加入）：<br>    aes-256-cfb<br>    aes-128-cfb<br>    chacha20<br>    chacha20-ietf<br>    aes-256-gcm<br>    aes-128-gcm<br>    chacha20-poly1305 或称 chacha20-ietf-poly1305<br>    插件：<br>    通过 Standalone 模式支持 obfs</p>
-</blockquote>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//InboundConfigurationObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;email&quot;</span>: <span class="string">&quot;love@v2ray.com&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;method&quot;</span>: <span class="string">&quot;aes-128-cfb&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;password&quot;</span>: <span class="string">&quot;密码&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;level&quot;</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;ota&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">&quot;network&quot;</span>: <span class="string">&quot;tcp&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//OutboundConfigurationObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;servers&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;email&quot;</span>: <span class="string">&quot;love@v2ray.com&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;port&quot;</span>: <span class="number">1234</span>,</span><br><span class="line">      <span class="attr">&quot;method&quot;</span>: <span class="string">&quot;加密方式&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;password&quot;</span>: <span class="string">&quot;密码&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;ota&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">&quot;level&quot;</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ServerObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;email&quot;</span>: <span class="string">&quot;love@v2ray.com&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;port&quot;</span>: <span class="number">1234</span>,</span><br><span class="line">  <span class="attr">&quot;method&quot;</span>: <span class="string">&quot;加密方式&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;password&quot;</span>: <span class="string">&quot;密码&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;ota&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">&quot;level&quot;</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="shadowsocksR"><a href="#shadowsocksR" class="headerlink" title="shadowsocksR"></a>shadowsocksR</h2><p>ShadowsocksR（简称SSR）是网名为breakwa11的用户发起的Shadowsocks分支，在Shadowsocks的基础上增加了一些资料混淆方式，称修复了部分安全问题并可以提高QoS优先级。后来贡献者Librehat也为Shadowsocks补上了一些此类特性，甚至增加了类似Tor的可插拔传输层功能。</p>
-<hr>
-<h2 id="Vmess"><a href="#Vmess" class="headerlink" title="Vmess"></a>Vmess</h2><p>VMess 是一个加密传输协议，它分为入站和出站两部分，通常作为 V2Ray 客户端和服务器之间的桥梁。</p>
-<p>VMess 依赖于系统时间，请确保使用 V2Ray 的系统 UTC 时间误差在 90 秒之内，时区无关。在 Linux 系统中可以安装ntp服务来自动同步系统时间。</p>
-<p>VMess 的配置分为两部分，InboundConfigurationObject和OutboundConfigurationObject，分别对应入站和出站协议配置中的settings项。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//OutboundConfigurationObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;vnext&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;port&quot;</span>: <span class="number">37192</span>,</span><br><span class="line">      <span class="attr">&quot;users&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;27848739-7e62-4138-9fd3-098a63964b6b&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;alterId&quot;</span>: <span class="number">4</span>,</span><br><span class="line">          <span class="attr">&quot;security&quot;</span>: <span class="string">&quot;auto&quot;</span>,</span><br><span class="line">          <span class="attr">&quot;level&quot;</span>: <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//ServerObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;port&quot;</span>: <span class="number">37192</span>,</span><br><span class="line">  <span class="attr">&quot;users&quot;</span>: []</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//UserObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;27848739-7e62-4138-9fd3-098a63964b6b&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;alterId&quot;</span>: <span class="number">4</span>,</span><br><span class="line">  <span class="attr">&quot;security&quot;</span>: <span class="string">&quot;auto&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;level&quot;</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//InboundConfigurationObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;clients&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;27848739-7e62-4138-9fd3-098a63964b6b&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;level&quot;</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="attr">&quot;alterId&quot;</span>: <span class="number">4</span>,</span><br><span class="line">      <span class="attr">&quot;email&quot;</span>: <span class="string">&quot;love@v2ray.com&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;default&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;level&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;alterId&quot;</span>: <span class="number">4</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;detour&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;to&quot;</span>: <span class="string">&quot;tag_to_detour&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;disableInsecureEncryption&quot;</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//ClientObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;27848739-7e62-4138-9fd3-098a63964b6b&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;level&quot;</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;alterId&quot;</span>: <span class="number">4</span>,</span><br><span class="line">  <span class="attr">&quot;email&quot;</span>: <span class="string">&quot;love@v2ray.com&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//DetourObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;to&quot;</span>: <span class="string">&quot;tag_to_detour&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//DefaultObject</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;level&quot;</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;alterId&quot;</span>: <span class="number">4</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h2 id="Vless"><a href="#Vless" class="headerlink" title="Vless"></a>Vless</h2><p>Vmess的改进版<br><a target="_blank" rel="noopener" href="https://www.v2fly.org/">详见</a></p>
-<hr>
-<h2 id="trojan"><a href="#trojan" class="headerlink" title="trojan"></a>trojan</h2><p>近期较为稳定，c++编写<br><a target="_blank" rel="noopener" href="https://www.v2fly.org/">详见</a></p>
 
         </div>
 
         
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>QuanYuQi</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://example.com/2022/03/10/%E5%85%B3%E4%BA%8EGFW/">http://example.com/2022/03/10/%E5%85%B3%E4%BA%8EGFW/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
 
-            </section>
         
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/"># 网络工程</a>
-                    
-                        <a href="/tags/%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/"># 协议分析</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/04/05/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%92%8C%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">动态规划和贪心算法</a>
-            
-            
-            <a class="next" rel="next" href="/2022/01/10/Think%20in%20Cpp/">Think in Cpp</a>
-            
-        </section>
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/GFW/">#GFW</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">#网络协议</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%8C%85%E6%A3%80%E6%B5%8B/">#深度包检测</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%BF%BB%E5%A2%99%E6%8A%80%E6%9C%AF/">#翻墙技术</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">#网络工程</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/04/05/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%92%8C%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">算法进阶：动态规划与贪心算法的深度博弈</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+            </div>
+        
 
-    </article>
+        
+    </div>
 </div>
 
+
+                
             </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© QuanYuQi | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
     </div>
 </footer>
 
+        </div>
     </div>
-</body>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E9%95%BF%E5%9F%8E%EF%BC%88GFW%EF%BC%89%E6%8A%80%E6%9C%AF%E9%89%B4%E8%B5%8F%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">防火长城（GFW）技术鉴赏与深度剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%98%B2%E7%81%AB%E9%95%BF%E5%9F%8E%E7%9A%84%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84%EF%BC%9A%E6%97%81%E8%B7%AF%E9%83%A8%E7%BD%B2"><span class="nav-number">1.1.</span> <span class="nav-text">1. 防火长城的拓扑结构：旁路部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%AE%A1%E6%9F%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.</span> <span class="nav-text">2. 核心审查机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-DNS-%E6%B1%A1%E6%9F%93%E4%B8%8E%E5%8A%AB%E6%8C%81-DNS-Poisoning"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 DNS 污染与劫持 (DNS Poisoning)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-IP-%E5%9C%B0%E5%9D%80%E4%B8%8E%E4%BC%A0%E8%BE%93%E5%B1%82%E7%AB%AF%E5%8F%A3%E5%B0%81%E9%94%81"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 IP 地址与传输层端口封锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-TCP-%E8%BF%9E%E6%8E%A5%E9%87%8D%E7%BD%AE-TCP-Reset-Attack"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 TCP 连接重置 (TCP Reset Attack)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E6%B7%B1%E5%BA%A6%E5%8C%85%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF-DPI"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 深度包检测技术 (DPI)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%8D%9A%E5%BC%88"><span class="nav-number">1.3.</span> <span class="nav-text">3. 科学上网协议的博弈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-VPN-Virtual-Private-Network"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 VPN (Virtual Private Network)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E4%BB%A3%E7%90%86%E5%8D%8F%E8%AE%AE%EF%BC%88Shadowsocks-V2Ray-Trojan%EF%BC%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 代理协议（Shadowsocks, V2Ray, Trojan）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%90%8E-TLS-%E6%97%B6%E4%BB%A3%EF%BC%9AECH-%E4%B8%8E%E5%8A%A0%E5%AF%86-SNI"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 后 TLS 时代：ECH 与加密 SNI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BB%93%E8%AE%BA%E4%B8%8E%E5%8F%8D%E6%80%9D"><span class="nav-number">1.4.</span> <span class="nav-text">4. 结论与反思</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
 </html>

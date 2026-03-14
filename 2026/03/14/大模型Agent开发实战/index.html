@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="QuanYuQi">
+    
+    <title>
+        
+            大模型 Agent 开发实战：从 ReAct 范式到 Multi-Agent 架构深度解析 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">大模型 Agent 开发实战：从 ReAct 范式到 Multi-Agent 架构深度解析</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2026-03-14 22:18:01</span>
+        <span class="mobile">2026-03-14 22:18</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/AI-%E7%A0%94%E5%8F%91/">AI 研发</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/AI-%E7%A0%94%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/LLM/">LLM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Agent/">Agent</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B/">提示词工程</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/LangChain/">LangChain</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%9E%B6%E6%9E%84/">架构</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="大模型-Agent-开发：走向通用人工智能的必经之路"><a href="#大模型-Agent-开发：走向通用人工智能的必经之路" class="headerlink" title="大模型 Agent 开发：走向通用人工智能的必经之路"></a>大模型 Agent 开发：走向通用人工智能的必经之路</h1><p>在过去的两年里，我们见证了大型语言模型（LLM）从“会说话的百科全书”进化为“能办事的数字员工”。这种转变的核心驱动力，就是 <strong>Agent（智能体）</strong> 技术的爆发。</p>
+<p>如果你是一名前端、后端或架构师，想要转型或深入 AI 应用开发，理解并掌握 Agent 架构是必修课。本文将带你拨开迷雾，从底层逻辑到代码实战，深度解析 Agent 的设计哲学。</p>
+<hr>
+<h2 id="1-什么是-Agent？（解构数字生命）"><a href="#1-什么是-Agent？（解构数字生命）" class="headerlink" title="1. 什么是 Agent？（解构数字生命）"></a>1. 什么是 Agent？（解构数字生命）</h2><p>在传统软件工程中，程序是确定的：<strong>输入 A，执行逻辑 B，输出 C。</strong><br>而在 Agent 架构中，控制流是由大模型动态决定的：<strong>给出目标 A，大模型自行拆解步骤、选择工具、纠正错误，最终交付结果 C。</strong></p>
+<p>一个标准的 Agent 包含三个核心组件：</p>
+<ol>
+<li><strong>Brain（大脑）</strong>：LLM 充当处理中枢，负责推理、规划和决策。</li>
+<li><strong>Perception（感知）</strong>：Agent 获取外部信息的方式（如读取历史上下文、检索向量数据库 RAG）。</li>
+<li><strong>Action（执行）</strong>：通过调用外部工具（API、执行代码、操作数据库）来改变现实世界的状态。</li>
+</ol>
+<hr>
+<h2 id="2-核心范式：ReAct（Reason-Act）"><a href="#2-核心范式：ReAct（Reason-Act）" class="headerlink" title="2. 核心范式：ReAct（Reason + Act）"></a>2. 核心范式：ReAct（Reason + Act）</h2><p>在早期，LLM 只能回答问题，无法执行动作。2022 年提出的 <strong>ReAct 范式</strong> 彻底改变了这一局面。它要求大模型在采取行动之前，必须先将“思考过程”写出来。</p>
+<h3 id="ReAct-的工作流循环（The-Loop）"><a href="#ReAct-的工作流循环（The-Loop）" class="headerlink" title="ReAct 的工作流循环（The Loop）"></a>ReAct 的工作流循环（The Loop）</h3><ol>
+<li><strong>Thought（思考）</strong>：我现在需要做什么？</li>
+<li><strong>Action（行动）</strong>：选择一个工具并提供参数。</li>
+<li><strong>Observation（观察）</strong>：获取工具执行的返回结果。</li>
+<li><em>循环直至得到最终答案。</em></li>
+</ol>
+<h3 id="经典提示词模板（Prompt-Engineering）"><a href="#经典提示词模板（Prompt-Engineering）" class="headerlink" title="经典提示词模板（Prompt Engineering）"></a>经典提示词模板（Prompt Engineering）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Answer the following questions as best you can. You have access to the following tools:</span><br><span class="line"></span><br><span class="line">&#123;tools&#125;</span><br><span class="line"></span><br><span class="line">Use the following format:</span><br><span class="line"></span><br><span class="line">Question: the input question you must answer</span><br><span class="line">Thought: you should always think about what to do</span><br><span class="line">Action: the action to take, should be one of [&#123;tool_names&#125;]</span><br><span class="line">Action Input: the input to the action</span><br><span class="line">Observation: the result of the action</span><br><span class="line">... (this Thought/Action/Action Input/Observation can repeat N times)</span><br><span class="line">Thought: I now know the final answer</span><br><span class="line">Final Answer: the final answer to the original input question</span><br><span class="line"></span><br><span class="line">Begin!</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Tool-Use-x2F-Function-Calling-的底层原理"><a href="#3-Tool-Use-x2F-Function-Calling-的底层原理" class="headerlink" title="3. Tool Use &#x2F; Function Calling 的底层原理"></a>3. Tool Use &#x2F; Function Calling 的底层原理</h2><p>Agent 能够“做事”，依赖于模型支持 <strong>Function Calling</strong>。<br>这不是魔法，它的本质是：<strong>LLM 并不执行代码，它只是输出了一段包含函数名和参数的 JSON 结构，由你的后端代码解析这段 JSON 并真正执行，再把结果扔回给 LLM。</strong></p>
+<h3 id="Python-实战：构建一个能查天气的-Agent"><a href="#Python-实战：构建一个能查天气的-Agent" class="headerlink" title="Python 实战：构建一个能查天气的 Agent"></a>Python 实战：构建一个能查天气的 Agent</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> openai</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 定义我们的本地工具</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_weather</span>(<span class="params">location</span>):</span></span><br><span class="line">    <span class="comment"># 模拟 API 调用</span></span><br><span class="line">    weather_data = &#123;<span class="string">&quot;北京&quot;</span>: <span class="string">&quot;晴, 25度&quot;</span>, <span class="string">&quot;纽约&quot;</span>: <span class="string">&quot;雨, 15度&quot;</span>&#125;</span><br><span class="line">    <span class="keyword">return</span> weather_data.get(location, <span class="string">&quot;未知城市&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 告诉 LLM 我们有什么工具</span></span><br><span class="line">tools = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;type&quot;</span>: <span class="string">&quot;function&quot;</span>,</span><br><span class="line">        <span class="string">&quot;function&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;get_weather&quot;</span>,</span><br><span class="line">            <span class="string">&quot;description&quot;</span>: <span class="string">&quot;获取指定城市的天气&quot;</span>,</span><br><span class="line">            <span class="string">&quot;parameters&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;object&quot;</span>,</span><br><span class="line">                <span class="string">&quot;properties&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;location&quot;</span>: &#123;<span class="string">&quot;type&quot;</span>: <span class="string">&quot;string&quot;</span>, <span class="string">&quot;description&quot;</span>: <span class="string">&quot;城市名称，如：北京&quot;</span>&#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&quot;required&quot;</span>: [<span class="string">&quot;location&quot;</span>],</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Agent 核心逻辑</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_agent</span>(<span class="params">user_query</span>):</span></span><br><span class="line">    messages = [&#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;user&quot;</span>, <span class="string">&quot;content&quot;</span>: user_query&#125;]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 第一次调用：LLM 决定是否使用工具</span></span><br><span class="line">    response = openai.chat.completions.create(</span><br><span class="line">        model=<span class="string">&quot;gpt-4-turbo&quot;</span>,</span><br><span class="line">        messages=messages,</span><br><span class="line">        tools=tools,</span><br><span class="line">        tool_choice=<span class="string">&quot;auto&quot;</span></span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    response_message = response.choices[<span class="number">0</span>].message</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 如果 LLM 决定调用工具</span></span><br><span class="line">    <span class="keyword">if</span> response_message.tool_calls:</span><br><span class="line">        <span class="keyword">for</span> tool_call <span class="keyword">in</span> response_message.tool_calls:</span><br><span class="line">            <span class="keyword">if</span> tool_call.function.name == <span class="string">&quot;get_weather&quot;</span>:</span><br><span class="line">                <span class="comment"># 解析 LLM 给出的参数</span></span><br><span class="line">                args = json.loads(tool_call.function.arguments)</span><br><span class="line">                <span class="comment"># 本地执行工具</span></span><br><span class="line">                tool_result = get_weather(args.get(<span class="string">&quot;location&quot;</span>))</span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 将结果追加到对话历史中</span></span><br><span class="line">                messages.append(response_message)</span><br><span class="line">                messages.append(&#123;</span><br><span class="line">                    <span class="string">&quot;tool_call_id&quot;</span>: tool_call.<span class="built_in">id</span>,</span><br><span class="line">                    <span class="string">&quot;role&quot;</span>: <span class="string">&quot;tool&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;get_weather&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;content&quot;</span>: tool_result,</span><br><span class="line">                &#125;)</span><br><span class="line">                </span><br><span class="line">        <span class="comment"># 第二次调用：LLM 根据工具结果生成人类可读的回答</span></span><br><span class="line">        final_response = openai.chat.completions.create(</span><br><span class="line">            model=<span class="string">&quot;gpt-4-turbo&quot;</span>,</span><br><span class="line">            messages=messages</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">return</span> final_response.choices[<span class="number">0</span>].message.content</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(run_agent(<span class="string">&quot;北京今天天气怎么样？出门需要带伞吗？&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-从-Single-Agent-到-Multi-Agent-架构"><a href="#4-从-Single-Agent-到-Multi-Agent-架构" class="headerlink" title="4. 从 Single-Agent 到 Multi-Agent 架构"></a>4. 从 Single-Agent 到 Multi-Agent 架构</h2><p>当任务变得极其复杂（例如：开发一款贪吃蛇游戏），单一的 Agent 往往会因为上下文过长而“精神分裂”（幻觉严重，丢失目标）。</p>
+<p><strong>Multi-Agent（多智能体）架构</strong> 借鉴了人类公司的组织形式：<strong>专业分工</strong>。</p>
+<p>常见的 Multi-Agent 框架（如 Meta 的 AutoGen，或者 CrewAI）：</p>
+<ul>
+<li><strong>Manager Agent</strong>：项目经理，负责将大目标拆解为子任务。</li>
+<li><strong>Coder Agent</strong>：只负责写代码，拥有执行 Python 脚本的权限。</li>
+<li><strong>Reviewer Agent</strong>：负责代码审查，如果跑不通，将错误日志打回给 Coder。</li>
+</ul>
+<h3 id="Multi-Agent-的状态机设计（LangGraph）"><a href="#Multi-Agent-的状态机设计（LangGraph）" class="headerlink" title="Multi-Agent 的状态机设计（LangGraph）"></a>Multi-Agent 的状态机设计（LangGraph）</h3><p>在高级生产环境中，我们不再依赖松散的 Prompt 链，而是使用有向无环图（DAG）或状态机来严格控制 Agent 的走向。通过 <code>LangGraph</code>，我们可以将每个 Agent 封装为图中的一个节点，明确规定流转的边（Edges），极大地降低了系统失控的风险。</p>
+<hr>
+<h2 id="5-Agent-开发的痛点与挑战"><a href="#5-Agent-开发的痛点与挑战" class="headerlink" title="5. Agent 开发的痛点与挑战"></a>5. Agent 开发的痛点与挑战</h2><p>不要被 Demo 蒙蔽了双眼，真正的生产级 Agent 满地都是坑：</p>
+<ol>
+<li><strong>死循环（Infinite Loops）</strong>：Agent 可能在一个报错的工具上反复尝试（重试 -&gt; 失败 -&gt; 用同样的参数重试）。<strong>解法</strong>：必须在框架层面限制最大迭代步数（<code>max_iterations</code>），并在重试提示词中强制注入之前的失败历史。</li>
+<li><strong>上下文膨胀（Context Overflow）</strong>：长对话加上巨量的工具返回结果，会瞬间撑爆 Token 限制。<strong>解法</strong>：引入内存管理机制，对历史 Observation 进行摘要压缩（Summarization）。</li>
+<li><strong>响应延迟（Latency）</strong>：多次 LLM 往返调用会导致极高的耗时。在 C 端产品中，必须配合 Streaming 流式输出和合理的 UI 骨架屏进行视觉欺骗。</li>
+</ol>
+<hr>
+<blockquote>
+<p><strong>结语</strong>：<br>Agent 不是魔法，它是一场用软件工程手段“驯服”非确定性模型的工程实践。作为开发者，我们的价值不再是手写 CRUD，而是设计稳健的工作流、容错机制和高质量的系统边界，让 LLM 在我们划定的赛道上狂奔。</p>
+</blockquote>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/LLM/">#LLM</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Agent/">#Agent</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B/">#提示词工程</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/LangChain/">#LangChain</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%9E%B6%E6%9E%84/">#架构</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2026/03/14/OpenClaw%E5%8A%A8%E6%80%81Agent%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">文件即生命：OpenClaw 架构下的“动态生成与用后即焚” Agent 演进</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2024/03/19/%E5%8A%A0%E5%AF%86%E9%80%9A%E8%AE%AF%E8%BD%AF%E4%BB%B6/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">实战：设计并实现端到端（E2EE）加密通讯系统</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B-Agent-%E5%BC%80%E5%8F%91%EF%BC%9A%E8%B5%B0%E5%90%91%E9%80%9A%E7%94%A8%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%9A%84%E5%BF%85%E7%BB%8F%E4%B9%8B%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">大模型 Agent 开发：走向通用人工智能的必经之路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-Agent%EF%BC%9F%EF%BC%88%E8%A7%A3%E6%9E%84%E6%95%B0%E5%AD%97%E7%94%9F%E5%91%BD%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. 什么是 Agent？（解构数字生命）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E8%8C%83%E5%BC%8F%EF%BC%9AReAct%EF%BC%88Reason-Act%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 核心范式：ReAct（Reason + Act）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ReAct-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%BE%AA%E7%8E%AF%EF%BC%88The-Loop%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">ReAct 的工作流循环（The Loop）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%A8%A1%E6%9D%BF%EF%BC%88Prompt-Engineering%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">经典提示词模板（Prompt Engineering）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Tool-Use-x2F-Function-Calling-%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">3. Tool Use &#x2F; Function Calling 的底层原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-%E5%AE%9E%E6%88%98%EF%BC%9A%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%83%BD%E6%9F%A5%E5%A4%A9%E6%B0%94%E7%9A%84-Agent"><span class="nav-number">1.3.1.</span> <span class="nav-text">Python 实战：构建一个能查天气的 Agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BB%8E-Single-Agent-%E5%88%B0-Multi-Agent-%E6%9E%B6%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">4. 从 Single-Agent 到 Multi-Agent 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-Agent-%E7%9A%84%E7%8A%B6%E6%80%81%E6%9C%BA%E8%AE%BE%E8%AE%A1%EF%BC%88LangGraph%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">Multi-Agent 的状态机设计（LangGraph）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Agent-%E5%BC%80%E5%8F%91%E7%9A%84%E7%97%9B%E7%82%B9%E4%B8%8E%E6%8C%91%E6%88%98"><span class="nav-number">1.5.</span> <span class="nav-text">5. Agent 开发的痛点与挑战</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

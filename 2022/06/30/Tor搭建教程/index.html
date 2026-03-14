@@ -1,256 +1,471 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
     <meta name="author" content="QuanYuQi">
-
-
-
-
-
-<title>How to build a Tor | QuanYuQi&#39;s CyberSpace</title>
-
-
-
-    <link rel="icon" href="/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
+    <title>
         
+            Tor 匿名服务搭建指南：从零开始构建你的 .onion 站点 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
     
+<link rel="stylesheet" href="/css/style.css">
 
-
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
 <meta name="generator" content="Hexo 5.4.1"></head>
 
+
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const pagebody = document.getElementsByTagName('body')[0]
-
-            function setTheme(status) {
-
-                if (status === 'dark') {
-                    window.sessionStorage.theme = 'dark'
-                    pagebody.classList.add('dark-theme');
-
-                } else if (status === 'light') {
-                    window.sessionStorage.theme = 'light'
-                    pagebody.classList.remove('dark-theme');
-                }
-            };
-
-            setTheme(window.sessionStorage.theme)
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Ethan&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                <a class="menu-item" href="/archives">Posts</a>
-                
-                <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
-                
-                <a class="menu-item" href="/about">About</a>
-                
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
-
+<div class="progress-bar-container">
     
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Ethan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">
-                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
-                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
-                </div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                <a class="menu-item" href="/archives">Posts</a>
-                
-                <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
-                
-                <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if (toggleMenu.classList.contains("active")) {
-            toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        } else {
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
+        <span class="scroll-progress-bar"></span>
     
 
     
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">How to build a Tor</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">QuanYuQi</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 30, 2022&nbsp;&nbsp;18:38:09</a>
-                        </span>
-                    
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
-                            
-                                <a href="/categories/%E6%95%99%E7%A8%8B/web%E6%95%99%E7%A8%8B/">web教程</a>
-                            
-                        </span>
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <p>废话不说，直接上代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/apt/source.list; add <span class="string">&quot;deb http://tor.project.org/torproject.org main&quot;</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get install nginx</span><br><span class="line">apt-get install tor</span><br><span class="line">vim etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-
-<p>Nginx configure</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">8000</span>;</span><br><span class="line">  <span class="attribute">root</span> /usr/share/nginx/www;</span><br><span class="line">  <span class="attribute">index</span> index.html index.htm;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">server_name</span> localhost;</span><br><span class="line">  </span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">alias</span> /usr/share/doc/;</span><br><span class="line">    <span class="attribute">autoindex</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">allow</span> <span class="number">127.0.0.1</span>;</span><br><span class="line">    <span class="attribute">allow</span> ::<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">deny</span> all;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Tor configure</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/tor/torrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># add two command</span></span><br><span class="line">HiddenServiceDir /var/lib/tor/hidden_service/</span><br><span class="line">HiddenServicePort 80 127.0.0.1:8080</span><br></pre></td></tr></table></figure>
-
-<p>Restart Service</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">systemctl start nginx</span><br><span class="line">service nginx reload</span><br><span class="line">systemctl start tor</span><br><span class="line">systemctl <span class="built_in">enable</span> tor</span><br><span class="line"><span class="comment"># 查看私钥</span></span><br><span class="line">cat /var/lib/tor/hidden_service/private_key</span><br><span class="line"><span class="comment"># 查看onion域名</span></span><br><span class="line">cat /var/lib/tor/hidden_service/hostname</span><br></pre></td></tr></table></figure>
-
-
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>QuanYuQi</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://example.com/2022/06/30/Tor%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">http://example.com/2022/06/30/Tor%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</a></span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>License:</span>
-                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
-                    </p>
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>Do you believe in <strong>DESTINY</strong>?</span>
-                     </p>
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"># 网络安全</a>
-                    
-                        <a href="/tags/%E5%8C%BF%E5%90%8D%E6%8A%80%E6%9C%AF/"># 匿名技术</a>
-                    
-                        <a href="/tags/Tor/"># Tor</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/07/01/%E5%85%B3%E4%BA%8E%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">How to Search Hacking Information</a>
-            
-            
-            <a class="next" rel="next" href="/2022/05/05/%E7%B2%BE%E9%80%89%E7%AE%97%E6%B3%95%E9%A2%98/">Algorithm Problem Solution</a>
-            
-        </section>
-
-
-    </article>
 </div>
 
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
             </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© QuanYuQi | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Tor 匿名服务搭建指南：从零开始构建你的 .onion 站点</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-06-30 18:38:09</span>
+        <span class="mobile">2022-06-30 18:38</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E6%95%99%E7%A8%8B/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8C%BF%E5%90%8D%E6%8A%80%E6%9C%AF/">匿名技术</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Tor/">Tor</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%9A%97%E7%BD%91/">暗网</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Nginx/">Nginx</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Tor-匿名服务搭建指南"><a href="#Tor-匿名服务搭建指南" class="headerlink" title="Tor 匿名服务搭建指南"></a>Tor 匿名服务搭建指南</h1><p>Tor（The Onion Router，洋葱路由器）不仅可以用于匿名上网，还可以让你通过 <strong>Hidden Services（隐藏服务）</strong> 搭建自己的匿名服务器。这类服务使用 <code>.onion</code> 域名，流量在 Tor 网络内部多次加密跳转，极大地保护了服务器的真实 IP 地址和物理位置。</p>
+<p>本文将详细介绍如何在 Linux 环境下使用 Nginx 和 Tor 搭建一个高匿名的隐藏服务。</p>
+<hr>
+<h2 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1. 环境准备"></a>1. 环境准备</h2><p>本教程以 Debian&#x2F;Ubuntu 系统为例。你需要拥有服务器的 <code>root</code> 或 <code>sudo</code> 权限。</p>
+<h3 id="更新系统源"><a href="#更新系统源" class="headerlink" title="更新系统源"></a>更新系统源</h3><p>首先，我们需要确保系统源是最新的，并添加 Tor 项目的官方源以获取最新版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装必要的依赖</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y apt-transport-https curl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 Tor 官方源 (以 Ubuntu 为例，如果是 Debian 请根据版本修改)</span></span><br><span class="line"><span class="comment"># 注意：在生产环境中建议检查官方文档以获取最新的签名 Key</span></span><br><span class="line">sudo apt-get install -y tor deb.torproject.org-keyring</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2-安装基础服务"><a href="#2-安装基础服务" class="headerlink" title="2. 安装基础服务"></a>2. 安装基础服务</h2><p>我们需要两个核心组件：<strong>Nginx</strong>（作为 Web 服务器）和 <strong>Tor</strong>（作为匿名中转网关）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y nginx tor</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-配置-Nginx"><a href="#3-配置-Nginx" class="headerlink" title="3. 配置 Nginx"></a>3. 配置 Nginx</h2><p>我们的目标是让 Nginx 只在本地（localhost）监听，防止它直接暴露在公网 IP 上，从而避免被扫描到真实位置。</p>
+<h3 id="编辑-Nginx-配置"><a href="#编辑-Nginx-配置" class="headerlink" title="编辑 Nginx 配置"></a>编辑 Nginx 配置</h3><p>修改 <code>/etc/nginx/sites-available/default</code> 或新建一个配置文件：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">127.0.0.1:8080</span>; <span class="comment"># 关键：只监听本地回环地址</span></span><br><span class="line">    </span><br><span class="line">    <span class="attribute">root</span> /var/www/html;</span><br><span class="line">    <span class="attribute">index</span> index.html index.htm;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="comment"># 隐藏 Nginx 版本号，增加安全性</span></span><br><span class="line">        <span class="attribute">server_tokens</span> <span class="literal">off</span>;</span><br><span class="line">        <span class="attribute">try_files</span> $uri $uri/ =<span class="number">404</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 禁止通过真实 IP 直接访问（虽然只监听了本地，但这是一种多重防护）</span></span><br><span class="line">    <span class="attribute">allow</span> <span class="number">127.0.0.1</span>;</span><br><span class="line">    <span class="attribute">deny</span> all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>安全提示</strong>：请确保 <code>/var/www/html</code> 目录下没有包含任何可能泄露你身份的文件（如日志、包含真实域名的测试页面等）。</p>
+<hr>
+<h2 id="4-配置-Tor-隐藏服务"><a href="#4-配置-Tor-隐藏服务" class="headerlink" title="4. 配置 Tor 隐藏服务"></a>4. 配置 Tor 隐藏服务</h2><p>接下来，我们需要告诉 Tor 将外网的 <code>.onion</code> 请求转发到本地的 Nginx。</p>
+<h3 id="修改-Tor-配置文件"><a href="#修改-Tor-配置文件" class="headerlink" title="修改 Tor 配置文件"></a>修改 Tor 配置文件</h3><p>编辑 <code>/etc/tor/torrc</code>，找到 <code>Hidden Service</code> 部分并取消注释或添加以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 隐藏服务的密钥和主机名存储目录</span></span><br><span class="line">HiddenServiceDir /var/lib/tor/hidden_service/</span><br><span class="line"><span class="comment"># 将 Tor 的 80 端口请求转发到本地 Nginx 的 8080 端口</span></span><br><span class="line">HiddenServicePort 80 127.0.0.1:8080</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-启动与验证"><a href="#5-启动与验证" class="headerlink" title="5. 启动与验证"></a>5. 启动与验证</h2><h3 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h3><p>使配置生效并启动服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启 Nginx</span></span><br><span class="line">sudo systemctl restart nginx</span><br><span class="line"><span class="comment"># 重启 Tor</span></span><br><span class="line">sudo systemctl restart tor</span><br><span class="line"><span class="comment"># 设置开机自启</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> tor</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取你的-onion-域名"><a href="#获取你的-onion-域名" class="headerlink" title="获取你的 .onion 域名"></a>获取你的 .onion 域名</h3><p>当 Tor 启动后，它会自动在 <code>HiddenServiceDir</code> 目录下生成一个私钥和一个主机名文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看生成的 Onion 域名</span></span><br><span class="line">sudo cat /var/lib/tor/hidden_service/hostname</span><br></pre></td></tr></table></figure>
+<p>你将看到类似 <code>vww6ybal4bd7szmgncyruucpgfkqahzddi37ktce.onion</code> 的地址。</p>
+<hr>
+<h2 id="6-安全加固建议-Masterpiece-Edition"><a href="#6-安全加固建议-Masterpiece-Edition" class="headerlink" title="6. 安全加固建议 (Masterpiece Edition)"></a>6. 安全加固建议 (Masterpiece Edition)</h2><ol>
+<li><strong>OPSEC（操作安全）</strong>：永远不要在隐藏服务上运行与你真实身份相关的任何程序。</li>
+<li><strong>防火墙策略</strong>：使用 <code>iptables</code> 或 <code>ufw</code> 仅允许 127.0.0.1 的流量进入 Web 端口。</li>
+<li><strong>禁用指纹信息</strong>：在 Nginx 中关闭所有不必要的模块，避免通过特定的 HTTP 头信息被识别出服务器环境。</li>
+<li><strong>定期备份私钥</strong>：<code>/var/lib/tor/hidden_service/private_key</code> 是你的站点唯一凭证，一旦丢失，你将永远失去该 <code>.onion</code> 域名。请妥善加密备份。</li>
+<li><strong>监控</strong>：定期检查 <code>/var/log/nginx/error.log</code>，留意任何异常的探测行为。</li>
+</ol>
+<hr>
+<blockquote>
+<p><strong>结语</strong>：搭建 Tor 隐藏服务是探索匿名通信的第一步。请在法律允许的范围内进行技术研究。</p>
+</blockquote>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">#网络安全</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%8C%BF%E5%90%8D%E6%8A%80%E6%9C%AF/">#匿名技术</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Tor/">#Tor</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%9A%97%E7%BD%91/">#暗网</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Nginx/">#Nginx</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/07/01/%E5%85%B3%E4%BA%8E%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">黑客攻防实战：信息收集与资产发现全流程</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/04/05/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%92%8C%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">算法进阶：动态规划与贪心算法的深度博弈</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
     </div>
 </footer>
 
+        </div>
     </div>
-</body>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tor-%E5%8C%BF%E5%90%8D%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97"><span class="nav-number">1.</span> <span class="nav-text">Tor 匿名服务搭建指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.1.</span> <span class="nav-text">1. 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E6%BA%90"><span class="nav-number">1.1.1.</span> <span class="nav-text">更新系统源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">2. 安装基础服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE-Nginx"><span class="nav-number">1.3.</span> <span class="nav-text">3. 配置 Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91-Nginx-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">编辑 Nginx 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AE-Tor-%E9%9A%90%E8%97%8F%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.4.</span> <span class="nav-text">4. 配置 Tor 隐藏服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-Tor-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.1.</span> <span class="nav-text">修改 Tor 配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%90%AF%E5%8A%A8%E4%B8%8E%E9%AA%8C%E8%AF%81"><span class="nav-number">1.5.</span> <span class="nav-text">5. 启动与验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.1.</span> <span class="nav-text">重启服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E4%BD%A0%E7%9A%84-onion-%E5%9F%9F%E5%90%8D"><span class="nav-number">1.5.2.</span> <span class="nav-text">获取你的 .onion 域名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA%E5%BB%BA%E8%AE%AE-Masterpiece-Edition"><span class="nav-number">1.6.</span> <span class="nav-text">6. 安全加固建议 (Masterpiece Edition)</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
 </html>
