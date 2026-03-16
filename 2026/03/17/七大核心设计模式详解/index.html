@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="QuanYuQi">
+    
+    <title>
+        
+            内化于心：日常开发中最核心的 7 种设计模式（80/20法则） |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">内化于心：日常开发中最核心的 7 种设计模式（80/20法则）</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2026-03-17 03:12:57</span>
+        <span class="mobile">2026-03-17 03:12</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E7%BC%96%E7%A8%8B%E5%BF%83%E6%B3%95/">编程心法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%9E%B6%E6%9E%84/">架构</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%BC%96%E7%A8%8B%E5%93%B2%E5%AD%A6/">编程哲学</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="内化于心：日常开发中最核心的-7-种设计模式"><a href="#内化于心：日常开发中最核心的-7-种设计模式" class="headerlink" title="内化于心：日常开发中最核心的 7 种设计模式"></a>内化于心：日常开发中最核心的 7 种设计模式</h1><p>GoF（四人帮）总结了 23 种设计模式，但说实话，有些模式你可能职业生涯都用不上几次。根据二八定律，<strong>掌握这 7 种设计模式，就能解决日常开发中 80% 的代码坏味道</strong>。</p>
+<p>为了让你“过目不忘”，我拒绝晦涩的 UML 图，直接用最直白的<strong>生活隐喻</strong>和<strong>一句话本质</strong>，帮你将它们刻在脑子里。</p>
+<hr>
+<h2 id="1-策略模式-Strategy-——-“随时换脑”"><a href="#1-策略模式-Strategy-——-“随时换脑”" class="headerlink" title="1. 策略模式 (Strategy) —— “随时换脑”"></a>1. 策略模式 (Strategy) —— “随时换脑”</h2><p><strong>一句话本质</strong>：将不同的算法（策略）封装成独立的类，让它们可以互相替换，从而消灭成堆的 <code>if-else</code>。</p>
+<p><strong>生活隐喻</strong>：<br>你（Context）要去机场。你可以选择打车（策略 A）、坐地铁（策略 B）或骑共享单车（策略 C）。你的目的都是“到机场”，但具体怎么去，可以在出发前临时决定。</p>
+<p><strong>什么时候用？</strong><br>当你发现代码里出现了 <code>if (type == &quot;支付宝&quot;) &#123; ... &#125; else if (type == &quot;微信&quot;) &#123; ... &#125; else if (type == &quot;银联&quot;) &#123; ... &#125;</code> 这种又臭又长的判断时，立刻使用策略模式，把每种支付方式写成一个独立的类，实现同一个 <code>PaymentStrategy</code> 接口。</p>
+<hr>
+<h2 id="2-观察者模式-Observer-——-“微信公众号”"><a href="#2-观察者模式-Observer-——-“微信公众号”" class="headerlink" title="2. 观察者模式 (Observer) —— “微信公众号”"></a>2. 观察者模式 (Observer) —— “微信公众号”</h2><p><strong>一句话本质</strong>：一对多的依赖关系，当一个对象状态改变时，所有依赖它的对象都会得到通知并自动更新。</p>
+<p><strong>生活隐喻</strong>：<br>你关注了一个微信公众号（Subject / 被观察者）。当公众号发新文章时，系统会自动把文章推送到你的手机上（Observer / 观察者）。你不需要每隔五分钟去刷新一下公众号看看有没有更新（告别低效的轮询）。</p>
+<p><strong>什么时候用？</strong><br>经典的 MVC 架构（Model 变了，View 自动更新）、前端的事件监听（<code>onClick</code>）、后端的 MQ 消息广播订阅，本质上全都是观察者模式。</p>
+<hr>
+<h2 id="3-装饰器模式-Decorator-——-“游戏角色穿装备”"><a href="#3-装饰器模式-Decorator-——-“游戏角色穿装备”" class="headerlink" title="3. 装饰器模式 (Decorator) —— “游戏角色穿装备”"></a>3. 装饰器模式 (Decorator) —— “游戏角色穿装备”</h2><p><strong>一句话本质</strong>：在不改变原有对象代码的情况下，动态地给对象增加新的功能（比继承更灵活）。</p>
+<p><strong>生活隐喻</strong>：<br>你创建了一个游戏角色（基础对象）。<br>你给他穿上了一件盔甲（装饰器 A），他有了防御力。<br>你又给他配了一把屠龙刀（装饰器 B），他有了攻击力。<br>盔甲和屠龙刀并没有改变“角色”的本质，只是“包裹”在角色外面，附加了新能力。</p>
+<p><strong>什么时候用？</strong><br>当你想要给一个类扩展功能，但不想写一堆子类（避免“子类爆炸”）时。比如 Java 的 I/O 流：<code>new BufferedInputStream(new FileInputStream(file))</code>，一层套一层，极致优雅。</p>
+<hr>
+<h2 id="4-工厂方法模式-Factory-Method-——-“代工厂”"><a href="#4-工厂方法模式-Factory-Method-——-“代工厂”" class="headerlink" title="4. 工厂方法模式 (Factory Method) —— “代工厂”"></a>4. 工厂方法模式 (Factory Method) —— “代工厂”</h2><p><strong>一句话本质</strong>：定义一个创建对象的接口，但让子类决定实例化哪一个类。将 <code>new</code> 操作延迟到子类。</p>
+<p><strong>生活隐喻</strong>：<br>苹果公司（抽象工厂）只制定设计规范，不负责亲自组装手机。<br>富士康（具体工厂 A）负责生产 iPhone。<br>立讯精密（具体工厂 B）负责生产 AirPods。<br>你作为消费者，只需要找苹果公司“买”产品，不需要知道具体是哪个厂子、用什么螺丝拧出来的。</p>
+<p><strong>什么时候用？</strong><br>当一个类的实例化过程非常复杂，或者你需要根据不同的条件创建不同的实例，但又不想把一堆 <code>new</code> 操作硬编码（Hardcode）在业务逻辑里时。</p>
+<hr>
+<h2 id="5-单例模式-Singleton-——-“唯一真神”"><a href="#5-单例模式-Singleton-——-“唯一真神”" class="headerlink" title="5. 单例模式 (Singleton) —— “唯一真神”"></a>5. 单例模式 (Singleton) —— “唯一真神”</h2><p><strong>一句话本质</strong>：确保一个类在整个系统中只有一个实例，并提供一个全局访问点。</p>
+<p><strong>生活隐喻</strong>：<br>一个国家只能有一个现任总统。无论谁去问“总统是谁”，得到的答案都必须是同一个人。</p>
+<p><strong>什么时候用？</strong><br>非常明确的全局共享资源，比如：数据库连接池、全局配置管理器（Config）、操作系统的任务管理器。<br><em>注：一定要注意多线程并发情况下的线程安全问题（如：双重检查锁 Double-Checked Locking）。</em></p>
+<hr>
+<h2 id="6-适配器模式-Adapter-——-“电源转换头”"><a href="#6-适配器模式-Adapter-——-“电源转换头”" class="headerlink" title="6. 适配器模式 (Adapter) —— “电源转换头”"></a>6. 适配器模式 (Adapter) —— “电源转换头”</h2><p><strong>一句话本质</strong>：将一个类的接口转换成客户希望的另一个接口，使得原本由于接口不兼容而不能一起工作的类可以一起工作。</p>
+<p><strong>生活隐喻</strong>：<br>你带着国行版的笔记本电脑去了欧洲，发现插座是圆孔的（旧接口），而你的插头是扁平的（新需求）。怎么办？买一个“电源转换头（Adapter）”插在中间。</p>
+<p><strong>什么时候用？</strong><br>你引入了一个极其好用的第三方库，但是它提供的函数方法名和你系统里现有的完全对不上。你不想改自己的系统，也改不了第三方库的源码。这时，写一个适配器类，包装一下第三方库，向外暴露你系统认识的接口。</p>
+<hr>
+<h2 id="7-外观模式-Facade-——-“前台接待处”"><a href="#7-外观模式-Facade-——-“前台接待处”" class="headerlink" title="7. 外观模式 (Facade) —— “前台接待处”"></a>7. 外观模式 (Facade) —— “前台接待处”</h2><p><strong>一句话本质</strong>：为子系统中的一组接口提供一个一致的、更高层的界面，使得子系统更加容易使用。</p>
+<p><strong>生活隐喻</strong>：<br>你去医院看病。如果你自己去，你需要挂号、找诊室、化验、交费、取药，在不同科室之间跑断腿（调用各种底层子系统）。<br>但如果你去了一家高端私立医院，会有个“私人管家（Facade）”全程跟着你，你只需要对管家说“我要看病”，他就会帮你把所有繁琐的流程都走完。</p>
+<p><strong>什么时候用？</strong><br>当你有一个极其复杂的庞大系统时。比如启动一辆汽车，底层涉及到点火系统、喷油系统、起动机等十几个模块，但暴露给驾驶员的只有一个简单的“一键启动”按钮。</p>
+<hr>
+<h2 id="💡-终极心法：超越模式"><a href="#💡-终极心法：超越模式" class="headerlink" title="💡 终极心法：超越模式"></a>💡 终极心法：超越模式</h2><p>记住，<strong>设计模式不是法律，而是词汇表</strong>。</p>
+<p>我们学习设计模式，不是为了在代码里生搬硬套（过度设计是万恶之源），而是为了在和同事沟通时，能够用最简洁的语言达成共识：</p>
+<ul>
+<li>“这里太乱了，我们抽个<strong>策略</strong>出来吧。”</li>
+<li>“这个老接口别改了，包个<strong>适配器</strong>吧。”</li>
+</ul>
+<p><strong>当这七个词汇融入你的直觉，你的代码品味就已经超越了 80% 的同行。</strong></p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%9E%B6%E6%9E%84/">#架构</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">#设计模式</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%BC%96%E7%A8%8B%E5%93%B2%E5%AD%A6/">#编程哲学</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2026/03/17/JVM%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E4%B8%8E%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E6%8C%87%E5%8D%97/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">JVM 性能调优与线上故障排查：从底层原理到实战救火</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2026/03/17/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E4%B8%8E%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">架构师必修课：分布式事务与最终一致性的深度博弈</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%8C%96%E4%BA%8E%E5%BF%83%EF%BC%9A%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E4%B8%AD%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84-7-%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">内化于心：日常开发中最核心的 7 种设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy-%E2%80%94%E2%80%94-%E2%80%9C%E9%9A%8F%E6%97%B6%E6%8D%A2%E8%84%91%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">1. 策略模式 (Strategy) —— “随时换脑”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-Observer-%E2%80%94%E2%80%94-%E2%80%9C%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E2%80%9D"><span class="nav-number">1.2.</span> <span class="nav-text">2. 观察者模式 (Observer) —— “微信公众号”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F-Decorator-%E2%80%94%E2%80%94-%E2%80%9C%E6%B8%B8%E6%88%8F%E8%A7%92%E8%89%B2%E7%A9%BF%E8%A3%85%E5%A4%87%E2%80%9D"><span class="nav-number">1.3.</span> <span class="nav-text">3. 装饰器模式 (Decorator) —— “游戏角色穿装备”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-Method-%E2%80%94%E2%80%94-%E2%80%9C%E4%BB%A3%E5%B7%A5%E5%8E%82%E2%80%9D"><span class="nav-number">1.4.</span> <span class="nav-text">4. 工厂方法模式 (Factory Method) —— “代工厂”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-%E2%80%94%E2%80%94-%E2%80%9C%E5%94%AF%E4%B8%80%E7%9C%9F%E7%A5%9E%E2%80%9D"><span class="nav-number">1.5.</span> <span class="nav-text">5. 单例模式 (Singleton) —— “唯一真神”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F-Adapter-%E2%80%94%E2%80%94-%E2%80%9C%E7%94%B5%E6%BA%90%E8%BD%AC%E6%8D%A2%E5%A4%B4%E2%80%9D"><span class="nav-number">1.6.</span> <span class="nav-text">6. 适配器模式 (Adapter) —— “电源转换头”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-Facade-%E2%80%94%E2%80%94-%E2%80%9C%E5%89%8D%E5%8F%B0%E6%8E%A5%E5%BE%85%E5%A4%84%E2%80%9D"><span class="nav-number">1.7.</span> <span class="nav-text">7. 外观模式 (Facade) —— “前台接待处”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%A1-%E7%BB%88%E6%9E%81%E5%BF%83%E6%B3%95%EF%BC%9A%E8%B6%85%E8%B6%8A%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.8.</span> <span class="nav-text">💡 终极心法：超越模式</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

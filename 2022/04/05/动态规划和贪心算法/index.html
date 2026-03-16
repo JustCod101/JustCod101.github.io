@@ -18,6 +18,23 @@
 
     <link rel="shortcut icon" href="/images/logo.svg">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
@@ -221,53 +238,53 @@
         <div class="article-content markdown-body">
             <h1 id="动态规划与贪心算法：从底层逻辑到实战应用"><a href="#动态规划与贪心算法：从底层逻辑到实战应用" class="headerlink" title="动态规划与贪心算法：从底层逻辑到实战应用"></a>动态规划与贪心算法：从底层逻辑到实战应用</h1><p>在算法世界中，<strong>动态规划（Dynamic Programming, DP）</strong> 和 <strong>贪心算法（Greedy Algorithm）</strong> 是解决最优化问题的两大利器。它们虽然都依赖于“最优子结构”，但在处理子问题重叠和全局最优选择上有着本质的区别。</p>
 <hr>
-<h2 id="1-核心概念对比"><a href="#1-核心概念对比" class="headerlink" title="1. 核心概念对比"></a>1. 核心概念对比</h2><table>
+<h2 id="1-核心概念对比"><a href="#1-核心概念对比" class="headerlink" title="1. 核心概念对比"></a>1. 核心概念对比</h2><div class="table-container">
+<table>
 <thead>
 <tr>
-<th align="left">特性</th>
-<th align="left">动态规划 (DP)</th>
-<th align="left">贪心算法 (Greedy)</th>
+<th style="text-align:left">特性</th>
+<th style="text-align:left">动态规划 (DP)</th>
+<th style="text-align:left">贪心算法 (Greedy)</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left"><strong>基本思想</strong></td>
-<td align="left">穷举所有可能，通过经验（子问题结果）推导未来</td>
-<td align="left">每一步都采取当前状态下的局部最优选择</td>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>基本思想</strong></td>
+<td style="text-align:left">穷举所有可能，通过经验（子问题结果）推导未来</td>
+<td style="text-align:left">每一步都采取当前状态下的局部最优选择</td>
 </tr>
 <tr>
-<td align="left"><strong>子问题关系</strong></td>
-<td align="left">子问题重叠，通过状态转移方程联系</td>
-<td align="left">子问题独立，当前选择不影响后续最优性</td>
+<td style="text-align:left"><strong>子问题关系</strong></td>
+<td style="text-align:left">子问题重叠，通过状态转移方程联系</td>
+<td style="text-align:left">子问题独立，当前选择不影响后续最优性</td>
 </tr>
 <tr>
-<td align="left"><strong>最优性保证</strong></td>
-<td align="left">全局最优（通过回溯或存储确保）</td>
-<td align="left">不一定全局最优，需数学证明贪心选择性质</td>
+<td style="text-align:left"><strong>最优性保证</strong></td>
+<td style="text-align:left">全局最优（通过回溯或存储确保）</td>
+<td style="text-align:left">不一定全局最优，需数学证明贪心选择性质</td>
 </tr>
 <tr>
-<td align="left"><strong>计算方向</strong></td>
-<td align="left">通常自底向上（迭代）或自顶向下（记忆化）</td>
-<td align="left">通常自顶向下，逐步缩小问题规模</td>
+<td style="text-align:left"><strong>计算方向</strong></td>
+<td style="text-align:left">通常自底向上（迭代）或自顶向下（记忆化）</td>
+<td style="text-align:left">通常自顶向下，逐步缩小问题规模</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <hr>
 <h2 id="2-背包问题：理解差异的最佳入口"><a href="#2-背包问题：理解差异的最佳入口" class="headerlink" title="2. 背包问题：理解差异的最佳入口"></a>2. 背包问题：理解差异的最佳入口</h2><h3 id="2-1-0-1-背包问题（动态规划）"><a href="#2-1-0-1-背包问题（动态规划）" class="headerlink" title="2.1 0-1 背包问题（动态规划）"></a>2.1 0-1 背包问题（动态规划）</h3><p>由于物品不可分割，当前的决策（拿或不拿）会影响后续所有可能的组合，必须穷举状态。</p>
 <p><strong>状态转移方程</strong>：<br><code>dp[i][j] = max(dp[i-1][j], v[i] + dp[i-1][j - w[i]])</code></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 优化后的空间压缩版（滚动数组）</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">knapsack01</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; weights, vector&lt;<span class="keyword">int</span>&gt;&amp; values, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = weights.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(W + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= weights[i]; j--) &#123; <span class="comment">// 逆序确保每个物品只用一次</span></span><br><span class="line">            dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weights[i]] + values[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-分数背包问题（贪心）"><a href="#2-2-分数背包问题（贪心）" class="headerlink" title="2.2 分数背包问题（贪心）"></a>2.2 分数背包问题（贪心）</h3><p>物品可以切割。我们只需按 <strong>单位价值（Value&#x2F;Weight）</strong> 降序排列，依次装入即可确保全局最优。</p>
+<h3 id="2-2-分数背包问题（贪心）"><a href="#2-2-分数背包问题（贪心）" class="headerlink" title="2.2 分数背包问题（贪心）"></a>2.2 分数背包问题（贪心）</h3><p>物品可以切割。我们只需按 <strong>单位价值（Value/Weight）</strong> 降序排列，依次装入即可确保全局最优。</p>
 <hr>
 <h2 id="3-动态规划经典实例"><a href="#3-动态规划经典实例" class="headerlink" title="3. 动态规划经典实例"></a>3. 动态规划经典实例</h2><h3 id="3-1-最长公共子序列-LCS"><a href="#3-1-最长公共子序列-LCS" class="headerlink" title="3.1 最长公共子序列 (LCS)"></a>3.1 最长公共子序列 (LCS)</h3><p>用于衡量两个序列的相似度，是基因测序等领域的基础。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(string text1, string text2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = text1.<span class="built_in">length</span>(), m = text2.<span class="built_in">length</span>();</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(n + <span class="number">1</span>, vector&lt;<span class="keyword">int</span>&gt;(m + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (text1[i<span class="number">-1</span>] == text2[j<span class="number">-1</span>]) </span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>; <span class="comment">// 字符相同，长度加一</span></span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                dp[i][j] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][j], dp[i][j<span class="number">-1</span>]); <span class="comment">// 舍弃其一，取最大值</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n][m];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h3 id="3-2-买卖股票的最佳时机-状态机视角"><a href="#3-2-买卖股票的最佳时机-状态机视角" class="headerlink" title="3.2 买卖股票的最佳时机 (状态机视角)"></a>3.2 买卖股票的最佳时机 (状态机视角)</h3><p>通过定义 <code>hold</code>（持有）和 <code>sold</code>（未持有）两种状态，可以优雅地解决所有变体。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LeetCode 122. 买卖股票的最佳时机 II (不限交易次数)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> cash = <span class="number">0</span>, hold = -prices[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cash = <span class="built_in">max</span>(cash, hold + prices[i]);  <span class="comment">// 卖出，取最大利润</span></span><br><span class="line">        hold = <span class="built_in">max</span>(hold, cash - prices[i]);  <span class="comment">// 买入，更新持有成本</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="4-贪心算法经典实例"><a href="#4-贪心算法经典实例" class="headerlink" title="4. 贪心算法经典实例"></a>4. 贪心算法经典实例</h2><h3 id="4-1-分发糖果-Candy"><a href="#4-1-分发糖果-Candy" class="headerlink" title="4.1 分发糖果 (Candy)"></a>4.1 分发糖果 (Candy)</h3><p><strong>策略</strong>：两次遍历。第一次从左往右，确保右边比左边评分高的人糖果多；第二次从右往左，确保左边比右边评分高的人糖果多。</p>
 <h3 id="4-2-二叉树的最大路径和-Hard"><a href="#4-2-二叉树的最大路径和-Hard" class="headerlink" title="4.2 二叉树的最大路径和 (Hard)"></a>4.2 二叉树的最大路径和 (Hard)</h3><p>虽然这是一个递归问题，但它体现了“局部贡献值”的贪心思想。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> maxSum = INT_MIN;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">maxGain</span>(root);</span><br><span class="line">        <span class="keyword">return</span> maxSum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxGain</span><span class="params">(TreeNode* node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 递归计算左右子节点的最大贡献值</span></span><br><span class="line">        <span class="comment">// 如果贡献为负，则舍弃（贪心思想：取 0）</span></span><br><span class="line">        <span class="keyword">int</span> leftGain = <span class="built_in">max</span>(<span class="built_in">maxGain</span>(node-&gt;left), <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> rightGain = <span class="built_in">max</span>(<span class="built_in">maxGain</span>(node-&gt;right), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当前节点作为“最高转折点”时的路径和</span></span><br><span class="line">        <span class="keyword">int</span> currentPathSum = node-&gt;val + leftGain + rightGain;</span><br><span class="line">        maxSum = <span class="built_in">max</span>(maxSum, currentPathSum);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 返回该节点能提供给父节点的最大单侧贡献</span></span><br><span class="line">        <span class="keyword">return</span> node-&gt;val + <span class="built_in">max</span>(leftGain, rightGain);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="5-总结：如何选择？"><a href="#5-总结：如何选择？" class="headerlink" title="5. 总结：如何选择？"></a>5. 总结：如何选择？</h2><ol>
 <li><strong>尝试贪心</strong>：如果问题可以通过局部最优选择且不回溯来解决（如区间调度、哈夫曼编码），优先使用贪心，时间复杂度通常更低。</li>

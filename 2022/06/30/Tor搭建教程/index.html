@@ -18,6 +18,23 @@
 
     <link rel="shortcut icon" href="/images/logo.svg">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
@@ -226,29 +243,24 @@
             <h1 id="Tor-匿名服务搭建指南"><a href="#Tor-匿名服务搭建指南" class="headerlink" title="Tor 匿名服务搭建指南"></a>Tor 匿名服务搭建指南</h1><p>Tor（The Onion Router，洋葱路由器）不仅可以用于匿名上网，还可以让你通过 <strong>Hidden Services（隐藏服务）</strong> 搭建自己的匿名服务器。这类服务使用 <code>.onion</code> 域名，流量在 Tor 网络内部多次加密跳转，极大地保护了服务器的真实 IP 地址和物理位置。</p>
 <p>本文将详细介绍如何在 Linux 环境下使用 Nginx 和 Tor 搭建一个高匿名的隐藏服务。</p>
 <hr>
-<h2 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1. 环境准备"></a>1. 环境准备</h2><p>本教程以 Debian&#x2F;Ubuntu 系统为例。你需要拥有服务器的 <code>root</code> 或 <code>sudo</code> 权限。</p>
+<h2 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1. 环境准备"></a>1. 环境准备</h2><p>本教程以 Debian/Ubuntu 系统为例。你需要拥有服务器的 <code>root</code> 或 <code>sudo</code> 权限。</p>
 <h3 id="更新系统源"><a href="#更新系统源" class="headerlink" title="更新系统源"></a>更新系统源</h3><p>首先，我们需要确保系统源是最新的，并添加 Tor 项目的官方源以获取最新版本。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装必要的依赖</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y apt-transport-https curl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 Tor 官方源 (以 Ubuntu 为例，如果是 Debian 请根据版本修改)</span></span><br><span class="line"><span class="comment"># 注意：在生产环境中建议检查官方文档以获取最新的签名 Key</span></span><br><span class="line">sudo apt-get install -y tor deb.torproject.org-keyring</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="2-安装基础服务"><a href="#2-安装基础服务" class="headerlink" title="2. 安装基础服务"></a>2. 安装基础服务</h2><p>我们需要两个核心组件：<strong>Nginx</strong>（作为 Web 服务器）和 <strong>Tor</strong>（作为匿名中转网关）。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y nginx tor</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="3-配置-Nginx"><a href="#3-配置-Nginx" class="headerlink" title="3. 配置 Nginx"></a>3. 配置 Nginx</h2><p>我们的目标是让 Nginx 只在本地（localhost）监听，防止它直接暴露在公网 IP 上，从而避免被扫描到真实位置。</p>
 <h3 id="编辑-Nginx-配置"><a href="#编辑-Nginx-配置" class="headerlink" title="编辑 Nginx 配置"></a>编辑 Nginx 配置</h3><p>修改 <code>/etc/nginx/sites-available/default</code> 或新建一个配置文件：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">127.0.0.1:8080</span>; <span class="comment"># 关键：只监听本地回环地址</span></span><br><span class="line">    </span><br><span class="line">    <span class="attribute">root</span> /var/www/html;</span><br><span class="line">    <span class="attribute">index</span> index.html index.htm;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="comment"># 隐藏 Nginx 版本号，增加安全性</span></span><br><span class="line">        <span class="attribute">server_tokens</span> <span class="literal">off</span>;</span><br><span class="line">        <span class="attribute">try_files</span> $uri $uri/ =<span class="number">404</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 禁止通过真实 IP 直接访问（虽然只监听了本地，但这是一种多重防护）</span></span><br><span class="line">    <span class="attribute">allow</span> <span class="number">127.0.0.1</span>;</span><br><span class="line">    <span class="attribute">deny</span> all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>安全提示</strong>：请确保 <code>/var/www/html</code> 目录下没有包含任何可能泄露你身份的文件（如日志、包含真实域名的测试页面等）。</p>
 <hr>
 <h2 id="4-配置-Tor-隐藏服务"><a href="#4-配置-Tor-隐藏服务" class="headerlink" title="4. 配置 Tor 隐藏服务"></a>4. 配置 Tor 隐藏服务</h2><p>接下来，我们需要告诉 Tor 将外网的 <code>.onion</code> 请求转发到本地的 Nginx。</p>
 <h3 id="修改-Tor-配置文件"><a href="#修改-Tor-配置文件" class="headerlink" title="修改 Tor 配置文件"></a>修改 Tor 配置文件</h3><p>编辑 <code>/etc/tor/torrc</code>，找到 <code>Hidden Service</code> 部分并取消注释或添加以下内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 隐藏服务的密钥和主机名存储目录</span></span><br><span class="line">HiddenServiceDir /var/lib/tor/hidden_service/</span><br><span class="line"><span class="comment"># 将 Tor 的 80 端口请求转发到本地 Nginx 的 8080 端口</span></span><br><span class="line">HiddenServicePort 80 127.0.0.1:8080</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="5-启动与验证"><a href="#5-启动与验证" class="headerlink" title="5. 启动与验证"></a>5. 启动与验证</h2><h3 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h3><p>使配置生效并启动服务。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启 Nginx</span></span><br><span class="line">sudo systemctl restart nginx</span><br><span class="line"><span class="comment"># 重启 Tor</span></span><br><span class="line">sudo systemctl restart tor</span><br><span class="line"><span class="comment"># 设置开机自启</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> tor</span><br></pre></td></tr></table></figure>
-
 <h3 id="获取你的-onion-域名"><a href="#获取你的-onion-域名" class="headerlink" title="获取你的 .onion 域名"></a>获取你的 .onion 域名</h3><p>当 Tor 启动后，它会自动在 <code>HiddenServiceDir</code> 目录下生成一个私钥和一个主机名文件。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看生成的 Onion 域名</span></span><br><span class="line">sudo cat /var/lib/tor/hidden_service/hostname</span><br></pre></td></tr></table></figure>
 <p>你将看到类似 <code>vww6ybal4bd7szmgncyruucpgfkqahzddi37ktce.onion</code> 的地址。</p>

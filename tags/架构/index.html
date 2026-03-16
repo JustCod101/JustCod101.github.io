@@ -18,6 +18,23 @@
 
     <link rel="shortcut icon" href="/images/logo.svg">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
@@ -151,9 +168,16 @@
         <section class="archive-item">
             <div class="archive-item-header">
                 <span class="archive-year">2026</span>
-                <span class="archive-year-post-count">[1]</span>
+                <span class="archive-year-post-count">[2]</span>
             </div>
             <ul class="article-list">
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2026/03/17/%E4%B8%83%E5%A4%A7%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"
+                        >内化于心：日常开发中最核心的 7 种设计模式（80/20法则）</a>
+                        <span class="article-date">03-17</span>
+                    </li>
                 
                     <li class="article-item">
                         <a class="article-title"

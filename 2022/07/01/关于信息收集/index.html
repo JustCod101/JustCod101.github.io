@@ -18,6 +18,23 @@
 
     <link rel="shortcut icon" href="/images/logo.svg">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
@@ -235,7 +252,6 @@
 <li><code>intext:&quot;password&quot;</code>：在网页正文中搜索关键字。</li>
 </ul>
 <h3 id="实战示例"><a href="#实战示例" class="headerlink" title="实战示例"></a>实战示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 寻找特定域名的敏感文件</span><br><span class="line">site:test.com filetype:php inurl:id=</span><br><span class="line"></span><br><span class="line"># 寻找暴露在公网的 Cisco 管理界面</span><br><span class="line">inurl:&quot;/level/15/exec/-/show&quot;</span><br><span class="line"></span><br><span class="line"># 查找 PHP 探针及敏感服务器信息</span><br><span class="line">intitle:&quot;phpinfo()&quot; &quot;PHP Version&quot;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="2-空间搜索引擎：Shodan-与-Censys"><a href="#2-空间搜索引擎：Shodan-与-Censys" class="headerlink" title="2. 空间搜索引擎：Shodan 与 Censys"></a>2. 空间搜索引擎：Shodan 与 Censys</h2><p>Shodan 被称为“黑客界的 Google”，它不爬取网页，而是通过扫描全球的 IP 和端口，识别设备的服务指纹。</p>
 <h3 id="Shodan-常用语法"><a href="#Shodan-常用语法" class="headerlink" title="Shodan 常用语法"></a>Shodan 常用语法</h3><ul>
@@ -246,26 +262,22 @@
 <li><code>country:CN</code>：指定国家代码（中国）。</li>
 </ul>
 <h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查找日本境内运行的 Cisco 设备</span><br><span class="line">cisco country:JP</span><br><span class="line"></span><br><span class="line"># 查找暴露在公网的摄像头（常见标题）</span><br><span class="line">&quot;webcamXP&quot; port:8080</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="3-Nmap：网络映射器的艺术"><a href="#3-Nmap：网络映射器的艺术" class="headerlink" title="3. Nmap：网络映射器的艺术"></a>3. Nmap：网络映射器的艺术</h2><p>Nmap 是内网横向渗透和外网资产扫描的必备神器。</p>
 <h3 id="扫描策略"><a href="#扫描策略" class="headerlink" title="扫描策略"></a>扫描策略</h3><ul>
-<li>**隐蔽扫描 (Stealth Scan)**：<code>-sS</code> 使用 SYN 扫描，不建立完整 TCP 连接，避免被简单防火墙记录。</li>
+<li><strong>隐蔽扫描 (Stealth Scan)</strong>：<code>-sS</code> 使用 SYN 扫描，不建立完整 TCP 连接，避免被简单防火墙记录。</li>
 <li><strong>服务版本探测</strong>：<code>-sV</code> 能够识别端口后面运行的具体版本（如 Apache 2.4.41）。</li>
-<li><strong>操作系统指纹</strong>：<code>-O</code> 通过 TCP&#x2F;IP 协议栈的行为推测 OS 类型。</li>
+<li><strong>操作系统指纹</strong>：<code>-O</code> 通过 TCP/IP 协议栈的行为推测 OS 类型。</li>
 <li><strong>全能模式</strong>：<code>-A</code> 包含 OS 检测、版本检测、脚本扫描和路由追踪。</li>
 </ul>
-<h3 id="Nmap-脚本引擎-NSE"><a href="#Nmap-脚本引擎-NSE" class="headerlink" title="Nmap 脚本引擎 (NSE)"></a>Nmap 脚本引擎 (NSE)</h3><p>NSE 允许用户编写脚本来自动化漏洞检测。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 扫描敏感目录</span></span><br><span class="line">nmap -p 80 --script=http-enum.nse &lt;target&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 扫描常见的 SMB 漏洞 (MS17-010)</span></span><br><span class="line">nmap -p 445 --script=smb-vuln-ms17-010 &lt;target IP&gt;</span><br></pre></td></tr></table></figure>
-
+<h3 id="Nmap-脚本引擎-NSE"><a href="#Nmap-脚本引擎-NSE" class="headerlink" title="Nmap 脚本引擎 (NSE)"></a>Nmap 脚本引擎 (NSE)</h3><p>NSE 允许用户编写脚本来自动化漏洞检测。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 扫描敏感目录</span></span><br><span class="line">nmap -p 80 --script=http-enum.nse &lt;target&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 扫描常见的 SMB 漏洞 (MS17-010)</span></span><br><span class="line">nmap -p 445 --script=smb-vuln-ms17-010 &lt;target IP&gt;</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h2 id="4-目录指纹与敏感路径探测"><a href="#4-目录指纹与敏感路径探测" class="headerlink" title="4. 目录指纹与敏感路径探测"></a>4. 目录指纹与敏感路径探测</h2><p>Web 容器的默认路径或遗留的 <code>.git</code>、<code>.env</code> 文件往往是突破口。</p>
 <ul>
-<li><strong>Dirsearch &#x2F; ffuf</strong>：高效的路径爆破工具。</li>
-<li><strong>Wappalyzer &#x2F; WhatWeb</strong>：识别网站的技术栈（前端框架、数据库、Web 容器）。</li>
+<li><strong>Dirsearch / ffuf</strong>：高效的路径爆破工具。</li>
+<li><strong>Wappalyzer / WhatWeb</strong>：识别网站的技术栈（前端框架、数据库、Web 容器）。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 ffuf 进行目录扫描</span></span><br><span class="line">ffuf -u http://target.com/FUZZ -w /path/to/wordlist.txt -mc 200</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="5-子域名收集：扩展攻击面"><a href="#5-子域名收集：扩展攻击面" class="headerlink" title="5. 子域名收集：扩展攻击面"></a>5. 子域名收集：扩展攻击面</h2><p>对于大型企业，子域名往往包含未被修补的测试系统或备份服务器。</p>
 <ul>
@@ -275,9 +287,9 @@
 <hr>
 <h2 id="6-总结：信息收集“三板斧”策略"><a href="#6-总结：信息收集“三板斧”策略" class="headerlink" title="6. 总结：信息收集“三板斧”策略"></a>6. 总结：信息收集“三板斧”策略</h2><p>在面对一个目标时，通常遵循以下流程：</p>
 <ol>
-<li>**Passive Recon (被动)**：通过 Google Dorks, Shodan, WHOIS, DNS 记录（<code>dig</code>, <code>nslookup</code>）获取外围信息，不与目标服务器直接接触。</li>
-<li>**Asset Discovery (资产发现)**：通过 <code>Subfinder</code> 或 <code>Amass</code> 获取所有子域名，确定 IP 范围。</li>
-<li>**Active Scanning (主动扫描)**：针对发现的资产，使用 <code>Nmap</code> 确认存活端口及服务版本，并利用 <code>ffuf</code> 探测敏感目录。</li>
+<li><strong>Passive Recon (被动)</strong>：通过 Google Dorks, Shodan, WHOIS, DNS 记录（<code>dig</code>, <code>nslookup</code>）获取外围信息，不与目标服务器直接接触。</li>
+<li><strong>Asset Discovery (资产发现)</strong>：通过 <code>Subfinder</code> 或 <code>Amass</code> 获取所有子域名，确定 IP 范围。</li>
+<li><strong>Active Scanning (主动扫描)</strong>：针对发现的资产，使用 <code>Nmap</code> 确认存活端口及服务版本，并利用 <code>ffuf</code> 探测敏感目录。</li>
 </ol>
 <hr>
 <blockquote>

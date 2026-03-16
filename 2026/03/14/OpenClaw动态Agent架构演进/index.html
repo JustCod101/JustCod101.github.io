@@ -18,6 +18,23 @@
 
     <link rel="shortcut icon" href="/images/logo.svg">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
@@ -188,11 +205,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Agent/">Agent</a>&nbsp;
+                        <a href="/tags/OpenClaw/">OpenClaw</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/OpenClaw/">OpenClaw</a>&nbsp;
+                        | <a href="/tags/Agent/">Agent</a>&nbsp;
                     </li>
                 
                     <li>
@@ -224,7 +241,7 @@
 
         <div class="article-content markdown-body">
             <h1 id="文件即生命：OpenClaw-架构下的“动态生成与用后即焚”-Agent-演进"><a href="#文件即生命：OpenClaw-架构下的“动态生成与用后即焚”-Agent-演进" class="headerlink" title="文件即生命：OpenClaw 架构下的“动态生成与用后即焚” Agent 演进"></a>文件即生命：OpenClaw 架构下的“动态生成与用后即焚” Agent 演进</h1><p>在主流的 Agent 开发框架中，我们习惯了用复杂的 JSON 配置、Python 类定义或笨重的数据库条目来描述一个 Agent。但 <strong>OpenClaw</strong> 走了一条极其极客且纯粹的道路：<strong>Markdown 即 Agent</strong>。</p>
-<p>如果你深入理解了 <code>SOUL.md</code>（灵魂&#x2F;人格）、<code>AGENTS.md</code>（能力&#x2F;工具）和 <code>USER.md</code>（用户画像）这一套基于文件的定义机制，你会发现一个极其前瞻的架构机会：<strong>利用文件系统作为 Agent 的“运行内存”，实现 Agent 的动态派生与销毁。</strong></p>
+<p>如果你深入理解了 <code>SOUL.md</code>（灵魂/人格）、<code>AGENTS.md</code>（能力/工具）和 <code>USER.md</code>（用户画像）这一套基于文件的定义机制，你会发现一个极其前瞻的架构机会：<strong>利用文件系统作为 Agent 的“运行内存”，实现 Agent 的动态派生与销毁。</strong></p>
 <hr>
 <h2 id="1-范式转移：从“静态声明”到“动态派生”"><a href="#1-范式转移：从“静态声明”到“动态派生”" class="headerlink" title="1. 范式转移：从“静态声明”到“动态派生”"></a>1. 范式转移：从“静态声明”到“动态派生”</h2><p>传统的 Agent 往往是预定义的“静态资产”。而基于 OpenClaw 的逻辑，一个 Agent 的本质就是一组 Markdown 文件。</p>
 <p>既然大语言模型（LLM）最擅长的就是生成高质量的文本，那么为什么不让一个 <strong>Manager Agent</strong> 在感知到复杂任务时，直接通过 <code>write_file</code> 算子，在特定目录下实时“写”出一个 <strong>Worker Agent</strong> 的 DNA？</p>
@@ -267,11 +284,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/Agent/">#Agent</a>&nbsp;
+                        <a href="/tags/OpenClaw/">#OpenClaw</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/OpenClaw/">#OpenClaw</a>&nbsp;
+                        <a href="/tags/Agent/">#Agent</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
@@ -291,6 +308,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2026/03/17/%E5%A4%A7%E5%8E%82%E4%B8%ADGitFlow%E5%AE%9E%E8%B7%B5/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">大厂中 Git Flow 的终极实践：从代码到生产线的工程化博弈</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
