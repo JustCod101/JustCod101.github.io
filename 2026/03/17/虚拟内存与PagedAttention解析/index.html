@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="QuanYuQi">
+    
+    <title>
+        
+            跨越半个世纪的共鸣：从 OS 虚拟内存到大模型 PagedAttention 的架构美学 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">跨越半个世纪的共鸣：从 OS 虚拟内存到大模型 PagedAttention 的架构美学</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2026-03-17 16:54:54</span>
+        <span class="mobile">2026-03-17 16:54</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%AE%97%E6%B3%95%E6%9E%B6%E6%9E%84/">算法架构</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%AE%97%E6%B3%95%E6%9E%B6%E6%9E%84/AI-%E7%A0%94%E5%8F%91/">AI 研发</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">虚拟内存</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%88%86%E9%A1%B5%E7%AE%A1%E7%90%86/">分页管理</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/vLLM/">vLLM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/PagedAttention/">PagedAttention</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">大模型</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="跨越半个世纪的共鸣：从-OS-虚拟内存到大模型-PagedAttention-的架构美学"><a href="#跨越半个世纪的共鸣：从-OS-虚拟内存到大模型-PagedAttention-的架构美学" class="headerlink" title="跨越半个世纪的共鸣：从 OS 虚拟内存到大模型 PagedAttention 的架构美学"></a>跨越半个世纪的共鸣：从 OS 虚拟内存到大模型 PagedAttention 的架构美学</h1><p>计算机科学中有一句名言：“<strong>计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决。</strong>”</p>
+<p>如果我们在操作系统的演进史和大模型（LLM）推理引擎的发展史中寻找这句名言的最佳注脚，那一定是<strong>“分页（Paging）”</strong>思想。跨越了近半个世纪，当初为了解决物理内存碎片化而诞生的 OS 分页技术，在 2023 年被 vLLM 团队巧妙地借鉴，化身为解决大模型推理 KV Cache 显存瓶颈的神器——<strong>PagedAttention</strong>。</p>
+<p>本文将带你打通底层 OS 与前沿 AI 的任督二脉，领略这一脉相承的架构美学。</p>
+<hr>
+<h2 id="1-痛点起源：内存碎片与“吃大锅饭”的悲剧"><a href="#1-痛点起源：内存碎片与“吃大锅饭”的悲剧" class="headerlink" title="1. 痛点起源：内存碎片与“吃大锅饭”的悲剧"></a>1. 痛点起源：内存碎片与“吃大锅饭”的悲剧</h2><h3 id="1-1-OS-的远古时代：连续内存分配"><a href="#1-1-OS-的远古时代：连续内存分配" class="headerlink" title="1.1 OS 的远古时代：连续内存分配"></a>1.1 OS 的远古时代：连续内存分配</h3><p>在早期的操作系统中，程序运行必须在物理内存中占据一块<strong>连续</strong>的空间。<br>假设系统有 100MB 物理内存：</p>
+<ul>
+<li>进程 A 占了 0-30MB。</li>
+<li>进程 B 占了 30-50MB。</li>
+<li>进程 A 运行结束，释放了 0-30MB。<br>此时，如果来了一个需要 40MB 的进程 C，系统会报错：<strong>内存不足（Out of Memory）</strong>。<br>为什么？因为虽然物理内存还剩 80MB（30MB + 50MB），但它们是不连续的“碎片”。为了解决这个问题，OS 不得不频繁进行内存紧缩（把进程 B 挪到前面去），但这极其耗时。</li>
+</ul>
+<h3 id="1-2-LLM-推理的痛点：KV-Cache-的碎片化"><a href="#1-2-LLM-推理的痛点：KV-Cache-的碎片化" class="headerlink" title="1.2 LLM 推理的痛点：KV Cache 的碎片化"></a>1.2 LLM 推理的痛点：KV Cache 的碎片化</h3><p>历史总是惊人的相似。当我们用 HuggingFace 默认的代码（如 <code>Transformers</code> 库）进行大模型批量推理时，遇到了极其类似的问题。<br>在 Transformer 架构中，为了避免重复计算，我们会把历史上计算过的 Key 和 Value 张量缓存进 GPU 显存，这就是 <strong>KV Cache</strong>。<br>传统框架在为每个 Request 分配 KV Cache 时，是<strong>预先分配一块连续的极大显存</strong>（假设按 <code>max_sequence_length=2048</code> 分配）。<br>但实际上，很多句子的长度根本到不了 2048。这就导致了：</p>
+<ol>
+<li><strong>内部碎片</strong>：句子只用了 500 个 Token 的空间，剩下 1548 个 Token 的显存被永久白白占着。</li>
+<li><strong>外部碎片</strong>：不同请求的长度不同，导致显存中出现大量无法被复用的空隙。<br>据统计，在传统框架中，<strong>只有 20%-40% 的 KV Cache 显存被真正用于存储状态，其余 60%-80% 全被碎片浪费了。</strong> 这就是为什么大模型推理那么费显卡的核心原因。</li>
+</ol>
+<hr>
+<h2 id="2-操作系统的救赎：虚拟内存与分页管理-Paging"><a href="#2-操作系统的救赎：虚拟内存与分页管理-Paging" class="headerlink" title="2. 操作系统的救赎：虚拟内存与分页管理 (Paging)"></a>2. 操作系统的救赎：虚拟内存与分页管理 (Paging)</h2><p>为了解决碎片问题，现代操作系统引入了<strong>虚拟内存（Virtual Memory）</strong>和<strong>分页（Paging）</strong>机制。</p>
+<h3 id="2-1-理念拆解"><a href="#2-1-理念拆解" class="headerlink" title="2.1 理念拆解"></a>2.1 理念拆解</h3><ol>
+<li><strong>切碎物理内存</strong>：不再要求物理内存是一整块。OS 把物理内存切成一个个大小相等的物理块，称为 <strong>页框（Page Frame）</strong>，通常是 4KB。</li>
+<li><strong>切碎逻辑内存</strong>：程序的逻辑地址空间也被切成同等大小的 <strong>页（Page）</strong>。</li>
+<li><strong>页表映射（Page Table）</strong>：OS 为每个进程维护一张“映射表”。程序眼中的连续逻辑地址，通过页表，被映射到物理内存中东一块、西一块的离散页框里。</li>
+</ol>
+<h3 id="2-2-降维打击"><a href="#2-2-降维打击" class="headerlink" title="2.2 降维打击"></a>2.2 降维打击</h3><ul>
+<li><strong>消灭外部碎片</strong>：由于物理内存全被切成了标准的 4KB 小块，只要有空闲块就能分给程序，再也不存在“空间够但不连续”的外部碎片问题。</li>
+<li><strong>懒加载（Page Fault）</strong>：程序启动时，OS 根本不给它分满物理内存，只有当程序真正访问到某页时，才触发缺页中断去分配，极大提高了内存利用率。</li>
+</ul>
+<hr>
+<h2 id="3-AI-的文艺复兴：PagedAttention-的诞生"><a href="#3-AI-的文艺复兴：PagedAttention-的诞生" class="headerlink" title="3. AI 的文艺复兴：PagedAttention 的诞生"></a>3. AI 的文艺复兴：PagedAttention 的诞生</h2><p>2023 年，伯克利团队推出了轰动 AI 界的推理引擎 <strong>vLLM</strong>，其核心创新就是 <strong>PagedAttention</strong>算法。<br>它的设计图纸，几乎就是把 OS 的分页管理机制原封不动地搬到了 GPU 显存和注意力机制上。</p>
+<h3 id="3-1-Paged-KV-Cache"><a href="#3-1-Paged-KV-Cache" class="headerlink" title="3.1 Paged KV Cache"></a>3.1 Paged KV Cache</h3><p>像 OS 切分物理内存一样，PagedAttention <strong>将连续的 KV Cache 张量，切分成了一个个固定大小的 Block（块）</strong>。</p>
+<ul>
+<li>每个 Block 可以存储固定数量（比如 16 个或 32 个）Token 的 KV 向量。</li>
+<li>这些 Block 在 GPU 的物理显存中是<strong>非连续</strong>的、散乱分布的。</li>
+</ul>
+<h3 id="3-2-Block-Table（AI-版的页表）"><a href="#3-2-Block-Table（AI-版的页表）" class="headerlink" title="3.2 Block Table（AI 版的页表）"></a>3.2 Block Table（AI 版的页表）</h3><p>既然物理显存是散乱的，Transformer 的 Attention 计算怎么知道该去哪找历史 Token 呢？<br>vLLM 为每个 Request（对应 OS 中的进程）维护了一张 <strong>Block Table（块表）</strong>。</p>
+<ul>
+<li>逻辑上，这段话的 Token 是一维连续的。</li>
+<li>物理上，这段话的前 16 个 Token 存在物理块 101，接着的 16 个 Token 存在物理块 54。</li>
+<li>当进行 Attention 矩阵乘法时，CUDA Kernel 会查这个 Block Table，精准地去不同的物理块中抓取数据进行计算。</li>
+</ul>
+<h3 id="3-3-动态按需分配"><a href="#3-3-动态按需分配" class="headerlink" title="3.3 动态按需分配"></a>3.3 动态按需分配</h3><p>传统的 LLM 推理是一次性把最大长度的显存要过来。<br>而在 PagedAttention 中，<strong>显存是“按需动态分配”的</strong>。每次生成新的 Token，填满了一个 Block，vLLM 才会去显存池里再申请下一个空闲 Block。<br>这彻底消灭了内部碎片和外部碎片！vLLM 的显存浪费率被压低到了 <strong>4% 以下</strong>。</p>
+<h3 id="3-4-意外之喜：Copy-on-Write-写时复制"><a href="#3-4-意外之喜：Copy-on-Write-写时复制" class="headerlink" title="3.4 意外之喜：Copy-on-Write (写时复制)"></a>3.4 意外之喜：Copy-on-Write (写时复制)</h3><p>在 OS 中，<code>fork()</code> 子进程时通过页表共享物理内存，只有在修改时才触发 Copy-on-Write。<br>PagedAttention 也继承了这一神技！在 <strong>Parallel Sampling（并行采样）</strong> 或 <strong>Beam Search</strong> 场景下，一个 Prompt 需要生成多个不同的回答。<br>在以前，同一个 Prompt 的 KV Cache 需要被复制好几份。而在 vLLM 中，多个回答在发散前，它们的 Block Table 完全指向同一个物理 Prompt Block。只有当生成的后续回答开始产生分歧时，才会分配新的 Block。这极大地提升了吞吐量！</p>
+<hr>
+<h2 id="4-结语：计算机科学的轮回"><a href="#4-结语：计算机科学的轮回" class="headerlink" title="4. 结语：计算机科学的轮回"></a>4. 结语：计算机科学的轮回</h2><p><strong>“所有过去皆为序章。”</strong></p>
+<p>从 1962 年 Atlas 计算机首次引入分页概念，到 2023 年 PagedAttention 引爆大模型推理速度的革命，底层思想的火花跨越了 60 年，在 GPU 的海量计算单元中再次绽放。</p>
+<p>当我们惊叹于 AI 时代的各种“神级架构”时，往往会发现，那些最优雅、最硬核的解法，早就被写在那些沾满灰尘的《操作系统概念》和《计算机体系结构》课本里了。这就是计算机科学的浪漫。</p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">#虚拟内存</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%88%86%E9%A1%B5%E7%AE%A1%E7%90%86/">#分页管理</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/vLLM/">#vLLM</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/PagedAttention/">#PagedAttention</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">#大模型</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2026/03/17/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95%E7%AE%97%E6%B3%95IVF%E4%B8%8EHNSW%E8%A7%A3%E6%9E%90/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">向量数据库的引擎核心：IVF-Flat 与 HNSW 索引的深度解析与博弈</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%A8%E8%B6%8A%E5%8D%8A%E4%B8%AA%E4%B8%96%E7%BA%AA%E7%9A%84%E5%85%B1%E9%B8%A3%EF%BC%9A%E4%BB%8E-OS-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B-PagedAttention-%E7%9A%84%E6%9E%B6%E6%9E%84%E7%BE%8E%E5%AD%A6"><span class="nav-number">1.</span> <span class="nav-text">跨越半个世纪的共鸣：从 OS 虚拟内存到大模型 PagedAttention 的架构美学</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%97%9B%E7%82%B9%E8%B5%B7%E6%BA%90%EF%BC%9A%E5%86%85%E5%AD%98%E7%A2%8E%E7%89%87%E4%B8%8E%E2%80%9C%E5%90%83%E5%A4%A7%E9%94%85%E9%A5%AD%E2%80%9D%E7%9A%84%E6%82%B2%E5%89%A7"><span class="nav-number">1.1.</span> <span class="nav-text">1. 痛点起源：内存碎片与“吃大锅饭”的悲剧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-OS-%E7%9A%84%E8%BF%9C%E5%8F%A4%E6%97%B6%E4%BB%A3%EF%BC%9A%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 OS 的远古时代：连续内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-LLM-%E6%8E%A8%E7%90%86%E7%9A%84%E7%97%9B%E7%82%B9%EF%BC%9AKV-Cache-%E7%9A%84%E7%A2%8E%E7%89%87%E5%8C%96"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 LLM 推理的痛点：KV Cache 的碎片化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%95%91%E8%B5%8E%EF%BC%9A%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E4%B8%8E%E5%88%86%E9%A1%B5%E7%AE%A1%E7%90%86-Paging"><span class="nav-number">1.2.</span> <span class="nav-text">2. 操作系统的救赎：虚拟内存与分页管理 (Paging)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%90%86%E5%BF%B5%E6%8B%86%E8%A7%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 理念拆解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 降维打击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-AI-%E7%9A%84%E6%96%87%E8%89%BA%E5%A4%8D%E5%85%B4%EF%BC%9APagedAttention-%E7%9A%84%E8%AF%9E%E7%94%9F"><span class="nav-number">1.3.</span> <span class="nav-text">3. AI 的文艺复兴：PagedAttention 的诞生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Paged-KV-Cache"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 Paged KV Cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Block-Table%EF%BC%88AI-%E7%89%88%E7%9A%84%E9%A1%B5%E8%A1%A8%EF%BC%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 Block Table（AI 版的页表）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%8A%A8%E6%80%81%E6%8C%89%E9%9C%80%E5%88%86%E9%85%8D"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 动态按需分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E6%84%8F%E5%A4%96%E4%B9%8B%E5%96%9C%EF%BC%9ACopy-on-Write-%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 意外之喜：Copy-on-Write (写时复制)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BB%93%E8%AF%AD%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9A%84%E8%BD%AE%E5%9B%9E"><span class="nav-number">1.4.</span> <span class="nav-text">4. 结语：计算机科学的轮回</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="QuanYuQi">
+    
+    <title>
+        
+            向量数据库的引擎核心：IVF-Flat 与 HNSW 索引的深度解析与博弈 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">向量数据库的引擎核心：IVF-Flat 与 HNSW 索引的深度解析与博弈</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2026-03-17 16:49:08</span>
+        <span class="mobile">2026-03-17 16:49</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%AE%97%E6%B3%95%E6%9E%B6%E6%9E%84/">算法架构</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%AE%97%E6%B3%95%E6%9E%B6%E6%9E%84/AI-%E7%A0%94%E5%8F%91/">AI 研发</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">向量数据库</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/HNSW/">HNSW</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/IVF-Flat/">IVF-Flat</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%A3%80%E7%B4%A2%E7%AE%97%E6%B3%95/">检索算法</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="向量数据库的引擎核心：IVF-Flat-与-HNSW-索引的深度解析与博弈"><a href="#向量数据库的引擎核心：IVF-Flat-与-HNSW-索引的深度解析与博弈" class="headerlink" title="向量数据库的引擎核心：IVF-Flat 与 HNSW 索引的深度解析与博弈"></a>向量数据库的引擎核心：IVF-Flat 与 HNSW 索引的深度解析与博弈</h1><p>在 LLM（大语言模型）和 RAG（检索增强生成）爆火的今天，<strong>向量数据库</strong>成为了 AI 时代的基础设施。而决定一个向量数据库性能天花板的，不是它用什么语言编写，也不是它的分布式架构，而是它的<strong>底层向量索引算法</strong>。</p>
+<p>在海量高维空间中进行 KNN（K-Nearest Neighbors，K近邻）精确搜索的计算复杂度是 $O(N)$，这在动辄数亿条数据的生产环境中是不可接受的。因此，工业界全面转向了 <strong>ANN（Approximate Nearest Neighbor，近似最近邻）</strong> 算法。</p>
+<p>在众多 ANN 算法中，<strong>IVF-Flat</strong> 和 <strong>HNSW</strong> 占据了绝对的统治地位。本文将带你扒开这两个算法的数学外衣，直击它们的工程本质。</p>
+<hr>
+<h2 id="1-IVF-Flat：空间划分的暴力美学"><a href="#1-IVF-Flat：空间划分的暴力美学" class="headerlink" title="1. IVF-Flat：空间划分的暴力美学"></a>1. IVF-Flat：空间划分的暴力美学</h2><p><strong>IVF（Inverted File，倒排文件）</strong> 的核心思想非常直白：<strong>物以类聚，人以群分。既然全量遍历太慢，那我就把空间切分成一个个“小区”，查询时只去最近的几个“小区”里找。</strong></p>
+<h3 id="1-1-构建过程-Build"><a href="#1-1-构建过程-Build" class="headerlink" title="1.1 构建过程 (Build)"></a>1.1 构建过程 (Build)</h3><ol>
+<li><strong>聚类 (K-Means)</strong>：算法首先对海量的高维向量进行 K-Means 聚类，找出 $N$ 个聚类中心（Centroids）。</li>
+<li><strong>划分领地 (Voronoi Cells)</strong>：每个聚类中心就像是一个基站，它把整个高维空间划分成了 $N$ 个 Voronoi 图（维诺图）多边形细胞。</li>
+<li><strong>倒排归档</strong>：将所有的原始向量，根据它们离哪个聚类中心最近，塞进对应的“倒排列表（Inverted List）”中。由于是直接保存原始向量，没有做任何量化压缩，所以后缀叫 <strong>Flat</strong>。</li>
+</ol>
+<h3 id="1-2-检索过程-Search"><a href="#1-2-检索过程-Search" class="headerlink" title="1.2 检索过程 (Search)"></a>1.2 检索过程 (Search)</h3><ol>
+<li><strong>找目标小区</strong>：当一个 Query 向量到来时，首先计算它与那 $N$ 个聚类中心的距离，找出离它最近的 $nprobe$ 个中心。</li>
+<li><strong>局部遍历</strong>：拿到这 $nprobe$ 个中心的倒排列表，然后在这些列表里进行暴力的全量计算，找出 Top-K。</li>
+</ol>
+<h3 id="1-3-工程优劣势"><a href="#1-3-工程优劣势" class="headerlink" title="1.3 工程优劣势"></a>1.3 工程优劣势</h3><ul>
+<li><strong>优势</strong>：<ul>
+<li><strong>内存极度友好</strong>：除了多存了几个聚类中心，基本没有额外的内存开销。</li>
+<li><strong>构建极快</strong>：只要 K-Means 跑完，把数据对号入座就行了。</li>
+<li><strong>天然适合硬盘</strong>：每个细胞里的数据可以连续存储在磁盘上，非常适合做磁盘级（Disk-ANN）优化。</li>
+</ul>
+</li>
+<li><strong>劣势</strong>：<ul>
+<li><strong>边界效应（Edge Effect）</strong>：如果 Query 向量刚好落在两个细胞的交界处，而你只查了最近的一个细胞，就会漏掉隔壁细胞里靠得很近的点，导致 <strong>召回率（Recall）下降</strong>。为了提高召回率，只能调大 $nprobe$ 参数（多查几个小区），但这又会导致查询速度断崖式下跌。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-HNSW：多层图结构的终极刺客"><a href="#2-HNSW：多层图结构的终极刺客" class="headerlink" title="2. HNSW：多层图结构的终极刺客"></a>2. HNSW：多层图结构的终极刺客</h2><p>如果说 IVF 像是人类社会的行政区划，那么 <strong>HNSW（Hierarchical Navigable Small World，分层可导航小世界）</strong> 则完美模拟了人类的“六度人脉”交际网。它目前是工业界<strong>召回率最高、查询速度最快</strong>的内存级 ANN 算法。</p>
+<h3 id="2-1-从跳表到图网-The-Origin"><a href="#2-1-从跳表到图网-The-Origin" class="headerlink" title="2.1 从跳表到图网 (The Origin)"></a>2.1 从跳表到图网 (The Origin)</h3><p>HNSW 的灵感来源于数据结构中的<strong>跳表（Skip List）</strong>。跳表在底层链表之上，建立稀疏的索引层，实现 $O(\log N)$ 的查找。<br>HNSW 将这个思想应用到了图（Graph）结构上。它构建了多层图：</p>
+<ul>
+<li><strong>第 0 层（最底层）</strong>：包含所有的向量节点，每个节点都与自己最近的几个邻居相连，形成一张密集的网。</li>
+<li><strong>第 1 层、第 2 层…</strong>：层数越高，节点越稀疏。最高层往往只有几个“入口节点（Entry points）”。</li>
+</ul>
+<h3 id="2-2-检索过程-Search"><a href="#2-2-检索过程-Search" class="headerlink" title="2.2 检索过程 (Search)"></a>2.2 检索过程 (Search)</h3><ol>
+<li><strong>高空跳伞</strong>：查询从最高层（最稀疏的图）的一个固定入口点开始。利用贪心算法，向距离 Query 向量更近的节点跳跃，直到在当前层找不到更近的节点。</li>
+<li><strong>降维打击</strong>：在当前层停下后，直接降落到下一层的对应节点，继续进行贪心搜索。</li>
+<li><strong>逼近真相</strong>：层层下沉，由于低层的节点更密集，搜索步伐变得越来越精细，直到在最底层（第 0 层）找到全局的局部最优解。</li>
+</ol>
+<h3 id="2-3-工程优劣势"><a href="#2-3-工程优劣势" class="headerlink" title="2.3 工程优劣势"></a>2.3 工程优劣势</h3><ul>
+<li><strong>优势</strong>：<ul>
+<li><strong>极致的查询速度</strong>：时间复杂度接近 $O(\log N)$，比 IVF 快几个数量级。</li>
+<li><strong>近乎完美的召回率</strong>：在合适的参数下，召回率可以轻松达到 99% 以上，甚至媲美暴力的精确搜索。</li>
+</ul>
+</li>
+<li><strong>劣势</strong>：<ul>
+<li><strong>内存吞金兽</strong>：为了维护多层图的指针关系，HNSW 需要比原始数据大得多的额外内存（通常是原向量体积的数倍甚至上十倍）。<strong>如果你的向量规模是十亿级，把 HNSW 全部塞进内存需要极其恐怖的服务器成本。</strong></li>
+<li><strong>构建极其缓慢</strong>：在插入新节点时，HNSW 需要动态地在各层寻找最近邻并调整边的连接，这使得它的数据导入速度非常慢。不适合高频写入（High-churn）的场景。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="3-终极博弈：架构师该如何选择？"><a href="#3-终极博弈：架构师该如何选择？" class="headerlink" title="3. 终极博弈：架构师该如何选择？"></a>3. 终极博弈：架构师该如何选择？</h2><p>在选型时，没有完美的算法，只有对业务的妥协。</p>
+<h3 id="选型口诀："><a href="#选型口诀：" class="headerlink" title="选型口诀："></a>选型口诀：</h3><ol>
+<li><p><strong>如果你有钱（服务器内存管够），且极度追求查询速度和准确率：</strong><br>闭着眼睛选 <strong>HNSW</strong>。这是大部分知识库 RAG、高端推荐系统的默认选项。</p>
+</li>
+<li><p><strong>如果你的数据量达到了几亿甚至几十亿，且预算有限，能容忍毫秒级的延迟退化：</strong><br>选择 <strong>IVF-Flat</strong>，或者进一步压缩内存使用 <strong>IVF-PQ（Product Quantization，乘积量化）</strong>。</p>
+</li>
+<li><p><strong>如果你需要极高的实时写入频率（比如电商大促期间的实时风控）：</strong><br>HNSW 的构建会让你崩溃，此时快速聚类的 <strong>IVF</strong> 家族是更稳妥的选择。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>终局视角</strong>：现代的优秀向量数据库（如 Milvus, Qdrant）并不会逼你二选一。他们往往在探索混合架构，比如利用磁盘承载 HNSW 的最底层数据，或者将 IVF 与 HNSW 结合（IVF 找粗簇，HNSW 做聚类中心的导航），这才是向量检索算法的未来。</p>
+</blockquote>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">#向量数据库</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/HNSW/">#HNSW</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/IVF-Flat/">#IVF-Flat</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%A3%80%E7%B4%A2%E7%AE%97%E6%B3%95/">#检索算法</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2026/03/17/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E4%B8%8EPagedAttention%E8%A7%A3%E6%9E%90/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">跨越半个世纪的共鸣：从 OS 虚拟内存到大模型 PagedAttention 的架构美学</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2026/03/17/ClaudeCode%E6%8C%87%E6%8C%A5%E5%A4%9AAgent%E7%BC%96%E7%A0%81%E5%AE%9E%E6%88%98/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">架构师的魔法：如何让 Claude Code 规划指挥多个 Codex 完成复杂编码任务</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%BC%95%E6%93%8E%E6%A0%B8%E5%BF%83%EF%BC%9AIVF-Flat-%E4%B8%8E-HNSW-%E7%B4%A2%E5%BC%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%B8%8E%E5%8D%9A%E5%BC%88"><span class="nav-number">1.</span> <span class="nav-text">向量数据库的引擎核心：IVF-Flat 与 HNSW 索引的深度解析与博弈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-IVF-Flat%EF%BC%9A%E7%A9%BA%E9%97%B4%E5%88%92%E5%88%86%E7%9A%84%E6%9A%B4%E5%8A%9B%E7%BE%8E%E5%AD%A6"><span class="nav-number">1.1.</span> <span class="nav-text">1. IVF-Flat：空间划分的暴力美学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B-Build"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 构建过程 (Build)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B-Search"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 检索过程 (Search)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%B7%A5%E7%A8%8B%E4%BC%98%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 工程优劣势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HNSW%EF%BC%9A%E5%A4%9A%E5%B1%82%E5%9B%BE%E7%BB%93%E6%9E%84%E7%9A%84%E7%BB%88%E6%9E%81%E5%88%BA%E5%AE%A2"><span class="nav-number">1.2.</span> <span class="nav-text">2. HNSW：多层图结构的终极刺客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BB%8E%E8%B7%B3%E8%A1%A8%E5%88%B0%E5%9B%BE%E7%BD%91-The-Origin"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 从跳表到图网 (The Origin)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B-Search"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 检索过程 (Search)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%B7%A5%E7%A8%8B%E4%BC%98%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 工程优劣势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BB%88%E6%9E%81%E5%8D%9A%E5%BC%88%EF%BC%9A%E6%9E%B6%E6%9E%84%E5%B8%88%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">3. 终极博弈：架构师该如何选择？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E5%9E%8B%E5%8F%A3%E8%AF%80%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">选型口诀：</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
