@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="QuanYuQi">
+    
+    <title>
+        
+            架构师的魔法：如何让 Claude Code 规划指挥多个 Codex 完成复杂编码任务 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">架构师的魔法：如何让 Claude Code 规划指挥多个 Codex 完成复杂编码任务</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2026-03-17 15:41:34</span>
+        <span class="mobile">2026-03-17 15:41</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/AI-%E7%BC%96%E7%A8%8B/">AI 编程</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/AI-%E7%BC%96%E7%A8%8B/%E6%9E%81%E5%AE%A2%E6%80%9D%E7%BB%B4/">极客思维</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Multi-Agent/">Multi-Agent</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Claude-Code/">Claude Code</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Codex/">Codex</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/AI-%E7%BB%93%E5%AF%B9%E7%BC%96%E7%A8%8B/">AI 结对编程</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="架构师的魔法：如何让-Claude-Code-规划指挥多个-Codex-完成复杂编码任务"><a href="#架构师的魔法：如何让-Claude-Code-规划指挥多个-Codex-完成复杂编码任务" class="headerlink" title="架构师的魔法：如何让 Claude Code 规划指挥多个 Codex 完成复杂编码任务"></a>架构师的魔法：如何让 Claude Code 规划指挥多个 Codex 完成复杂编码任务</h1><p>在 AI 辅助编程领域，我们正经历一场从“单兵作战”到“兵团协同”的范式转移。</p>
+<p>很多人还在把 AI 当作高级的“代码自动补全机器”，但顶级开发者已经开始构建 <strong>Manager-Worker</strong> 架构的自动化流水线。在这个架构中，<strong>Claude Code</strong>（或者 Claude 4.6 Opus 等具备顶级逻辑推理与上下文理解能力的模型）扮演“主架构师”（Manager）的角色，而多个轻量级、响应快的代码生成模型（如 Codex、GitHub Copilot CLI 或本地跑的 Llama-3-Coder）则扮演“干活的码农”（Workers）。</p>
+<p>本文将深度拆解：如何设计工作流，让 Claude Code 规划并指挥多个 Codex 完成一个真实且复杂的编码任务。</p>
+<hr>
+<h2 id="1-为什么需要“主从架构”？"><a href="#1-为什么需要“主从架构”？" class="headerlink" title="1. 为什么需要“主从架构”？"></a>1. 为什么需要“主从架构”？</h2><p>如果你曾经尝试让一个 AI 一次性写完一个包含前后端、数据库和部署脚本的完整项目，你一定会遇到以下问题：</p>
+<ol>
+<li><strong>上下文遗忘（Lost in the Middle）</strong>：写到后端接口时，AI 已经忘了前端需要什么字段。</li>
+<li><strong>逻辑崩塌</strong>：一旦在某一步出现 Bug，AI 试图自行修复时往往会陷入“拆东墙补西墙”的死循环。</li>
+<li><strong>输出截断</strong>：由于 Token 限制，大项目根本无法在一次对话中输出完毕。</li>
+</ol>
+<p><strong>破局之道：分而治之（Divide and Conquer）。</strong><br>让聪明的脑子（Claude）专心做设计和规划，让干活的手（Codex）去填补具体的代码实现。</p>
+<hr>
+<h2 id="2-核心工作流设计（The-Pipeline）"><a href="#2-核心工作流设计（The-Pipeline）" class="headerlink" title="2. 核心工作流设计（The Pipeline）"></a>2. 核心工作流设计（The Pipeline）</h2><p>这个流水线的核心在于<strong>规范化的文件契约</strong>。Claude 不直接写代码，而是写 Markdown 格式的<strong>设计文档</strong>和<strong>任务清单</strong>。</p>
+<h3 id="Phase-1-需求消化与架构设计-Claude-Code-的主场"><a href="#Phase-1-需求消化与架构设计-Claude-Code-的主场" class="headerlink" title="Phase 1: 需求消化与架构设计 (Claude Code 的主场)"></a>Phase 1: 需求消化与架构设计 (Claude Code 的主场)</h3><p>你向 Claude 输入粗糙的人类需求（如：“写一个基于 React + FastAPI 的在线待办事项，支持拖拽排序”）。<br>Claude 的任务是生成三份核心文档：</p>
+<ol>
+<li><code>ARCHITECTURE.md</code>：定义技术栈、目录结构、API 接口契约（Swagger/OpenAPI 规范）。</li>
+<li><code>STATE_MACHINE.md</code>：定义前端的状态流转和后端的数据库 Schema。</li>
+<li><code>TASKS.json</code> 或 <code>TASKS.md</code>：将整个项目拆解为多个独立的原子任务（比如：Task 1: 初始化 FastAPI 框架；Task 2: 编写 Todo 的 CRUD 接口；Task 3: 编写 React 拖拽组件）。</li>
+</ol>
+<h3 id="Phase-2-任务派发-Manager-的分发机制"><a href="#Phase-2-任务派发-Manager-的分发机制" class="headerlink" title="Phase 2: 任务派发 (Manager 的分发机制)"></a>Phase 2: 任务派发 (Manager 的分发机制)</h3><p>Claude 作为一个命令行 Agent（或通过你写的 Python 胶水脚本），开始遍历 <code>TASKS.md</code>。<br>对于每一个原子任务，Claude 会提取相关的上下文（API 契约 + 该任务的特定描述），组装成一个精准的 Prompt，并<strong>非阻塞地</strong>发送给下游的 Codex/Copilot 实例。</p>
+<p><em>举个例子：Claude 不会告诉 Codex “去写个后端”，而是告诉它：“阅读这份 API 契约，在 <code>app/routers/todo.py</code> 中实现 <code>POST /todos</code> 接口，要求使用 Pydantic 验证，并配合 SQLAlchemy 写入数据库。”</em></p>
+<h3 id="Phase-3-编码执行与结果回收-Codex-的主场"><a href="#Phase-3-编码执行与结果回收-Codex-的主场" class="headerlink" title="Phase 3: 编码执行与结果回收 (Codex 的主场)"></a>Phase 3: 编码执行与结果回收 (Codex 的主场)</h3><p>多个 Codex 实例（或并行调用的 API）接收到高度具象化的 Prompt 后，迅速生成对应的代码文件并落盘。由于任务已经被 Claude 切割得极其细碎，Codex 产生幻觉的概率被降到了最低。</p>
+<h3 id="Phase-4-代码审查与联调-Claude-的闭环"><a href="#Phase-4-代码审查与联调-Claude-的闭环" class="headerlink" title="Phase 4: 代码审查与联调 (Claude 的闭环)"></a>Phase 4: 代码审查与联调 (Claude 的闭环)</h3><p>代码落盘后，流水线进入 Review 阶段。</p>
+<ol>
+<li>胶水脚本自动运行 <code>pytest</code> 或 <code>npm run test</code>。</li>
+<li>如果报错，将 Error Log 连同报错的源码文件，再次喂给 Claude。</li>
+<li>Claude 进行 Root Cause Analysis（根因分析），生成修复指令，再次派发给 Codex，直至测试通过。</li>
+</ol>
+<hr>
+<h2 id="3-实战技巧：如何写好“指挥官”的-Prompt？"><a href="#3-实战技巧：如何写好“指挥官”的-Prompt？" class="headerlink" title="3. 实战技巧：如何写好“指挥官”的 Prompt？"></a>3. 实战技巧：如何写好“指挥官”的 Prompt？</h2><p>要让 Claude 当好架构师，你的 System Prompt 必须极具约束力。</p>
+<p><strong>Claude Code System Prompt 示例：</strong><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">你是一个顶级的资深软件架构师，你的名字叫 &quot;Manager&quot;。</span><br><span class="line">你的目标是将复杂的用户需求拆解为可由初级程序员（Codex）独立执行的原子任务。</span><br><span class="line"></span><br><span class="line">【你的行为准则】：</span><br><span class="line"><span class="bullet">1.</span> 绝对不要直接编写任何业务代码。</span><br><span class="line"><span class="bullet">2.</span> 你的输出必须是标准化的任务清单。</span><br><span class="line"><span class="bullet">3.</span> 每一个任务必须包含以下字段：</span><br><span class="line"><span class="bullet">   -</span> <span class="code">`FilePath`</span>: 要修改或创建的文件路径。</span><br><span class="line"><span class="bullet">   -</span> <span class="code">`Dependencies`</span>: 该任务依赖的上下文文件（如：相关的 interface 定义文件）。</span><br><span class="line"><span class="bullet">   -</span> <span class="code">`Instruction`</span>: 极其明确的执行指令，不带任何模棱两可的词汇。</span><br><span class="line"></span><br><span class="line">【错误示范】：</span><br><span class="line">&quot;创建一个登录页面。&quot;</span><br><span class="line"></span><br><span class="line">【正确示范】：</span><br><span class="line">&quot;在 <span class="code">`src/pages/Login.tsx`</span> 中创建一个 React 组件。读取 <span class="code">`src/api/auth.ts`</span> 中的 <span class="code">`loginAPI`</span> 方法。表单需要包含 username 和 password 字段，点击提交后调用 <span class="code">`loginAPI`</span>，并在成功后通过 <span class="code">`react-router`</span> 跳转到 <span class="code">`/dashboard`</span>。&quot;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="4-“上下文隔离”的艺术"><a href="#4-“上下文隔离”的艺术" class="headerlink" title="4. “上下文隔离”的艺术"></a>4. “上下文隔离”的艺术</h2><p>在调度多个 Codex 时，最大的忌讳就是把所有项目的代码都丢给它。<br><strong>最佳实践是：按需提供上下文。</strong><br>当 Claude 指挥 Codex 写前端组件时，它在 Prompt 中只注入对应的 UI 设计规范和需要调用的单一后端 API 定义，绝不提供数据库建表语句。这种“最小特权原则”（Principle of Least Privilege）不仅省 Token 钱，更能显著提高小模型输出代码的准确率。</p>
+<hr>
+<h2 id="5-展望：AI-Native-的软件工程"><a href="#5-展望：AI-Native-的软件工程" class="headerlink" title="5. 展望：AI Native 的软件工程"></a>5. 展望：AI Native 的软件工程</h2><p>这种 Claude + 多个 Codex 的协作模式，本质上是在用 AI 模拟一家完整的软件外包公司。</p>
+<ul>
+<li>Claude = 产品经理 + 架构师 + 测试主管。</li>
+<li>Codex = 廉价、不知疲倦且高度并行的外包码农。</li>
+</ul>
+<p>当我们把这种模式自动化（例如结合 LangChain 或 AutoGen 框架编写调度脚本），我们就不再是在“写代码”，而是在“编写生产代码的流水线”。这是对软件工程的降维打击，也是每一个希望在 AI 时代保持竞争力的开发者必须掌握的魔法。</p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Multi-Agent/">#Multi-Agent</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Claude-Code/">#Claude Code</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Codex/">#Codex</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/AI-%E7%BB%93%E5%AF%B9%E7%BC%96%E7%A8%8B/">#AI 结对编程</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">#软件工程</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2026/03/17/Agent%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">硅基社会的语言：Multi-Agent 架构下的通信机制深度解析</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E9%AD%94%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%A9-Claude-Code-%E8%A7%84%E5%88%92%E6%8C%87%E6%8C%A5%E5%A4%9A%E4%B8%AA-Codex-%E5%AE%8C%E6%88%90%E5%A4%8D%E6%9D%82%E7%BC%96%E7%A0%81%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">架构师的魔法：如何让 Claude Code 规划指挥多个 Codex 完成复杂编码任务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E2%80%9C%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E2%80%9D%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">1. 为什么需要“主从架构”？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AE%BE%E8%AE%A1%EF%BC%88The-Pipeline%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 核心工作流设计（The Pipeline）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Phase-1-%E9%9C%80%E6%B1%82%E6%B6%88%E5%8C%96%E4%B8%8E%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1-Claude-Code-%E7%9A%84%E4%B8%BB%E5%9C%BA"><span class="nav-number">1.2.1.</span> <span class="nav-text">Phase 1: 需求消化与架构设计 (Claude Code 的主场)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Phase-2-%E4%BB%BB%E5%8A%A1%E6%B4%BE%E5%8F%91-Manager-%E7%9A%84%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">Phase 2: 任务派发 (Manager 的分发机制)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Phase-3-%E7%BC%96%E7%A0%81%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%BB%93%E6%9E%9C%E5%9B%9E%E6%94%B6-Codex-%E7%9A%84%E4%B8%BB%E5%9C%BA"><span class="nav-number">1.2.3.</span> <span class="nav-text">Phase 3: 编码执行与结果回收 (Codex 的主场)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Phase-4-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E4%B8%8E%E8%81%94%E8%B0%83-Claude-%E7%9A%84%E9%97%AD%E7%8E%AF"><span class="nav-number">1.2.4.</span> <span class="nav-text">Phase 4: 代码审查与联调 (Claude 的闭环)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E2%80%9C%E6%8C%87%E6%8C%A5%E5%AE%98%E2%80%9D%E7%9A%84-Prompt%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">3. 实战技巧：如何写好“指挥官”的 Prompt？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E2%80%9C%E4%B8%8A%E4%B8%8B%E6%96%87%E9%9A%94%E7%A6%BB%E2%80%9D%E7%9A%84%E8%89%BA%E6%9C%AF"><span class="nav-number">1.4.</span> <span class="nav-text">4. “上下文隔离”的艺术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%B1%95%E6%9C%9B%EF%BC%9AAI-Native-%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B"><span class="nav-number">1.5.</span> <span class="nav-text">5. 展望：AI Native 的软件工程</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
