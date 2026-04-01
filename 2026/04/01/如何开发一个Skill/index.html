@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="QuanYuQi">
+    
+    <title>
+        
+            打造数字分身：从零构建你的第一个 Claude Code Skill 深度指南 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">打造数字分身：从零构建你的第一个 Claude Code Skill 深度指南</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2026-04-01 23:37:54</span>
+        <span class="mobile">2026-04-01 23:37</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/AI-%E5%BC%80%E5%8F%91/">AI 开发</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/AI-%E5%BC%80%E5%8F%91/%E6%9E%81%E5%AE%A2%E6%80%9D%E7%BB%B4/">极客思维</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Claude-Code/">Claude Code</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81/">自动化工作流</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Skill/">Skill</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Agent%E5%BC%80%E5%8F%91/">Agent开发</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="打造数字分身：从零构建你的第一个-Claude-Code-Skill-深度指南"><a href="#打造数字分身：从零构建你的第一个-Claude-Code-Skill-深度指南" class="headerlink" title="打造数字分身：从零构建你的第一个 Claude Code Skill 深度指南"></a>打造数字分身：从零构建你的第一个 Claude Code Skill 深度指南</h1><p>在上一篇文章中，我们深度辨析了 Skill 与 MCP 的本质区别：MCP 是物理工具箱，而 Skill 是教 AI 如何做事的“标准作业程序 (SOP)”。</p>
+<p>如果你已经厌倦了每天对着 AI 重复输入“请帮我加上类型注释”、“写完代码记得跑一下 lint”、“提交前按 conventional commits 格式写 message”，那么是时候将这些工作流固化下来了。</p>
+<p>本文将带你从零开始，在 Claude Code 中架构并开发一个真正具有生产力的自定义 Skill。</p>
+<hr>
+<h2 id="1-解剖学：一个-Skill-的物理结构"><a href="#1-解剖学：一个-Skill-的物理结构" class="headerlink" title="1. 解剖学：一个 Skill 的物理结构"></a>1. 解剖学：一个 Skill 的物理结构</h2><p>在 Claude Code 中，Skill 并不是一段简单的代码，而是一个<strong>自包含的能力包（Capability Package）</strong>。<br>所有的自定义 Skill 都存放在项目根目录（或全局目录）的 <code>.claude/skills/</code> 文件夹下。</p>
+<p>一个标准的工程化 Skill 目录结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.claude/skills/</span><br><span class="line">└── api-doc-generator/       # 技能文件夹名称</span><br><span class="line">    ├── SKILL.md             # 核心定义文件（YAML + Markdown）</span><br><span class="line">    ├── templates/           # 提示词或代码模板存放区</span><br><span class="line">    │   └── openapi-tmpl.md</span><br><span class="line">    └── scripts/             # 自动化脚本存放区</span><br><span class="line">        └── fetch-routes.sh</span><br></pre></td></tr></table></figure>
+<p>这种结构设计的绝妙之处在于：<strong>它将声明式配置（YAML）、自然语言逻辑（Markdown）和确定性执行（Shell 脚本）完美解耦。</strong></p>
+<hr>
+<h2 id="2-核心引擎：编写-SKILL-md"><a href="#2-核心引擎：编写-SKILL-md" class="headerlink" title="2. 核心引擎：编写 SKILL.md"></a>2. 核心引擎：编写 <code>SKILL.md</code></h2><p><code>SKILL.md</code> 是这个技能的大脑。它分为两部分：顶部的 <strong>YAML Frontmatter（元数据与 Hooks）</strong> 和底部的 <strong>Markdown 正文（SOP 逻辑）</strong>。</p>
+<p>让我们来实现一个名为 <code>CodePolice</code> 的技能，它的作用是在 AI 编写完代码后，强制进行质量审查和规范化。</p>
+<h3 id="2-1-声明元数据-The-Frontmatter"><a href="#2-1-声明元数据-The-Frontmatter" class="headerlink" title="2.1 声明元数据 (The Frontmatter)"></a>2.1 声明元数据 (The Frontmatter)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">code-police</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">严苛的代码质量审查与自动化格式化专家。当修改了核心业务代码时，应自动或手动触发此技能。</span></span><br><span class="line"><span class="attr">hooks:</span></span><br><span class="line">  <span class="attr">PostToolUse:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">matcher:</span> <span class="string">&quot;Write&quot;</span>  <span class="comment"># 监听写文件操作</span></span><br><span class="line">      <span class="attr">hooks:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">command</span></span><br><span class="line">          <span class="attr">command:</span> <span class="string">&quot;npm run lint --fix&quot;</span> <span class="comment"># 确定性兜底：无论 AI 怎么想，写完文件必须跑 lint</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p><strong>架构解析：</strong></p>
+<ul>
+<li><code>name</code> 和 <code>description</code> 是给 Claude 的“调度器”看的。当用户输入模糊的需求时，Claude 会通过读取 description 来决定是否“唤醒”这个 Skill。</li>
+<li><code>hooks</code> 是这个技能的<strong>确定性防御网</strong>。在上面的例子中，我们定义了一个 <code>PostToolUse</code> Hook，只要大模型执行了 <code>Write</code> 工具修改了文件，底层引擎就会强行挂起 LLM，先在本地跑完 <code>npm run lint --fix</code>。</li>
+</ul>
+<h3 id="2-2-编写-SOP-The-Workflow"><a href="#2-2-编写-SOP-The-Workflow" class="headerlink" title="2.2 编写 SOP (The Workflow)"></a>2.2 编写 SOP (The Workflow)</h3><p>接下来是 Markdown 正文，这部分是注入给大模型的 System Prompt，赋予它灵魂：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">你现在是团队中要求最严苛的 Principal Engineer（首席工程师）。</span><br><span class="line"></span><br><span class="line">当本技能被激活时，你必须严格遵循以下 SOP（标准作业程序）进行代码审查：</span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> <span class="strong">**寻找变更**</span>：使用 <span class="code">`Bash`</span> 工具运行 <span class="code">`git diff`</span> 查看刚才修改了哪些代码。</span><br><span class="line"><span class="bullet">2.</span> <span class="strong">**安全审查**</span>：</span><br><span class="line"><span class="bullet">   -</span> 检查是否有硬编码的密码或 Token。</span><br><span class="line"><span class="bullet">   -</span> 检查是否有潜在的 SQL 注入或 XSS 漏洞。</span><br><span class="line"><span class="bullet">3.</span> <span class="strong">**架构审查**</span>：</span><br><span class="line"><span class="bullet">   -</span> 检查是否遵循了单一职责原则。</span><br><span class="line"><span class="bullet">   -</span> 检查是否缺少必要的 TypeScript 类型定义。</span><br><span class="line"><span class="bullet">4.</span> <span class="strong">**生成报告**</span>：如果发现问题，强制使用 <span class="code">`Write`</span> 工具在修改的文件上方添加 <span class="code">`// TODO: [CodePolice]`</span> 注释，并向用户输出一份极其简短的缺陷报告。</span><br><span class="line"></span><br><span class="line">绝对禁止：不要说“好的”、“我明白了”等废话，直接执行上述步骤并输出报告。</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3-进阶玩法：引入外部脚本与模板"><a href="#3-进阶玩法：引入外部脚本与模板" class="headerlink" title="3. 进阶玩法：引入外部脚本与模板"></a>3. 进阶玩法：引入外部脚本与模板</h2><p>单纯的 Prompt 往往不够强大，高阶的 Skill 懂得利用本地环境获取上下文。</p>
+<p>假设我们正在开发一个 <code>ReleaseNotesGenerator</code>（发布说明生成器）技能。与其让大模型自己去猜怎么用 git 命令抓取日志，不如直接喂给它处理好的数据。</p>
+<p>我们可以在 <code>scripts/get-commits.sh</code> 中写一段脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 抓取最近一次 tag 到现在的 commit log，并过滤掉 merge 记录</span></span><br><span class="line">git <span class="built_in">log</span> $(git describe --tags --abbrev=0)..HEAD --no-merges --pretty=format:<span class="string">&quot;%h - %s (%an)&quot;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后在 <code>SKILL.md</code> 中这样写：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: release-notes-generator</span><br><span class="line"><span class="section">description: 自动生成精美的 GitHub Release Notes</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line">你要负责生成版本发布说明。</span><br><span class="line"></span><br><span class="line">请先使用 <span class="code">`Bash`</span> 工具执行本地脚本获取结构化的 Commit 日志：</span><br><span class="line"><span class="code">`./.claude/skills/release-notes-generator/scripts/get-commits.sh`</span></span><br><span class="line"></span><br><span class="line">获取到日志后，请按照以下规则对日志进行分类：</span><br><span class="line"><span class="bullet">-</span> feat: 新功能 (Features)</span><br><span class="line"><span class="bullet">-</span> fix: 修复 (Bug Fixes)</span><br><span class="line"><span class="bullet">-</span> refactor: 重构 (Refactoring)</span><br><span class="line"></span><br><span class="line">最后，读取 <span class="code">`./.claude/skills/release-notes-generator/templates/release.md`</span> 作为模板，将生成的内容填充进去，并向用户展示最终结果。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>设计模式提示</strong>：这就是经典的 <strong>Inversion of Control (控制反转)</strong>。我们不让 AI 去思考“如何获取复杂的 Git 日志”，而是提供一个脚本让它“按下按钮”，它只需要专注于它最擅长的事情——文本理解与生成。</p>
+</blockquote>
+<hr>
+<h2 id="4-调试与发布你的-Skill"><a href="#4-调试与发布你的-Skill" class="headerlink" title="4. 调试与发布你的 Skill"></a>4. 调试与发布你的 Skill</h2><p>开发完 Skill 后，如何在终端里使用它？</p>
+<ol>
+<li><p><strong>隐式唤醒（Agentic 模式）</strong>：<br>在终端中直接说：<em>“我刚改完订单模块，帮我审查一下代码。”</em><br>Claude 会自动扫描 <code>.claude/skills/</code>，如果发现 <code>code-police</code> 的描述匹配当前任务，它会在回复前自动加载这个技能的 SOP 和 Hooks。</p>
+</li>
+<li><p><strong>显式唤醒（强制模式）</strong>：<br>直接对 Claude 发号施令：<em>“使用 code-police 技能检查当前改动。”</em></p>
+</li>
+</ol>
+<h3 id="调试技巧"><a href="#调试技巧" class="headerlink" title="调试技巧"></a>调试技巧</h3><p>在开发初期，Skill 的表现可能不如预期。你可以使用 <code>claude --dangerously-skip-permissions</code> 配合具体的 prompt 进行反复测试，观察它是如何调用工具和执行 Hooks 的。</p>
+<hr>
+<h2 id="5-结语：从-Prompt-Engineering-到-Workflow-Engineering"><a href="#5-结语：从-Prompt-Engineering-到-Workflow-Engineering" class="headerlink" title="5. 结语：从 Prompt Engineering 到 Workflow Engineering"></a>5. 结语：从 Prompt Engineering 到 Workflow Engineering</h2><p>开发一个优秀的 Skill，其核心早已不是过去那种“如何用玄学词汇欺骗大模型”的 Prompt Engineering（提示词工程）。</p>
+<p>它本质上是 <strong>Workflow Engineering（工作流工程）</strong>：你需要像设计微服务一样，思考这个智能体的边界在哪里？哪些逻辑应该用确定性的 Bash 脚本实现？哪些应该用 Hooks 来拦截？哪些才需要真正交给大模型的神经网络去推理？</p>
+<p>当你的团队沉淀了十几个这样的高质量 Skill 时，你就真正拥有了一支不知疲倦、永不犯错的数字架构师团队。</p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Claude-Code/">#Claude Code</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81/">#自动化工作流</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">#架构设计</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Skill/">#Skill</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Agent%E5%BC%80%E5%8F%91/">#Agent开发</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2026/04/01/ClaudeCode%E5%91%BD%E4%BB%A4%E7%B3%BB%E7%BB%9F%E6%8F%AD%E7%A7%98/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">终端里的魔法：深度揭秘 Claude Code 命令系统的架构与实现</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%93%E9%80%A0%E6%95%B0%E5%AD%97%E5%88%86%E8%BA%AB%EF%BC%9A%E4%BB%8E%E9%9B%B6%E6%9E%84%E5%BB%BA%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-Claude-Code-Skill-%E6%B7%B1%E5%BA%A6%E6%8C%87%E5%8D%97"><span class="nav-number">1.</span> <span class="nav-text">打造数字分身：从零构建你的第一个 Claude Code Skill 深度指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%A7%A3%E5%89%96%E5%AD%A6%EF%BC%9A%E4%B8%80%E4%B8%AA-Skill-%E7%9A%84%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">1. 解剖学：一个 Skill 的物理结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%BC%95%E6%93%8E%EF%BC%9A%E7%BC%96%E5%86%99-SKILL-md"><span class="nav-number">1.2.</span> <span class="nav-text">2. 核心引擎：编写 SKILL.md</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%A3%B0%E6%98%8E%E5%85%83%E6%95%B0%E6%8D%AE-The-Frontmatter"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 声明元数据 (The Frontmatter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E7%BC%96%E5%86%99-SOP-The-Workflow"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 编写 SOP (The Workflow)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%BF%9B%E9%98%B6%E7%8E%A9%E6%B3%95%EF%BC%9A%E5%BC%95%E5%85%A5%E5%A4%96%E9%83%A8%E8%84%9A%E6%9C%AC%E4%B8%8E%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.3.</span> <span class="nav-text">3. 进阶玩法：引入外部脚本与模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%B0%83%E8%AF%95%E4%B8%8E%E5%8F%91%E5%B8%83%E4%BD%A0%E7%9A%84-Skill"><span class="nav-number">1.4.</span> <span class="nav-text">4. 调试与发布你的 Skill</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="nav-number">1.4.1.</span> <span class="nav-text">调试技巧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%BB%93%E8%AF%AD%EF%BC%9A%E4%BB%8E-Prompt-Engineering-%E5%88%B0-Workflow-Engineering"><span class="nav-number">1.5.</span> <span class="nav-text">5. 结语：从 Prompt Engineering 到 Workflow Engineering</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
