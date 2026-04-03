@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="QuanYuQi">
+    
+    <title>
+        
+            揭秘 AI 时代的超级终端：Gemini CLI 核心架构与源码深度剖析 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">揭秘 AI 时代的超级终端：Gemini CLI 核心架构与源码深度剖析</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2026-04-04 03:19:05</span>
+        <span class="mobile">2026-04-04 03:19</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/AI-%E6%9E%B6%E6%9E%84/">AI 架构</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/AI-%E6%9E%B6%E6%9E%84/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">源码解析</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/CLI/">CLI</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/AI-Agent/">AI Agent</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Gemini-CLI/">Gemini CLI</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/">工具调用</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="揭秘-AI-时代的超级终端：Gemini-CLI-核心架构与源码深度剖析"><a href="#揭秘-AI-时代的超级终端：Gemini-CLI-核心架构与源码深度剖析" class="headerlink" title="揭秘 AI 时代的超级终端：Gemini CLI 核心架构与源码深度剖析"></a>揭秘 AI 时代的超级终端：Gemini CLI 核心架构与源码深度剖析</h1><p>在 LLM 驱动的开发工具赛道上，Cursor 重新定义了编辑器，而 <strong>Gemini CLI</strong> 则正在重新定义终端。</p>
+<p>作为一个直接运行在开发者终端中的 Agentic System，Gemini CLI 并不是一个简单的“问答脚本”，而是一个具备<strong>自主环境感知、复杂任务规划、多 Agent 协同和底层文件系统/Shell 读写能力</strong>的智能运行时。</p>
+<p>它如何实现安全可控的沙箱环境？如何解决长对话的 Context 爆炸？它的多智能体委派（Sub-Agent Delegation）是如何设计的？本文将带你深入 Gemini CLI 的核心架构，从源码级别深度剖析这个“超级终端”的五脏六腑。</p>
+<hr>
+<h2 id="1-架构总览：从交互层到引擎层"><a href="#1-架构总览：从交互层到引擎层" class="headerlink" title="1. 架构总览：从交互层到引擎层"></a>1. 架构总览：从交互层到引擎层</h2><p>Gemini CLI 的整体架构可以抽象为三层：</p>
+<ol>
+<li><strong>交互层 (CLI Interface)</strong>：负责接收用户输入，处理终端 UI（如进度条、Markdown 渲染、多选交互框）。</li>
+<li><strong>编排层 (Orchestrator &amp; Agent Loop)</strong>：核心大脑。负责维护对话历史、解析 System Prompt、驱动 ReAct 循环。</li>
+<li><strong>执行层 (Execution Engine)</strong>：包含各种 Tool（工具）的实现，如 <code>run_shell_command</code>、<code>write_file</code>、<code>grep_search</code>，以及外部 MCP（Model Context Protocol）的挂载。</li>
+</ol>
+<hr>
+<h2 id="2-核心引擎：Agent-Loop-的工程化实现"><a href="#2-核心引擎：Agent-Loop-的工程化实现" class="headerlink" title="2. 核心引擎：Agent Loop 的工程化实现"></a>2. 核心引擎：Agent Loop 的工程化实现</h2><p>大模型本身是一个无状态的函数：<code>F(Prompt) -&gt; Response</code>。Gemini CLI 能“做事”，全靠其内部极其健壮的 <strong>Agent Loop（智能体循环）</strong>。</p>
+<h3 id="2-1-ReAct-范式的升华"><a href="#2-1-ReAct-范式的升华" class="headerlink" title="2.1 ReAct 范式的升华"></a>2.1 ReAct 范式的升华</h3><p>在源码的底层调度器中，Gemini CLI 严格遵循了 <code>Reason + Act</code> 的哲学，但为了适应高频的本地 I/O，它做了优化：</p>
+<ol>
+<li><strong>Thought 块强制约束</strong>：在每次调用 Tool 之前，模型被强制要求输出内部思考过程。在 System Prompt 中，明确规定了 <code>CRITICAL INSTRUCTION 1/2</code>，要求模型在执行前列出相关工具并进行决策。</li>
+<li><strong>并发工具调用 (Parallel Tool Calling)</strong>：如果多个操作互不依赖（例如同时 <code>grep_search</code> 三个不同的目录，或者并行 <code>read_file</code>），引擎会将这些工具调用打包成一个 Batch 发起异步执行，极大降低了往返延迟（Latency）。</li>
+</ol>
+<h3 id="2-2-状态机流转"><a href="#2-2-状态机流转" class="headerlink" title="2.2 状态机流转"></a>2.2 状态机流转</h3><p>整个会话本质上是一个状态机：<br><code>USER_INPUT</code> -&gt; <code>LLM_THINKING</code> -&gt; <code>TOOL_CALLING</code> -&gt; <code>TOOL_RESULT</code> -&gt; <code>LLM_EVALUATE</code> -&gt; <code>FINAL_ANSWER</code>。<br>一旦工具执行失败（例如 <code>grep</code> 正则语法错误），引擎会自动将 <code>Stderr</code> 作为 <code>Observation</code> 喂回给大模型，触发其自我纠错（Self-Correction）机制。</p>
+<hr>
+<h2 id="3-上下文管理：在-Token-悬崖上跳舞"><a href="#3-上下文管理：在-Token-悬崖上跳舞" class="headerlink" title="3. 上下文管理：在 Token 悬崖上跳舞"></a>3. 上下文管理：在 Token 悬崖上跳舞</h2><p>终端 Agent 的最大痛点是<strong>上下文膨胀</strong>。你让它搜几个大文件，几万 Token 瞬间就没了，随着对话轮次增加，成本剧增且模型容易“变傻”。</p>
+<p>Gemini CLI 的源码在 Context Management 上做到了极致：</p>
+<h3 id="3-1-外科手术式的精准读取"><a href="#3-1-外科手术式的精准读取" class="headerlink" title="3.1 外科手术式的精准读取"></a>3.1 外科手术式的精准读取</h3><p>Gemini CLI 极度排斥直接 <code>cat</code> 整个大文件。在它的 Tool 定义中，<code>read_file</code> 被设计为强制支持 <code>start_line</code> 和 <code>end_line</code> 参数。<br>引擎在底层对输出进行了强力熔断：<strong>硬编码限制输出不能超过 2000 行或 20MB</strong>。一旦触发阈值，工具会自动截断并返回警告信息。</p>
+<h3 id="3-2-搜索引擎的本地化替代"><a href="#3-2-搜索引擎的本地化替代" class="headerlink" title="3.2 搜索引擎的本地化替代"></a>3.2 搜索引擎的本地化替代</h3><p>为了避免让 LLM 盲目读文件，Gemini CLI 内置了基于 <code>ripgrep</code> 的超高速搜索工具 <code>grep_search</code> 和 <code>glob</code>。<br>通过强制 LLM 传递 <code>include_pattern</code>、<code>context</code> (前后几行)、<code>max_matches_per_file</code> 等参数，将“阅读代码”降维成了“精准定位”，将 Token 消耗降低了 90%。</p>
+<h3 id="3-3-记忆外化-Memory-Tool"><a href="#3-3-记忆外化-Memory-Tool" class="headerlink" title="3.3 记忆外化 (Memory Tool)"></a>3.3 记忆外化 (Memory Tool)</h3><p>Gemini CLI 引入了全局记忆机制 <code>save_memory</code>。对于用户偏好（如“我习惯用 Tabs 而不是 Spaces”），它不保存在会话历史中，而是持久化到全局配置。这意味着历史记录可以随时被截断（Truncated）或压缩，而核心画像永不丢失。</p>
+<hr>
+<h2 id="4-工具执行层：确定性与安全的边界"><a href="#4-工具执行层：确定性与安全的边界" class="headerlink" title="4. 工具执行层：确定性与安全的边界"></a>4. 工具执行层：确定性与安全的边界</h2><p>让 AI 拥有 Shell 权限，等于把核按钮交给了婴儿。Gemini CLI 是如何防控风险的？</p>
+<h3 id="4-1-Shell-命令的安全隔离"><a href="#4-1-Shell-命令的安全隔离" class="headerlink" title="4.1 Shell 命令的安全隔离"></a>4.1 Shell 命令的安全隔离</h3><p><code>run_shell_command</code> 是最危险的算子。在源码中，它的执行是被严格包装的：</p>
+<ul>
+<li><strong>分页禁用机制</strong>：底层默认注入环境变量或参数（如 <code>git --no-pager</code>，<code>PAGER=cat</code>），防止命令陷入交互式分页等待（这会导致 Agent 永久挂起）。</li>
+<li><strong>后台进程追踪</strong>：支持 <code>is_background</code> 参数。如果是长驻进程（如 <code>npm run dev</code>），引擎会将其转为 Background Process，捕获其 PID/PGID，并只采样前几百毫秒的输出来判断是否启动成功，随后立即释放阻塞。</li>
+</ul>
+<h3 id="4-2-文件修改的竞态锁"><a href="#4-2-文件修改的竞态锁" class="headerlink" title="4.2 文件修改的竞态锁"></a>4.2 文件修改的竞态锁</h3><p>在进行代码替换时，Gemini CLI 使用了 <code>replace</code> 工具。为了防止大模型产生“幻觉”导致改错代码，<code>replace</code> 采用了严格的 <strong>AST/Literal 级精确匹配</strong>：</p>
+<ul>
+<li>必须提供 <code>old_string</code> 和 <code>new_string</code>。</li>
+<li>如果 <code>old_string</code> 在文件中不是唯一匹配（除非开启 <code>allow_multiple</code>），底层校验会直接抛出异常并拒绝执行。</li>
+<li><strong>并发控制</strong>：引擎严禁在同一个回合（Turn）中对同一个文件发起多次并发的 <code>replace</code> 操作，这从底层杜绝了并发读写造成的竞态条件（Race Condition）。</li>
+</ul>
+<hr>
+<h2 id="5-多-Agent-协同：化繁为简的架构演进"><a href="#5-多-Agent-协同：化繁为简的架构演进" class="headerlink" title="5. 多 Agent 协同：化繁为简的架构演进"></a>5. 多 Agent 协同：化繁为简的架构演进</h2><p>当一个任务极其庞大（比如“把这个 React 项目重构成 Vue”），单体 Agent 会陷入混乱。Gemini CLI 引入了<strong>子智能体委派（Sub-Agent Delegation）</strong>模式。</p>
+<p>在它的工具箱中，除了常规的系统命令，你还能看到以下高级算子：</p>
+<ul>
+<li><code>codebase_investigator</code>：专门负责大规模代码库的拓扑分析与根因排查。</li>
+<li><code>cli_help</code>：负责自省，查询内部文档。</li>
+<li><code>generalist</code>：拥有全套工具的通用 Agent。</li>
+</ul>
+<h3 id="巧妙的调用逻辑"><a href="#巧妙的调用逻辑" class="headerlink" title="巧妙的调用逻辑"></a>巧妙的调用逻辑</h3><p>当主 Agent（Main Session）发现任务过大时，它会<strong>把复杂任务打包，作为参数传递给 <code>generalist</code> 工具</strong>。<br>此时，主循环会挂起（挂载 <code>wait_for_previous=true</code>），底层启动一个完全隔离的独立 Context Window 开始运行子 Agent。<br>当子 Agent 执行完毕后，它只向主 Agent 返回一个<strong>高度浓缩的结论总结</strong>。</p>
+<p><strong>架构意义</strong>：这实现了 Context 的物理隔离！主 Agent 永远保持清爽、轻量级，它只负责战略调度；而脏活、累活（消耗大量输入输出 Token 的操作）都在即生即灭的 Sub-Agent 中完成。</p>
+<hr>
+<h2 id="6-结语：不可阻挡的系统级-AI"><a href="#6-结语：不可阻挡的系统级-AI" class="headerlink" title="6. 结语：不可阻挡的系统级 AI"></a>6. 结语：不可阻挡的系统级 AI</h2><p>深入拆解 Gemini CLI 后，我们看到了一种极致务实的工程哲学：<strong>不迷信模型本身的“全知全能”，而是用严格的工具约束、多 Agent 分流、以及强悍的本地搜索引擎，去弥补当前 LLM 在逻辑深度和注意力窗口上的短板。</strong></p>
+<p>未来的终端，不再是黑底白字的命令行界面，而是由诸如 Gemini CLI 这样的基座层引擎，将文件系统、编译器、网络和无尽的算力编织成的一台庞大的<strong>语义操作系统（Semantic OS）</strong>。</p>
+<p>作为开发者，学会掌握这种架构并编写适应这套范式的扩展（Skills / MCP），将是我们通向下一代软件工程的必修课。</p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/CLI/">#CLI</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">#架构设计</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/AI-Agent/">#AI Agent</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Gemini-CLI/">#Gemini CLI</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/">#工具调用</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2026/04/01/%E5%A6%82%E4%BD%95%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AASkill/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">打造数字分身：从零构建你的第一个 Claude Code Skill 深度指南</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%AD%E7%A7%98-AI-%E6%97%B6%E4%BB%A3%E7%9A%84%E8%B6%85%E7%BA%A7%E7%BB%88%E7%AB%AF%EF%BC%9AGemini-CLI-%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">揭秘 AI 时代的超级终端：Gemini CLI 核心架构与源码深度剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%9E%B6%E6%9E%84%E6%80%BB%E8%A7%88%EF%BC%9A%E4%BB%8E%E4%BA%A4%E4%BA%92%E5%B1%82%E5%88%B0%E5%BC%95%E6%93%8E%E5%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">1. 架构总览：从交互层到引擎层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A0%B8%E5%BF%83%E5%BC%95%E6%93%8E%EF%BC%9AAgent-Loop-%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">2. 核心引擎：Agent Loop 的工程化实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-ReAct-%E8%8C%83%E5%BC%8F%E7%9A%84%E5%8D%87%E5%8D%8E"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 ReAct 范式的升华</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E7%8A%B6%E6%80%81%E6%9C%BA%E6%B5%81%E8%BD%AC"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 状态机流转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%EF%BC%9A%E5%9C%A8-Token-%E6%82%AC%E5%B4%96%E4%B8%8A%E8%B7%B3%E8%88%9E"><span class="nav-number">1.3.</span> <span class="nav-text">3. 上下文管理：在 Token 悬崖上跳舞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%A4%96%E7%A7%91%E6%89%8B%E6%9C%AF%E5%BC%8F%E7%9A%84%E7%B2%BE%E5%87%86%E8%AF%BB%E5%8F%96"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 外科手术式的精准读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E6%9C%AC%E5%9C%B0%E5%8C%96%E6%9B%BF%E4%BB%A3"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 搜索引擎的本地化替代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E8%AE%B0%E5%BF%86%E5%A4%96%E5%8C%96-Memory-Tool"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 记忆外化 (Memory Tool)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%B7%A5%E5%85%B7%E6%89%A7%E8%A1%8C%E5%B1%82%EF%BC%9A%E7%A1%AE%E5%AE%9A%E6%80%A7%E4%B8%8E%E5%AE%89%E5%85%A8%E7%9A%84%E8%BE%B9%E7%95%8C"><span class="nav-number">1.4.</span> <span class="nav-text">4. 工具执行层：确定性与安全的边界</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Shell-%E5%91%BD%E4%BB%A4%E7%9A%84%E5%AE%89%E5%85%A8%E9%9A%94%E7%A6%BB"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 Shell 命令的安全隔离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E7%9A%84%E7%AB%9E%E6%80%81%E9%94%81"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 文件修改的竞态锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%A4%9A-Agent-%E5%8D%8F%E5%90%8C%EF%BC%9A%E5%8C%96%E7%B9%81%E4%B8%BA%E7%AE%80%E7%9A%84%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B"><span class="nav-number">1.5.</span> <span class="nav-text">5. 多 Agent 协同：化繁为简的架构演进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A7%E5%A6%99%E7%9A%84%E8%B0%83%E7%94%A8%E9%80%BB%E8%BE%91"><span class="nav-number">1.5.1.</span> <span class="nav-text">巧妙的调用逻辑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%BB%93%E8%AF%AD%EF%BC%9A%E4%B8%8D%E5%8F%AF%E9%98%BB%E6%8C%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BA%A7-AI"><span class="nav-number">1.6.</span> <span class="nav-text">6. 结语：不可阻挡的系统级 AI</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
