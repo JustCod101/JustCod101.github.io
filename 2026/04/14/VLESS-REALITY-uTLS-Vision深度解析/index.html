@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="QuanYuQi">
+    
+    <title>
+        
+            VLESS + REALITY + uTLS + Vision：为什么单节点 VPS 能对“机场专线”完成降维打击 |
+        
+        QuanYuQi&#39;s CyberSpace
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                }
+            };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/CuteDoge.png","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"To be instruction or to be data ? That is question."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                QuanYuQi&#39;s CyberSpace
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">VLESS + REALITY + uTLS + Vision：为什么单节点 VPS 能对“机场专线”完成降维打击</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/CuteDoge.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">QuanYuQi</span>
+                        
+                            <span class="author-label">傻逼脚本小子</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2026-04-14 02:28:03</span>
+        <span class="mobile">2026-04-14 02:28</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/">网络技术</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/GFW/">GFW</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">网络工程</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/VLESS/">VLESS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/REALITY/">REALITY</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/uTLS/">uTLS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Vision/">Vision</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Xray/">Xray</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/TLS/">TLS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="VLESS-REALITY-uTLS-Vision：为什么单节点-VPS-能对“机场专线”完成降维打击"><a href="#VLESS-REALITY-uTLS-Vision：为什么单节点-VPS-能对“机场专线”完成降维打击" class="headerlink" title="VLESS + REALITY + uTLS + Vision：为什么单节点 VPS 能对“机场专线”完成降维打击"></a>VLESS + REALITY + uTLS + Vision：为什么单节点 VPS 能对“机场专线”完成降维打击</h1><p>如果你这两三年没持续关注代理协议，很容易在今天产生一种强烈的违和感：</p>
+<p>为什么一台普通单节点 VPS，跑上 <strong><code>VLESS + REALITY + uTLS + Vision</code></strong> 之后，体感延迟、网页首开、YouTube 拖动、Git clone，居然能把很多标榜 <strong><code>IPLC/IEPL</code></strong> 的商业“专线”按在地上打？</p>
+<p>这不是玄学，恰恰是协议工程赢了营销词。</p>
+<hr>
+<h2 id="爆款标题候选"><a href="#爆款标题候选" class="headerlink" title="爆款标题候选"></a>爆款标题候选</h2><ol>
+<li><strong>VLESS + REALITY + uTLS + Vision：单节点 VPS，如何对“机场专线”完成降维打击</strong></li>
+<li><strong>专线神话已死：VLESS + REALITY + Vision 为什么能把 IEPL/IPLC 打成“高价旧时代”</strong></li>
+<li><strong>从 TLS in TLS 到内核 Splice：VLESS + REALITY + uTLS + Vision 的版本答案</strong></li>
+</ol>
+<hr>
+<h2 id="引入：打破“物理专线”的神话"><a href="#引入：打破“物理专线”的神话" class="headerlink" title="引入：打破“物理专线”的神话"></a>引入：打破“物理专线”的神话</h2><p>先说结论：<strong>绝大多数消费级“机场专线”，卖的不是“你独享的低时延链路”，而是“共享入口 + 共享出口 + 路由调度 + BGP 博弈”的包装结果。</strong><br>真正决定体感的，从来不是宣传页上的 <code>IEPL</code> 四个字母，而是下面这条式子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">体感时延 ≈ 物理路径长度 + 排队时延 + 协议处理开销 + 重传/抖动成本</span><br></pre></td></tr></table></figure>
+<p>很多商业“专线”的问题，不在“有没有专线”这三个字，而在于它们前后各自挂了一串肉眼看不见的损耗：</p>
+<ul>
+<li>入口 BGP 混战，用户先挤进共享入口</li>
+<li>中间骨干复用，带宽被超售</li>
+<li>出口再做区域调度，节点之间互相争抢质量</li>
+<li>面板、分流、转发、TLS 终止、再封装，每一层都在加延迟</li>
+</ul>
+<p>于是你买到的并不是“一条直线”，而是一张流量期货。</p>
+<p>反过来，<strong>单节点 VPS 的优势恰恰是“简单”</strong>：</p>
+<ul>
+<li>一个入口</li>
+<li>一个出口</li>
+<li>一套尽量少做事的协议栈</li>
+<li>一条尽量少折腾 payload 的数据路径</li>
+</ul>
+<p>这套组合的可怕之处就在这里：它不是靠“更贵的网络资源”取胜，而是靠 <strong>“去掉所有不必要的东西”</strong> 取胜。</p>
+<blockquote>
+<p>严格地说，本文批判的是消费级共享“专线”商品，而不是企业自己采购、自己运维、带 SLA 和 CIR 保证的真专线。后者当然是另一种游戏，不在同一个比较维度里。</p>
+</blockquote>
+<hr>
+<h2 id="REALITY：终极的流量“寄生”"><a href="#REALITY：终极的流量“寄生”" class="headerlink" title="REALITY：终极的流量“寄生”"></a>REALITY：终极的流量“寄生”</h2><h3 id="过去的-TLS-代理，最大的问题不是“加密不够强”，而是“伪装不够真”"><a href="#过去的-TLS-代理，最大的问题不是“加密不够强”，而是“伪装不够真”" class="headerlink" title="过去的 TLS 代理，最大的问题不是“加密不够强”，而是“伪装不够真”"></a>过去的 TLS 代理，最大的问题不是“加密不够强”，而是“伪装不够真”</h3><p>旧时代的 TLS 代理有一个根本矛盾：</p>
+<p>你越想把自己伪装成正常 HTTPS，就越需要像一个正常网站那样活着。</p>
+<p>这意味着你通常要准备：</p>
+<ul>
+<li>一个域名</li>
+<li>一张证书</li>
+<li>一个伪装站</li>
+<li>一套看起来“像正常 Web 服务”的服务端行为</li>
+</ul>
+<p>问题是，<strong>自建伪装站很容易只伪装出“表面像”</strong>。</p>
+<p>GFW 这类审查系统并不只会被动看包，它还会发起 <strong><code>Active Probing</code></strong>。一旦它主动连你的 443 端口，很多传统方案都会暴露出异样：</p>
+<ul>
+<li>证书链不自然</li>
+<li>SNI 命中逻辑很怪</li>
+<li>ALPN 行为不像真实站</li>
+<li>握手失败后的报错模式太“代理”</li>
+<li>空站内容、回源逻辑、HTTP 行为缺乏真实世界的“噪声”</li>
+</ul>
+<p>换句话说，旧 TLS 代理往往不是被密码学打穿，而是被“像不像个真人”打穿。</p>
+<h3 id="REALITY-的核心，不是“伪装自己”，而是“寄生别人”"><a href="#REALITY-的核心，不是“伪装自己”，而是“寄生别人”" class="headerlink" title="REALITY 的核心，不是“伪装自己”，而是“寄生别人”"></a>REALITY 的核心，不是“伪装自己”，而是“寄生别人”</h3><p><strong>REALITY</strong> 的思路非常狠：既然自己扮演网站总会露馅，那就别演了，<strong>直接寄生在高信誉目标站点的 TLS 行为模型上。</strong></p>
+<p>Project X 官方文档里，REALITY 的服务端核心配置就是一个 <code>target</code>。这不是装饰字段，它就是整个方案的灵魂：<br>你的 VPS 并不需要像传统 TLS 代理一样自己暴露一张公开证书；它可以把外部世界看到的 TLS 表象，尽量贴近一个真实的大站目标。</p>
+<p>更直白一点，REALITY 追求的不是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“让审查者以为你像微软”</span><br></pre></td></tr></table></figure>
+<p>而是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“让审查者在握手层面几乎只能把你当成微软”</span><br></pre></td></tr></table></figure>
+<h3 id="REALITY-是怎么做到的"><a href="#REALITY-是怎么做到的" class="headerlink" title="REALITY 是怎么做到的"></a>REALITY 是怎么做到的</h3><p>根据 Project X 文档与 REALITY 仓库说明，REALITY 的客户端只需要对 TLS 做两件额外的事：</p>
+<ol>
+<li>在一个本就应该是随机噪声的位置里，携带可验证的认证材料</li>
+<li>使用自定义的证书校验逻辑，识别“临时可信证书”与“目标站真证书”</li>
+</ol>
+<p>官方文档明确写到：REALITY 只是在 TLS 上做了修改，客户端实现只需要对 <strong>随机 Session ID</strong> 和证书验证做轻量定制；而服务端在认证失败时，会<strong>直接把流量转发到 <code>target</code></strong>。<br>这意味着：</p>
+<ul>
+<li><strong>合法客户端</strong>：服务端识别出隐藏认证，返回一张由临时认证密钥签发的“临时可信证书”，随后进入代理语义</li>
+<li><strong>探测器或误连者</strong>：服务端识别失败，不暴露任何“代理专属错误”，而是把连接直接送去目标站，探测器拿到的是目标站点真实的握手和真实证书</li>
+</ul>
+<p>可以把它理解成这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">合法客户端</span><br><span class="line">ClientHello(看起来像去访问 target + 隐藏认证)</span><br><span class="line">        |</span><br><span class="line">        v</span><br><span class="line">   VPS / REALITY ---- 验证成功 ----&gt; 返回临时可信证书 -&gt; 建立 VLESS 通道</span><br><span class="line"></span><br><span class="line">主动探测</span><br><span class="line">ProbeHello(只有表面，没有隐藏认证)</span><br><span class="line">      |</span><br><span class="line">      v</span><br><span class="line"> VPS / REALITY ---- 验证失败 ----&gt; 直接转发到 target -&gt; 返回真实站点握手</span><br></pre></td></tr></table></figure>
+<h3 id="为什么这对主动探测几乎是降维打击"><a href="#为什么这对主动探测几乎是降维打击" class="headerlink" title="为什么这对主动探测几乎是降维打击"></a>为什么这对主动探测几乎是降维打击</h3><p>传统抗主动探测，很多方案的目标是“别让它那么容易发现我是代理”。</p>
+<p>REALITY 更进一步，它的目标是：</p>
+<p><strong>“就算你来探测，你也只能探测到一个真实网站。”</strong></p>
+<p>这件事的杀伤力极大，因为它直接抬高了审查系统的判定成本：</p>
+<ul>
+<li>你不能靠“不正常的证书”去抓</li>
+<li>你不能靠“异常错误返回”去抓</li>
+<li>你不能靠“空站行为不自然”去抓</li>
+<li>你想封这个模式，等价于先误伤 <code>target</code> 本身</li>
+</ul>
+<p>REALITY 仓库甚至明确说明，REALITY 客户端可以区分三种情况：</p>
+<ul>
+<li>收到临时可信证书：说明代理链路成立</li>
+<li>收到目标站真证书：进入爬虫/伪装模式</li>
+<li>收到无效证书：说明遭遇中间人或异常，直接断开</li>
+</ul>
+<p>这就是它最狠的地方。<br><strong>它不是“隐藏流量”，而是在握手层把自己塞进真实世界。</strong></p>
+<hr>
+<h2 id="uTLS：抹掉客户端头上的达摩克利斯之剑"><a href="#uTLS：抹掉客户端头上的达摩克利斯之剑" class="headerlink" title="uTLS：抹掉客户端头上的达摩克利斯之剑"></a>uTLS：抹掉客户端头上的达摩克利斯之剑</h2><p>如果说 REALITY 主要解决的是<strong>服务端像不像真的</strong>，那 <strong>uTLS</strong> 解决的就是另一个致命问题：</p>
+<p><strong>客户端发出来的 TLS <code>ClientHello</code>，像不像真的。</strong></p>
+<h3 id="服务端伪装成功，不代表客户端就安全"><a href="#服务端伪装成功，不代表客户端就安全" class="headerlink" title="服务端伪装成功，不代表客户端就安全"></a>服务端伪装成功，不代表客户端就安全</h3><p>很多人对 TLS 伪装的理解只停留在 SNI 和证书。实际上，对抗体系里还有一把常被忽视的刀：</p>
+<p><strong>TLS 指纹识别。</strong></p>
+<p>最经典的是 <strong><code>JA3</code></strong>。Salesforce 的 JA3 项目把 TLS Client Hello 中的关键元素拼成一个稳定指纹，包括：</p>
+<ul>
+<li>TLS 版本</li>
+<li>Cipher Suites 顺序</li>
+<li>Extensions 顺序</li>
+<li>Supported Groups</li>
+<li>EC Point Formats</li>
+</ul>
+<p>后来还有 <strong><code>JA4</code></strong> 一类更现代的指纹方法，把更多传输与行为维度纳入建模。</p>
+<p>这意味着什么？</p>
+<p>意味着就算你的服务端看起来像苹果，<strong>如果你的客户端握手长得像一个非常少见的 Go 程序</strong>，你还是会在大规模统计里发亮。</p>
+<h3 id="Go-原生-TLS-的问题：太“Go”了"><a href="#Go-原生-TLS-的问题：太“Go”了" class="headerlink" title="Go 原生 TLS 的问题：太“Go”了"></a>Go 原生 TLS 的问题：太“Go”了</h3><p>uTLS 官方 README 写得非常直白：Golang 的 <code>ClientHello</code> 指纹相当独特，尤其在移动端环境里更显眼，足以让审查者或检测系统用很小的误伤代价把它筛出来。</p>
+<p>这就是为什么仅仅“走 TLS”远远不够。<br>你必须进一步让你的 <code>ClientHello</code> 看起来像：</p>
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Firefox</li>
+<li>iOS</li>
+<li>Android</li>
+</ul>
+<p>而不是“某个冷门代理程序的默认握手模板”。</p>
+<h3 id="uTLS-干了什么"><a href="#uTLS-干了什么" class="headerlink" title="uTLS 干了什么"></a>uTLS 干了什么</h3><p><strong>uTLS</strong> 本质上是 Go <code>crypto/tls</code> 的一个分叉，它允许调用方直接控制 <code>ClientHello</code> 的细节：</p>
+<ul>
+<li>密码套件顺序</li>
+<li>扩展字段顺序</li>
+<li>ALPN 组合</li>
+<li>Session Ticket 行为</li>
+<li>各类浏览器版本模板</li>
+<li>甚至完全随机化的握手指纹</li>
+</ul>
+<p>Xray 文档里的 <code>fingerprint</code> 字段就是这件事的落点。你可以直接让流量伪装成 <code>chrome</code>、<code>safari</code>、<code>ios</code> 等主流客户端；文档还特别说明，REALITY 本身就依赖 uTLS 操作底层 TLS 参数，因此这里甚至<strong>不支持</strong>通过 <code>unsafe</code> 关闭它。</p>
+<p>这意味着，uTLS 不是可有可无的配件，它是这套组合中的<strong>客户端身份证清洗器</strong>。</p>
+<h3 id="但-uTLS-也不是万能药"><a href="#但-uTLS-也不是万能药" class="headerlink" title="但 uTLS 也不是万能药"></a>但 uTLS 也不是万能药</h3><p>这里必须说一句严谨的话：<br>Xray 文档也明确提醒，uTLS <strong>主要模拟的是 <code>TLS ClientHello</code> 指纹</strong>，并不等于完整复刻整个浏览器行为。</p>
+<p>所以它的准确定位应该是：</p>
+<ul>
+<li>它能有效抹掉最廉价、最容易规模化筛选的 <code>JA3</code> 式特征</li>
+<li>它能显著降低“代理软件默认握手模板”这种低级暴露</li>
+<li>但它不等于完整浏览器栈，不会自动替你伪装 HTTP 层、TCP 行为层、应用层节奏</li>
+</ul>
+<p>即便如此，这一步依然极其关键。因为现实世界里，大规模封锁最喜欢先打“低成本高命中”的目标。<br><strong>uTLS 的意义，就是让你的流量别在第一轮筛查就被捞出来。</strong></p>
+<hr>
+<h2 id="Vision：性能狂飙的核心引擎"><a href="#Vision：性能狂飙的核心引擎" class="headerlink" title="Vision：性能狂飙的核心引擎"></a>Vision：性能狂飙的核心引擎</h2><p>如果说 REALITY 和 uTLS 解决的是<strong>活下去</strong>的问题，那么 <strong>Vision</strong> 解决的就是<strong>跑得快</strong>的问题。</p>
+<p>而它瞄准的，正是传统 TLS 代理最大的历史包袱：</p>
+<h3 id="TLS-in-TLS"><a href="#TLS-in-TLS" class="headerlink" title="TLS in TLS"></a><code>TLS in TLS</code></h3><h3 id="传统-TLS-代理，为什么天然背着一层“性能税”"><a href="#传统-TLS-代理，为什么天然背着一层“性能税”" class="headerlink" title="传统 TLS 代理，为什么天然背着一层“性能税”"></a>传统 TLS 代理，为什么天然背着一层“性能税”</h3><p>看一个最典型的 HTTPS 访问代理链路：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">浏览器  ---(内层 HTTPS)---&gt; 目标网站</span><br><span class="line">   |                         ^</span><br><span class="line">   |                         |</span><br><span class="line">   +---(外层 TLS 代理隧道)----+</span><br></pre></td></tr></table></figure>
+<p>也就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Browser ---- Proxy Client ==== Proxy Server ---- Google</span><br></pre></td></tr></table></figure>
+<p>其中 <code>====</code> 是外层代理 TLS，<code>----</code> 是内层业务 TLS。</p>
+<p>问题在于，用户真正要访问的大多数现代网站，本来就已经是 HTTPS/TLS 了。<br>于是传统 TLS 代理实际上做的是：</p>
+<ul>
+<li>把一个已经加密的内层 TLS 流</li>
+<li>再塞进一个外层 TLS 隧道</li>
+<li>每一层都要读、写、封装、校验、复制</li>
+</ul>
+<p>这就是典型的 <strong><code>TLS in TLS</code></strong>。</p>
+<p>它带来的损失有三类：</p>
+<ol>
+<li><strong>CPU 损耗</strong>：多一层加密解密，多一层 AEAD 处理</li>
+<li><strong>包体膨胀</strong>：外层记录层会增加额外头部与封装开销</li>
+<li><strong>统计学特征</strong>：固定形态的前几包，极容易形成可识别模式</li>
+</ol>
+<p>第三点尤其致命。<br>因为即便审查者看不懂密文内容，它仍然可以看得懂：</p>
+<ul>
+<li>包长分布</li>
+<li>收发顺序</li>
+<li>RTT 节奏</li>
+<li>哪几个包短，哪几个包长</li>
+</ul>
+<p>这就是为什么 <strong><code>TLS in TLS</code></strong> 不只是“慢”，还会“显眼”。</p>
+<h3 id="Vision-的高光，不是“更会加密”，而是“少加密、少加工”"><a href="#Vision-的高光，不是“更会加密”，而是“少加密、少加工”" class="headerlink" title="Vision 的高光，不是“更会加密”，而是“少加密、少加工”"></a>Vision 的高光，不是“更会加密”，而是“少加密、少加工”</h3><p>Vision 的设计思想非常反常识：</p>
+<p><strong>既然内层已经是 TLS 1.3 密文，那代理层就不应该再碰它。</strong></p>
+<p>XTLS 团队在公开讨论里把问题拆得很透：一个典型 TLS 代理，在外层隧道建立好之后，最危险的是前面那几个“生死包”。因为它们长度短、顺序固定、变化少，特别像机器能总结出来的特征模板。</p>
+<p>官方讨论中把这段流程概括成 5 个包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 客户端 -&gt; 服务端：本次代理目标是谁，我是谁</span><br><span class="line">2. 服务端 -&gt; 客户端：收到，开始发数据</span><br><span class="line">3. 浏览器 -&gt; 目标站：内层 TLS ClientHello</span><br><span class="line">4. 目标站 -&gt; 浏览器：内层 TLS ServerHello</span><br><span class="line">5. 浏览器 -&gt; 目标站：开始加密会话</span><br></pre></td></tr></table></figure>
+<p>这些包的危险之处在于：</p>
+<ul>
+<li>第 1、2、5 包通常都很短</li>
+<li>第 3 包是内层 TLS ClientHello，变化空间有限</li>
+<li>第 4 包通常较长</li>
+<li>时序上接近固定的 <code>C S C S C</code></li>
+</ul>
+<p>这就是机器学习最爱吃的饲料。</p>
+<h3 id="Vision-的第一刀：专打“生死-5-包”"><a href="#Vision-的第一刀：专打“生死-5-包”" class="headerlink" title="Vision 的第一刀：专打“生死 5 包”"></a>Vision 的第一刀：专打“生死 5 包”</h3><p>Vision 没有盲目地对所有流量随机填充，而是把注意力集中在最有辨识度的那几个 TLS 握手关键包上。</p>
+<p>在 Xray 官方的 <code>xtls-rprx-vision</code> 说明里，它明确写到：Vision 会包含 <strong><code>inner handshake random padding</code></strong>。<br>对应到公开讨论，就是对这些过短、过稳定、过容易被学出来的内层握手包做有针对性的填充，而不是给整个连接无脑加肥。</p>
+<p>这和很多“混淆协议”的差别在于：</p>
+<ul>
+<li>混淆协议：给所有包都上滤镜</li>
+<li>Vision：只把最容易暴露身份的关键帧修掉</li>
+</ul>
+<p>前者容易把整条流量做得越来越不像真实世界。<br>后者则是尽量只改必须改的地方。</p>
+<h3 id="Vision-的第二刀：进入-TLS-1-3-后，尽量直接裸转发"><a href="#Vision-的第二刀：进入-TLS-1-3-后，尽量直接裸转发" class="headerlink" title="Vision 的第二刀：进入 TLS 1.3 后，尽量直接裸转发"></a>Vision 的第二刀：进入 TLS 1.3 后，尽量直接裸转发</h3><p>真正让 Vision 封神的，不只是前面 5 个包的处理，而是后面的 99%。</p>
+<p>Xray 公开讨论里对 Vision 的一句概括非常传神：</p>
+<p><strong>“传输 TLS 1.3 数据时，99% 的数据包拥有几乎完美的流量特征，因为它是原始数据，没有经过代理加工。”</strong></p>
+<p>翻译成人话就是：</p>
+<p>当代理层确认内层已经进入 <strong>TLS 1.3</strong> 的稳定加密阶段后，后续绝大多数 payload 都不该再被用户态逻辑反复折腾。<br>工程上你可以把这理解为一种 <strong><code>Direct Read/Write</code></strong> 思路：</p>
+<ul>
+<li>前面少量包，用来完成识别、认证、填充</li>
+<li>后面大段密文，尽可能只做直通搬运</li>
+</ul>
+<p>这就是“少做事”的力量。</p>
+<h3 id="为什么-Vision-能逼近链路原生延迟"><a href="#为什么-Vision-能逼近链路原生延迟" class="headerlink" title="为什么 Vision 能逼近链路原生延迟"></a>为什么 Vision 能逼近链路原生延迟</h3><p>Project X 文档对这件事给了非常硬核的工程描述：</p>
+<ul>
+<li>在 <code>TCP + TLS/Reality</code> 组合下，如果传输的是 <strong>TLS 1.3</strong></li>
+<li>核心会尝试在底层对加密数据做 <strong><code>Splice</code></strong></li>
+<li>一旦成功，<strong>可以节省全部核心 IO 开销</strong></li>
+</ul>
+<p>而文档对 <code>Splice</code> 的解释更直接：</p>
+<blockquote>
+<p>Linux 内核直接转发 TCP，不再经过 Xray 的内存，大幅减少数据拷贝和 CPU 上下文切换。</p>
+</blockquote>
+<p>注意这句话的重点不是“内核帮你解密”，而是：</p>
+<p><strong>内核帮你搬运。</strong></p>
+<p>也就是说，Vision 的狠，不在于让代理理解更多内容，而在于让代理在看懂“这已经是内层 TLS 1.3 密文”之后，尽快退出数据主路径。</p>
+<p>路径从：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">网卡 -&gt; 内核 -&gt; 用户态 Xray -&gt; 内核 -&gt; 网卡</span><br></pre></td></tr></table></figure>
+<p>尽量逼近：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">网卡 -&gt; 内核 splice -&gt; 网卡</span><br></pre></td></tr></table></figure>
+<p>于是你得到的结果就是：</p>
+<ul>
+<li>更少的数据拷贝</li>
+<li>更少的 syscall</li>
+<li>更少的 context switch</li>
+<li>更低的尾延迟</li>
+<li>更低的 CPU 占用</li>
+</ul>
+<p>这也是为什么 Vision 给人的实际体感，经常会出现一种“怎么这么像直连”的错觉。<br>它当然不能突破物理极限，但它可以把<strong>代理本身额外引入的那部分延迟</strong>压到极低。</p>
+<h3 id="Vision-还有一个很少被提到的细节：它在帮你把流量往“可优化形态”里推"><a href="#Vision-还有一个很少被提到的细节：它在帮你把流量往“可优化形态”里推" class="headerlink" title="Vision 还有一个很少被提到的细节：它在帮你把流量往“可优化形态”里推"></a>Vision 还有一个很少被提到的细节：它在帮你把流量往“可优化形态”里推</h3><p>Xray 文档还提到，<code>xtls-rprx-vision</code> 会默认拦截发往 <code>UDP/443</code> 的流量，目的是阻止浏览器优先走 QUIC，迫使它回到标准 HTTPS，从而让更多流量进入可被 <code>Splice</code> 的 TCP/TLS 通道。</p>
+<p>这是一种非常“协议工程师”的思路：</p>
+<p><strong>不是被动接受业务流量长什么样，而是主动把流量导向最适合自己优化的形态。</strong></p>
+<hr>
+<h2 id="为什么它能击败很多商业“专线”"><a href="#为什么它能击败很多商业“专线”" class="headerlink" title="为什么它能击败很多商业“专线”"></a>为什么它能击败很多商业“专线”</h2><p>现在把前面四个部件拼起来，你就能看懂这个组合为什么会形成碾压效应。</p>
+<h3 id="1-商业“专线”优化的是“网络资源调度”"><a href="#1-商业“专线”优化的是“网络资源调度”" class="headerlink" title="1. 商业“专线”优化的是“网络资源调度”"></a>1. 商业“专线”优化的是“网络资源调度”</h3><p>商业方案的核心卖点通常是：</p>
+<ul>
+<li>更优的国际出口</li>
+<li>更稳的跨境骨干</li>
+<li>更少的公网污染</li>
+</ul>
+<p>这当然有价值，但它解决的是<strong>链路中段</strong>的问题。</p>
+<p>而真实用户体感往往死在别处：</p>
+<ul>
+<li>入口排队</li>
+<li>节点超售</li>
+<li>多层中转</li>
+<li>共享出口争抢</li>
+<li>协议封装过厚</li>
+<li>面板和转发器把每个包都读一遍写一遍</li>
+</ul>
+<h3 id="2-VLESS-REALITY-uTLS-Vision-优化的是“每一个字节如何经过系统”"><a href="#2-VLESS-REALITY-uTLS-Vision-优化的是“每一个字节如何经过系统”" class="headerlink" title="2. VLESS + REALITY + uTLS + Vision 优化的是“每一个字节如何经过系统”"></a>2. VLESS + REALITY + uTLS + Vision 优化的是“每一个字节如何经过系统”</h3><p>这套组合的可怕之处，是它几乎把代理链路的每一项“额外税”都砍掉了：</p>
+<ul>
+<li><strong>VLESS</strong>：轻量、无状态，不再引入多余控制负担</li>
+<li><strong>REALITY</strong>：不再自己演网站，而是直接寄生真实站点行为</li>
+<li><strong>uTLS</strong>：把客户端最廉价可抓的 <code>ClientHello</code> 指纹抹平</li>
+<li><strong>Vision</strong>：对已经是 TLS 1.3 的主体流量，尽量不再做二次加工，并在 Linux 上进一步 <code>splice</code></li>
+</ul>
+<p>于是链路变成了这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">传统商业“专线机场”</span><br><span class="line">用户 -&gt; 本地客户端 -&gt; 入口机群 -&gt; 中继/调度 -&gt; 出口机群 -&gt; 目标站</span><br><span class="line">         | 共享 | 排队 | 超售 | 封装 | 再处理 |</span><br><span class="line"></span><br><span class="line">VLESS + REALITY + uTLS + Vision</span><br><span class="line">用户 -&gt; 本地 Xray -&gt; 单 VPS -&gt; 目标站</span><br><span class="line">         | 少状态 | 少伪装成本 | 少指纹 | 少复制 |</span><br></pre></td></tr></table></figure>
+<h3 id="3-它的优势不是“带宽更大”，而是“延迟链路更干净”"><a href="#3-它的优势不是“带宽更大”，而是“延迟链路更干净”" class="headerlink" title="3. 它的优势不是“带宽更大”，而是“延迟链路更干净”"></a>3. 它的优势不是“带宽更大”，而是“延迟链路更干净”</h3><p>很多人误以为“专线一定更快”，这是把 <strong>吞吐量</strong> 和 <strong>交互延迟</strong> 混为一谈。</p>
+<p>对浏览网页、刷流媒体、拉代码、远程开发这些场景来说，真正要命的往往不是峰值带宽，而是：</p>
+<ul>
+<li>首包到达时间</li>
+<li>小包 RTT</li>
+<li>丢包后的恢复速度</li>
+<li>连接建立与 TLS 握手的额外损耗</li>
+</ul>
+<p>Vision 这种对 <strong>小包模式、握手特征、用户态开销</strong> 极端敏感的设计，恰恰正中这些场景的要害。<br>所以它击败很多商业“专线”的方式，不是“把物理链路变短了”，而是<strong>把代理自己的存在感打薄了</strong>。</p>
+<hr>
+<h2 id="四位一体：从“隐藏流量”到“融入真实流量”"><a href="#四位一体：从“隐藏流量”到“融入真实流量”" class="headerlink" title="四位一体：从“隐藏流量”到“融入真实流量”"></a>四位一体：从“隐藏流量”到“融入真实流量”</h2><p>回头看，这套组合其实代表了一次非常清晰的技术进化。</p>
+<h3 id="第一阶段：隐藏"><a href="#第一阶段：隐藏" class="headerlink" title="第一阶段：隐藏"></a>第一阶段：隐藏</h3><p>早期代理的目标，是把自己藏起来，不要被一眼识别。</p>
+<h3 id="第二阶段：伪装"><a href="#第二阶段：伪装" class="headerlink" title="第二阶段：伪装"></a>第二阶段：伪装</h3><p>后来大家意识到，只隐藏不够，还要尽量长得像 HTTPS。</p>
+<h3 id="第三阶段：寄生"><a href="#第三阶段：寄生" class="headerlink" title="第三阶段：寄生"></a>第三阶段：寄生</h3><p>REALITY 把这件事推进到更激进的一步：<br><strong>不自己伪装，直接寄生真实世界的高信誉 TLS 行为。</strong></p>
+<h3 id="第四阶段：剥离性能损耗"><a href="#第四阶段：剥离性能损耗" class="headerlink" title="第四阶段：剥离性能损耗"></a>第四阶段：剥离性能损耗</h3><p>Vision 再往前推一步：<br><strong>既然真实业务本身已经是 TLS 1.3，那代理层就不该再往上叠一层毫无必要的成本。</strong></p>
+<p>于是，四者各司其职：</p>
+<ul>
+<li><strong><code>VLESS</code></strong> 负责把协议本体做轻，只保留必要的身份与目标语义，把安全性交给下层 TLS/REALITY，避免再叠一层多余加密</li>
+<li><strong><code>REALITY</code></strong> 负责让服务端从“伪装得像”升级为“探测时几乎只能像”</li>
+<li><strong><code>uTLS</code></strong> 负责清洗客户端 <code>ClientHello</code> 指纹，避免 Go 风格直接暴露</li>
+<li><strong><code>Vision</code></strong> 负责干掉 <code>TLS in TLS</code> 的性能税和统计学税，让主体流量尽量回归原始密文直通</li>
+</ul>
+<p>这就是为什么它像“版本答案”。</p>
+<p>因为它不是某一个点子特别聪明，而是四个点子在同一条链路上发生了<strong>化学反应</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">隐藏身份  -&gt;  融入真实世界  -&gt;  去掉冗余处理  -&gt;  接近链路原生性能</span><br></pre></td></tr></table></figure>
+<p>这已经不再是传统意义上的“混淆代理”了。<br>它更像是在做一件事：</p>
+<p><strong>把代理从“一个明显存在的中间层”，削成“真实网络行为里的最薄薄片”。</strong></p>
+<hr>
+<h2 id="最后一句"><a href="#最后一句" class="headerlink" title="最后一句"></a>最后一句</h2><p>商业“专线”卖的是一种资源幻觉：仿佛只要你付更多钱，网络就会自动变快。</p>
+<p>而 <strong><code>VLESS + REALITY + uTLS + Vision</code></strong> 卖的不是幻觉，它卖的是工程事实：</p>
+<p><strong>少一个状态，少一层伪装，少一次拷贝，少一段可学习特征，最终就是更低的延迟、更稳的连接和更像真实流量的外观。</strong></p>
+<p>这套组合之所以让人觉得“离谱”，只是因为它提醒了我们一件事：</p>
+<p>在网络协议世界里，真正的性能和隐蔽性，往往不是靠“加更多东西”得到的。<br>而是靠 <strong>准确地知道，哪些东西根本不该存在。</strong></p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://xtls.github.io/en/config/transport.html" >Project X 文档：Transport (uTLS, REALITY)<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://xtls.github.io/en/config/outbounds/vless.html" >Project X 文档：VLESS (XTLS Vision Seed)<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/XTLS/REALITY" >XTLS/REALITY 仓库 README<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/XTLS/Xray-core/discussions/1295" >XTLS/Xray-core Discussion #1295: XTLS Vision, fixes TLS in TLS, to the star and beyond<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/refraction-networking/utls" >refraction-networking/uTLS README<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/salesforce/ja3" >salesforce/ja3 README<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/GFW/">#GFW</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">#网络工程</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/VLESS/">#VLESS</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/REALITY/">#REALITY</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/uTLS/">#uTLS</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Vision/">#Vision</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Xray/">#Xray</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/TLS/">#TLS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2026/04/10/Agent-Skills%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BB%EF%BC%9A%E8%A7%A3%E6%9E%84%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9A%84%E2%80%9C%E8%B6%85%E8%83%BD%E5%8A%9B%E2%80%9D%E6%BC%94%E8%BF%9B/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Agent Skills 深度解读：解构大模型从“对话框”到“超级智能体”的进化原力</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2026&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">QuanYuQi</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VLESS-REALITY-uTLS-Vision%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E8%8A%82%E7%82%B9-VPS-%E8%83%BD%E5%AF%B9%E2%80%9C%E6%9C%BA%E5%9C%BA%E4%B8%93%E7%BA%BF%E2%80%9D%E5%AE%8C%E6%88%90%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB"><span class="nav-number">1.</span> <span class="nav-text">VLESS + REALITY + uTLS + Vision：为什么单节点 VPS 能对“机场专线”完成降维打击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%86%E6%AC%BE%E6%A0%87%E9%A2%98%E5%80%99%E9%80%89"><span class="nav-number">1.1.</span> <span class="nav-text">爆款标题候选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%EF%BC%9A%E6%89%93%E7%A0%B4%E2%80%9C%E7%89%A9%E7%90%86%E4%B8%93%E7%BA%BF%E2%80%9D%E7%9A%84%E7%A5%9E%E8%AF%9D"><span class="nav-number">1.2.</span> <span class="nav-text">引入：打破“物理专线”的神话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REALITY%EF%BC%9A%E7%BB%88%E6%9E%81%E7%9A%84%E6%B5%81%E9%87%8F%E2%80%9C%E5%AF%84%E7%94%9F%E2%80%9D"><span class="nav-number">1.3.</span> <span class="nav-text">REALITY：终极的流量“寄生”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E5%8E%BB%E7%9A%84-TLS-%E4%BB%A3%E7%90%86%EF%BC%8C%E6%9C%80%E5%A4%A7%E7%9A%84%E9%97%AE%E9%A2%98%E4%B8%8D%E6%98%AF%E2%80%9C%E5%8A%A0%E5%AF%86%E4%B8%8D%E5%A4%9F%E5%BC%BA%E2%80%9D%EF%BC%8C%E8%80%8C%E6%98%AF%E2%80%9C%E4%BC%AA%E8%A3%85%E4%B8%8D%E5%A4%9F%E7%9C%9F%E2%80%9D"><span class="nav-number">1.3.1.</span> <span class="nav-text">过去的 TLS 代理，最大的问题不是“加密不够强”，而是“伪装不够真”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REALITY-%E7%9A%84%E6%A0%B8%E5%BF%83%EF%BC%8C%E4%B8%8D%E6%98%AF%E2%80%9C%E4%BC%AA%E8%A3%85%E8%87%AA%E5%B7%B1%E2%80%9D%EF%BC%8C%E8%80%8C%E6%98%AF%E2%80%9C%E5%AF%84%E7%94%9F%E5%88%AB%E4%BA%BA%E2%80%9D"><span class="nav-number">1.3.2.</span> <span class="nav-text">REALITY 的核心，不是“伪装自己”，而是“寄生别人”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REALITY-%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E5%88%B0%E7%9A%84"><span class="nav-number">1.3.3.</span> <span class="nav-text">REALITY 是怎么做到的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E5%AF%B9%E4%B8%BB%E5%8A%A8%E6%8E%A2%E6%B5%8B%E5%87%A0%E4%B9%8E%E6%98%AF%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB"><span class="nav-number">1.3.4.</span> <span class="nav-text">为什么这对主动探测几乎是降维打击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#uTLS%EF%BC%9A%E6%8A%B9%E6%8E%89%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%A4%B4%E4%B8%8A%E7%9A%84%E8%BE%BE%E6%91%A9%E5%85%8B%E5%88%A9%E6%96%AF%E4%B9%8B%E5%89%91"><span class="nav-number">1.4.</span> <span class="nav-text">uTLS：抹掉客户端头上的达摩克利斯之剑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E8%A3%85%E6%88%90%E5%8A%9F%EF%BC%8C%E4%B8%8D%E4%BB%A3%E8%A1%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B0%B1%E5%AE%89%E5%85%A8"><span class="nav-number">1.4.1.</span> <span class="nav-text">服务端伪装成功，不代表客户端就安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E5%8E%9F%E7%94%9F-TLS-%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A%E5%A4%AA%E2%80%9CGo%E2%80%9D%E4%BA%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">Go 原生 TLS 的问题：太“Go”了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uTLS-%E5%B9%B2%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">1.4.3.</span> <span class="nav-text">uTLS 干了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%86-uTLS-%E4%B9%9F%E4%B8%8D%E6%98%AF%E4%B8%87%E8%83%BD%E8%8D%AF"><span class="nav-number">1.4.4.</span> <span class="nav-text">但 uTLS 也不是万能药</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision%EF%BC%9A%E6%80%A7%E8%83%BD%E7%8B%82%E9%A3%99%E7%9A%84%E6%A0%B8%E5%BF%83%E5%BC%95%E6%93%8E"><span class="nav-number">1.5.</span> <span class="nav-text">Vision：性能狂飙的核心引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS-in-TLS"><span class="nav-number">1.5.1.</span> <span class="nav-text">TLS in TLS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F-TLS-%E4%BB%A3%E7%90%86%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%A9%E7%84%B6%E8%83%8C%E7%9D%80%E4%B8%80%E5%B1%82%E2%80%9C%E6%80%A7%E8%83%BD%E7%A8%8E%E2%80%9D"><span class="nav-number">1.5.2.</span> <span class="nav-text">传统 TLS 代理，为什么天然背着一层“性能税”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vision-%E7%9A%84%E9%AB%98%E5%85%89%EF%BC%8C%E4%B8%8D%E6%98%AF%E2%80%9C%E6%9B%B4%E4%BC%9A%E5%8A%A0%E5%AF%86%E2%80%9D%EF%BC%8C%E8%80%8C%E6%98%AF%E2%80%9C%E5%B0%91%E5%8A%A0%E5%AF%86%E3%80%81%E5%B0%91%E5%8A%A0%E5%B7%A5%E2%80%9D"><span class="nav-number">1.5.3.</span> <span class="nav-text">Vision 的高光，不是“更会加密”，而是“少加密、少加工”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vision-%E7%9A%84%E7%AC%AC%E4%B8%80%E5%88%80%EF%BC%9A%E4%B8%93%E6%89%93%E2%80%9C%E7%94%9F%E6%AD%BB-5-%E5%8C%85%E2%80%9D"><span class="nav-number">1.5.4.</span> <span class="nav-text">Vision 的第一刀：专打“生死 5 包”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vision-%E7%9A%84%E7%AC%AC%E4%BA%8C%E5%88%80%EF%BC%9A%E8%BF%9B%E5%85%A5-TLS-1-3-%E5%90%8E%EF%BC%8C%E5%B0%BD%E9%87%8F%E7%9B%B4%E6%8E%A5%E8%A3%B8%E8%BD%AC%E5%8F%91"><span class="nav-number">1.5.5.</span> <span class="nav-text">Vision 的第二刀：进入 TLS 1.3 后，尽量直接裸转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-Vision-%E8%83%BD%E9%80%BC%E8%BF%91%E9%93%BE%E8%B7%AF%E5%8E%9F%E7%94%9F%E5%BB%B6%E8%BF%9F"><span class="nav-number">1.5.6.</span> <span class="nav-text">为什么 Vision 能逼近链路原生延迟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vision-%E8%BF%98%E6%9C%89%E4%B8%80%E4%B8%AA%E5%BE%88%E5%B0%91%E8%A2%AB%E6%8F%90%E5%88%B0%E7%9A%84%E7%BB%86%E8%8A%82%EF%BC%9A%E5%AE%83%E5%9C%A8%E5%B8%AE%E4%BD%A0%E6%8A%8A%E6%B5%81%E9%87%8F%E5%BE%80%E2%80%9C%E5%8F%AF%E4%BC%98%E5%8C%96%E5%BD%A2%E6%80%81%E2%80%9D%E9%87%8C%E6%8E%A8"><span class="nav-number">1.5.7.</span> <span class="nav-text">Vision 还有一个很少被提到的细节：它在帮你把流量往“可优化形态”里推</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E8%83%BD%E5%87%BB%E8%B4%A5%E5%BE%88%E5%A4%9A%E5%95%86%E4%B8%9A%E2%80%9C%E4%B8%93%E7%BA%BF%E2%80%9D"><span class="nav-number">1.6.</span> <span class="nav-text">为什么它能击败很多商业“专线”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%95%86%E4%B8%9A%E2%80%9C%E4%B8%93%E7%BA%BF%E2%80%9D%E4%BC%98%E5%8C%96%E7%9A%84%E6%98%AF%E2%80%9C%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E8%B0%83%E5%BA%A6%E2%80%9D"><span class="nav-number">1.6.1.</span> <span class="nav-text">1. 商业“专线”优化的是“网络资源调度”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-VLESS-REALITY-uTLS-Vision-%E4%BC%98%E5%8C%96%E7%9A%84%E6%98%AF%E2%80%9C%E6%AF%8F%E4%B8%80%E4%B8%AA%E5%AD%97%E8%8A%82%E5%A6%82%E4%BD%95%E7%BB%8F%E8%BF%87%E7%B3%BB%E7%BB%9F%E2%80%9D"><span class="nav-number">1.6.2.</span> <span class="nav-text">2. VLESS + REALITY + uTLS + Vision 优化的是“每一个字节如何经过系统”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%83%E7%9A%84%E4%BC%98%E5%8A%BF%E4%B8%8D%E6%98%AF%E2%80%9C%E5%B8%A6%E5%AE%BD%E6%9B%B4%E5%A4%A7%E2%80%9D%EF%BC%8C%E8%80%8C%E6%98%AF%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%93%BE%E8%B7%AF%E6%9B%B4%E5%B9%B2%E5%87%80%E2%80%9D"><span class="nav-number">1.6.3.</span> <span class="nav-text">3. 它的优势不是“带宽更大”，而是“延迟链路更干净”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E4%BD%8D%E4%B8%80%E4%BD%93%EF%BC%9A%E4%BB%8E%E2%80%9C%E9%9A%90%E8%97%8F%E6%B5%81%E9%87%8F%E2%80%9D%E5%88%B0%E2%80%9C%E8%9E%8D%E5%85%A5%E7%9C%9F%E5%AE%9E%E6%B5%81%E9%87%8F%E2%80%9D"><span class="nav-number">1.7.</span> <span class="nav-text">四位一体：从“隐藏流量”到“融入真实流量”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E9%9A%90%E8%97%8F"><span class="nav-number">1.7.1.</span> <span class="nav-text">第一阶段：隐藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E4%BC%AA%E8%A3%85"><span class="nav-number">1.7.2.</span> <span class="nav-text">第二阶段：伪装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%AF%84%E7%94%9F"><span class="nav-number">1.7.3.</span> <span class="nav-text">第三阶段：寄生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%89%A5%E7%A6%BB%E6%80%A7%E8%83%BD%E6%8D%9F%E8%80%97"><span class="nav-number">1.7.4.</span> <span class="nav-text">第四阶段：剥离性能损耗</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E5%8F%A5"><span class="nav-number">1.8.</span> <span class="nav-text">最后一句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.9.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
